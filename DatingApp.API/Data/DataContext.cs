@@ -20,22 +20,12 @@ namespace DatingApp.API.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity< StudentCourse >().HasKey(sc => new { sc.StudentId, sc.CourseId });
             modelBuilder.Entity< EmployeeProject >().HasKey(sc => new { sc.EmployeeId, sc.ProjectId });
-  
+            modelBuilder.Entity< EpisodeConcept >().HasKey(sc => new { sc.EpisodeId, sc.BasicDataId });
+            modelBuilder.Entity< EpisodeWriter >().HasKey(sc => new { sc.EpisodeId, sc.PersonId });
+            modelBuilder.Entity< ScreenplayProducer >().HasKey(sc => new { sc.ScreenplayId, sc.PersonId });
+            modelBuilder.Entity< ScreenplayFormat >().HasKey(sc => new { sc.ScreenplayId, sc.BasicDataId });
+            modelBuilder.Entity< ScreenplayGenre >().HasKey(sc => new { sc.ScreenplayId, sc.BasicDataId });
 
- 
-
-       
-    var museumEntity = modelBuilder.Entity<Museum>();
-
-    museumEntity.HasMany(museum => museum.Genres)
-    .WithOne(genre => genre.Museum).IsRequired()
-        .HasForeignKey(genre => genre.MuseumId)
-        ;
-
-    museumEntity.HasMany(museum => museum.Artists)
-        .WithOne(artist => artist.Museum).IsRequired()
-        .HasForeignKey(artist => artist.MuseumId)
-        ;
 
     base.OnModelCreating(modelBuilder);
 }
@@ -45,20 +35,24 @@ namespace DatingApp.API.Data
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<ScreenplayInfo> ScreenplayInfo { get; set; }
-        
         public DbSet< Student > Students { get; set; }
     
-        public DbSet< Course > Courses { get; set; }
-    
-        public DbSet< StudentCourse > StudentCourses { get; set; }
         public DbSet< Employee > Employee { get; set; }
         public DbSet< Project > Project { get; set; }
         public DbSet< EmployeeProject > EmployeeProject { get; set; }
+        public DbSet< BasicData> BasicDatas { get; set; }
+        public DbSet< Episode> Episodes { get; set; }
+        public DbSet< EpisodeConcept> EpisodeConcepts { get; set; }
+        public DbSet<OrgStructure> OrgStructures { get; set; }
+        public DbSet< Person> Persons { get; set; }
+        public DbSet< Screenplay> Screenplays { get; set; }
+        public DbSet< ScreenplayFormat> ScreenplayFormats { get; set; }
+        public DbSet< ScreenplayGenre> ScreenplayGenres { get; set; }
+        public DbSet< ScreenplayProducer> ScreenplayProducers { get; set; }
+        public DbSet< Status> Statuses { get; set; }
 
-        public DbSet<Museum> Museums { get; set; }
-        public DbSet<Artist> Artists { get; set; }
-        public DbSet<Genre> Genres { get; set; }
+
+     
 
         
     }

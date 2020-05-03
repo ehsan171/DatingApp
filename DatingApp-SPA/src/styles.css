@@ -14,9 +14,12 @@
 @import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-angular-dropdowns/styles/material.css';
 
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+
+
 /* Taein total css  */
 body{
-   direction: rtl;
+   /* direction: rtl; */
 };
 .rtl{
     direction: rtl;

@@ -2,93 +2,26 @@
  
   <tabset>
     <tab heading="ثبت اطلاعات فیلمنامه" id="tab1">
-      <div *ngIf="registerMode" class="container">
+      <div  class="container">
         <div class="row justify-content-center">
           <div class="col-4">
-              <app-screenplay-reg [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-screenplay-reg>
+              <app-test [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-test>
           </div>
         </div>
       </div>
    
     </tab>
     <tab heading="Basic Title 1">
-      <form >
-        <div class="container  text-right">
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="screenplayTitleId" >عنوان فیلمنامه</label>
-                <input type="text" class="form-control" id="screenplayTitleId" placeholder="عنوان فیلمنامه">
-              </div>
-            </div>
-           
-            
-          </div>
-          <div class="row">
-
-            <div class="col">
-              <div class="form-group">
-                <label for="organizationalStructureId">ساختار سازمانی</label>
-                <select class="form-control" id="organizationalStructureId">
-                  <option>Default select</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="form-group">
-                <label for="producer">تهیه کننده</label>
-                <select class="form-control" (change)="selectChangeHandler($event)" id="producer">
-                  <option *ngFor="let user of users"  [value]="user.id" >{{user.username}}&nbsp;&nbsp;&nbsp;{{user.id}}</option>
-                </select>
-              </div>
-            </div>
-
-
-            <div class="col">
-              <div class="form-group">
-                <label for="baravordId" >شماره برآورد</label>
-                <input type="text" class="form-control" id="baravordId" placeholder="شماره برآورد">
-              </div>
-            </div>
-           
-          </div>
-
-          <div class="row">
-
-            <div class="col">
-              <div class="form-group">
-                <label for="totalNumberEpisodesId">تعداد قسمت</label>
-                <input type="text" class="form-control" id="totalNumberEpisodesId" placeholder="تعداد قسمت">
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="form-group">
-                <label for="formatId" >قالب</label>
-                <select class="form-control" id="formatId">
-                  <option>Default select</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="form-group">
-                <label for="genreId">ژانر</label>
-                <select class="form-control" id="genreId">
-                  <option>Default select</option>
-                </select>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        
-        
-      </form>
+      <app-screenplay-reg [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-screenplay-reg>
+         
     </tab>
     <tab heading="Basic Title 2">
-     
+      <div *ngIf="registerMode" class="container">
+        <div class="row justify-content-center">
+          <div class="col-4">
+               </div>
+        </div>
+      </div>
     </tab>
   </tabset>
   

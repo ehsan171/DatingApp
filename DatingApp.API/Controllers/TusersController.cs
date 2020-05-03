@@ -25,7 +25,7 @@ namespace DatingApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTusers()
         {
-            var values = await _context.Users.Include(u => u.Photos).ToListAsync();
+            var values = await _context.Users.ToListAsync();
             return Ok(values);
         }
 
@@ -33,7 +33,7 @@ namespace DatingApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTusers(int id)
         {
-            var value = await _context.Values.FirstOrDefaultAsync(x => x.Id == id);
+            var value = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             return Ok(value);
         }
 

@@ -1,0 +1,66 @@
+<form #registerForm='ngForm' (ngSubmit)='register()'>
+  <h2 class="text-center text-primary">Sign Up</h2>
+  <hr>
+
+ 
+  <ejs-multiselect name="skillname" #book='ngModel' [(ngModel)]='skillForm.skillname'
+  [dataSource]='skillset' [placeholder]='placeholder'>
+</ejs-multiselect>
+
+<ejs-dropdowntree id='dropdowntree' name="skillname2" #book='ngModel' [(ngModel)]='skillForm.skillname2' 
+[fields]='fields' placeholder='Select a Item'></ejs-dropdowntree>
+
+  
+<ejs-dropdownlist enableRtl='true' id='ddlelement' #samples [dataSource]='data_dropdown' [fields]='fieldsDropdown' name="skillname3" #book='ngModel' [(ngModel)]='skillForm.skillname3' [placeholder]='text' [allowFiltering]='true' (filtering)='onFiltering($event)'>a</ejs-dropdownlist>
+  <br>
+<ejs-autocomplete id='atcelement' name="skillname4" #book='ngModel' [(ngModel)]='skillForm.skillname4' [dataSource]='sportsData'></ejs-autocomplete>
+
+
+
+<!-- <select>
+  <option *ngFor="let user of users | numFilter:search  | filter:player_filter">{{user.username}}</option>
+</select> -->
+
+<table class='e-table' style="direction: rtl;">
+  <tr><th>Order ID</th><th>Customer ID</th><th>Employee ID</th></tr>
+  <tr *ngFor="let item of items">
+      <td>{{ item.id }}</td><td>{{item.username}}</td><td>{{item.EmployeeID}}</td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="form-group">
+    <input type="text" class="form-control" required name="username" [(ngModel)]="model.username" placeholder="Username">
+  </div>
+
+ 
+  <div class="form-group">
+    <input type="password" class="form-control" required name="password" [(ngModel)]="model.password" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" required name="photoUrl" [(ngModel)]="model.photoUrl" placeholder="photoUrl">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control"  placeholder="studentname">
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" type="submit">Register</button>
+    <button class="btn btn-default" type="button" (click)='cancel()'>Cancel</button>
+  </div>
+  
+</form>

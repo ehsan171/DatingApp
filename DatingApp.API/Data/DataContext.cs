@@ -40,7 +40,6 @@ namespace DatingApp.API.Data
         public DbSet< Employee > Employee { get; set; }
         public DbSet< Project > Project { get; set; }
         public DbSet< EmployeeProject > EmployeeProject { get; set; }
-        public DbSet< BasicData> BasicDatas { get; set; }
         public DbSet< Episode> Episodes { get; set; }
         public DbSet< EpisodeConcept> EpisodeConcepts { get; set; }
         public DbSet<OrgStructure> OrgStructures { get; set; }
@@ -50,6 +49,8 @@ namespace DatingApp.API.Data
         public DbSet< ScreenplayGenre> ScreenplayGenres { get; set; }
         public DbSet< ScreenplayProducer> ScreenplayProducers { get; set; }
         public DbSet< Status> Statuses { get; set; }
+        public DbSet< Basic> Basic { get; set; }
+        public DbSet< BasicData > BasicDatas{ get; set;}
 
 
      

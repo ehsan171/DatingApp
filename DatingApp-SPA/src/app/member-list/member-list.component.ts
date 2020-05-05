@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../_models/user';
+import { Screenplay } from '../_models/screenplay';
 import { AlertifyService } from '../_services/alertify.service';
 import { UserService } from '../_services/user.service';
+import { ScreenplayService } from '../_services/screenplay.service';
 
 
 
@@ -12,11 +14,13 @@ import { UserService } from '../_services/user.service';
 })
 export class MemberListComponent implements OnInit {
   users: User[];
+  screenplays: Screenplay[];
   va: any;
-  constructor(private userService: UserService, private alertify: AlertifyService) { }
+  constructor(private userService: UserService, private screenplayService: ScreenplayService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.loadUsers();
+    this.loadScreenplays();
     this.test();
   }
   test() {
@@ -30,11 +34,20 @@ export class MemberListComponent implements OnInit {
    loadUsers() {
     this.userService.getUsers().subscribe((users: User[]) => {
       this.users = users;
+      console.log(users);
     }, error => {
       this.alertify.error('This is from member');
     }
     );
   }
-  
+   loadScreenplays() {
+      this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
+      this.screenplays = screenplays;
+      console.log(screenplays);
+    }, error => {
+      this.alertify.error('This is from member');
+    }
+    );
+  }
 
 }

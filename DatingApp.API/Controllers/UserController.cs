@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace DatingApp.API.Controllers
-{       
-    [Authorize]
-    [Route("api/[controller]")]
+{       [Authorize]
+     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -20,7 +19,7 @@ namespace DatingApp.API.Controllers
         }
       
 
-        [AllowAnonymous]
+       [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {

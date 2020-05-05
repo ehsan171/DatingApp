@@ -34,8 +34,63 @@ namespace DatingApp.API.Controllers
                                 Title = x.Title,
                                 OrgStructure = x.OrgStructure.Name,
                                 Status = x.Status.Name,
-                                EpisodeTitles = x.Episodes.Select(s => s.EpisodeTitle),
-                                Genre = x.ScreenplayGenres.Select(s => s.BasicData).Select(g => g.name),
+                                EpisodeTitles = x.Episodes.Select(s => 
+                                
+                                new{
+                                    title =  s.EpisodeTitle,
+                                    writer = s.EpisodeWriters.Select(w => w.Writer).Select(a => new {
+                                                FirstName = a.FirstName,
+                                                LastName = a.LastName}),
+                                    concept = s.EpisodeConcepts.Select(w => w.BasicData).Select(a => new {
+                                                conceptName = a.Name,}),
+
+                                } ),
+                                Genre = x.ScreenplayGenres.Select(s => s.BasicData).Select(g => g.Name),
+                                Producers = x.ScreenplayProducers
+                                    .Select(s => s.Producer)
+                                        .Select(g => new {
+                                            FirstName = g.FirstName,
+                                            LastName = g.LastName,
+                                        }),
+                                Writers = x.Episodes
+                                    .Select(s => s.EpisodeWriters
+                                        .Select(w => w.Writer)
+                                            .Select(a => new {
+                                                FirstName = a.FirstName, LastName = a.LastName
+                                })),
+                                Concept = x.Episodes
+                                    .Select(s => s.EpisodeConcepts
+                                        .Select(w => w.BasicData)
+                                            .Select(a => new {
+                                                ConceptName = a.Name,
+                                                
+                                })),
+
+  })
+     
+            .ToListAsync();
+            return Ok(screenplays);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetScreenplays(int id)
+        {
+            var screenplay = await _context.Screenplays.Where(screenplay => screenplay.Id == id)
+            // .Include(p => p.Status)
+            // .Include(or => or.OrgStructure)
+            // .Include(o => o.Episodes).ThenInclude(w => w.EpisodeWriters)
+            // .Include(p => p.ScreenplayGenres).ThenInclude(g => g.BasicData)
+            // .Include(p => p.ScreenplayFormats).ThenInclude(g => g.BasicData)
+            // .Include(p => p.ScreenplayProducers).ThenInclude(g => g.Producer)
+            .Select(x => new { 
+                                Title = x.Title,
+                                OrgStructure = x.OrgStructure.Name,
+                                Status = x.Status.Name,
+                                EpisodeTitles = x.Episodes.Select(s => new {
+                                            EpisodeTitle = s.EpisodeTitle
+                                        }),
+                                Genre = x.ScreenplayGenres.Select(s => s.BasicData).Select(g => g.Name),
                                 Producers = x.ScreenplayProducers
                                     .Select(s => s.Producer)
                                         .Select(g => new {
@@ -53,21 +108,14 @@ namespace DatingApp.API.Controllers
                                     .Select(s => s.EpisodeConcepts
                                         .Select(w => w.BasicData)
                                             .Select(a => new {
-                                                ConceptName = a.name,
+                                                ConceptName = a.Name,
                                                 
                                 })),
 
   })
      
             .ToListAsync();
-            return Ok(screenplays);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetScreenplays(int id)
-        {
-            var screenplay = await _context.Screenplays.FirstOrDefaultAsync(x => x.Id == id);
+            
             return Ok(screenplay);
         }
 

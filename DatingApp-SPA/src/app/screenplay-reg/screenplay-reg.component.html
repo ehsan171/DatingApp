@@ -6,7 +6,7 @@
         <div class="form-group">
           <label for="screenplayTitleId" >عنوان فیلمنامه</label>
           <!-- <input type="text" class="form-control" id="screenplayTitleId" placeholder="عنوان فیلمنامه"> -->
-          <ejs-autocomplete enableRtl='true' id='screenplayTitleId' name="screenplayTitle" #book='ngModel' [(ngModel)]='skillForm.screenplayTitle' [dataSource]='sportsData' [placeholder]='text'></ejs-autocomplete>
+          <ejs-autocomplete enableRtl='true' id='screenplayTitleId' name="screenplayTitle" #book='ngModel' [(ngModel)]='skillForm.screenplayTitle' [dataSource]='titleData' [placeholder]='text'></ejs-autocomplete>
 
         </div>
       </div>
@@ -27,7 +27,7 @@
       <div class="col">
         <div class="form-group">
           <label for="producer">تهیه کننده</label>
-          <ejs-dropdownlist enableRtl='true' id='ddlelement' #samples [dataSource]='dataProducer' [fields]='fieldsProducer' name="producer" #book='ngModel' [(ngModel)]='skillForm.producer' [placeholder]='textProducer' [allowFiltering]='true' (filtering)='onFilteringProducer($event)'>a</ejs-dropdownlist>
+          <ejs-dropdownlist enableRtl='true' id='ddlelement' #samples [dataSource]='dataPerson' [fields]='fieldsPerson' name="producer" #book='ngModel' [(ngModel)]='skillForm.producer' [placeholder]='textProducer' [allowFiltering]='true' (filtering)='onFilteringPerson($event)'>a</ejs-dropdownlist>
 
         </div>
       </div>
@@ -57,9 +57,8 @@
       <div class="col">
         <div class="form-group">
           <label for="formatId" >قالب</label>
-          <select class="form-control" id="formatId">
-            <option>Default select</option>
-          </select>
+          <ejs-dropdownlist enableRtl='true' id='formatId' #samples [dataSource]='dataFormat' [fields]='fieldsFormat' name="format" #book='ngModel' [(ngModel)]='skillForm.format' [placeholder]='textFormat' [allowFiltering]='true' (filtering)='onFilteringFormat($event)'>a</ejs-dropdownlist>
+
         </div>
       </div>
 

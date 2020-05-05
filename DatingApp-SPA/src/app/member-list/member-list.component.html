@@ -2,7 +2,24 @@
   <tabset>
     <tab heading="Basic title" id="tab1">
       <div class="">
-        <div *ngFor="let user of users">1{{user.username}}</div>
+        <div *ngFor="let user of users">{{user.username}}</div>
+        <div *ngFor="let sc of screenplays">{{sc.title}} </div>
+        
+        <div *ngFor="let sc of screenplays ">
+          <a>{{sc.title}}</a>
+          <a *ngIf="sc.episodeTitles[0]!==undefined">
+            <div *ngFor="let item of sc.episodeTitles">{{item["title"]}}</div>
+            <div *ngFor="let item of sc.episodeTitles">
+             
+            </div>
+            <div *ngFor="let d of sc.episodeTitles">
+              <a *ngIf="d!==undefined">
+                <div *ngFor="let a of d['writer']">{{a["firstName"]}}</div>
+              </a>
+             </div>
+            {{sc.episodeTitles[0]['concept'][0]['conceptName']}}</a>
+          d
+        </div>
        
       </div>
     </tab>

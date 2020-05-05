@@ -4,14 +4,16 @@ using DatingApp.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatingApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200503124609_edit3")]
+    partial class edit3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,6 +122,9 @@ namespace DatingApp.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("BasicDataId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.HasKey("EpisodeId", "BasicDataId");
@@ -444,7 +449,7 @@ namespace DatingApp.API.Migrations
                         .IsRequired();
 
                     b.HasOne("DatingApp.API.Models.Episode", "Episode")
-                        .WithMany("EpisodeConcepts")
+                        .WithMany("EpisodeConcept")
                         .HasForeignKey("EpisodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -453,7 +458,7 @@ namespace DatingApp.API.Migrations
             modelBuilder.Entity("DatingApp.API.Models.EpisodeWriter", b =>
                 {
                     b.HasOne("DatingApp.API.Models.Episode", "Episode")
-                        .WithMany("EpisodeWriters")
+                        .WithMany()
                         .HasForeignKey("EpisodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -528,7 +533,7 @@ namespace DatingApp.API.Migrations
                         .IsRequired();
 
                     b.HasOne("DatingApp.API.Models.Screenplay", "Screenplay")
-                        .WithMany("ScreenplayProducers")
+                        .WithMany()
                         .HasForeignKey("ScreenplayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

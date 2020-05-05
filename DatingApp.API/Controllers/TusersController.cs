@@ -25,7 +25,7 @@ namespace DatingApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTusers()
         {
-            var values = await _context.Users.ToListAsync();
+            var values = await _context.Users.Include(p => p.Photos).ToListAsync();
             return Ok(values);
         }
 

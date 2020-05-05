@@ -14,8 +14,8 @@ namespace DatingApp.API.Models
 
         public virtual Employee Employee  { get; set; }
         public virtual Project Project  { get; set; }
-        public string EmployeeName { get; set; }
-        public string ProjectName { get; set; }
+        // public string EmployeeName { get; set; }
+        // public string ProjectName { get; set; }
 
     }
 }

@@ -32,15 +32,17 @@ namespace DatingApp.API.Controllers
             .ThenInclude(u => u.Project)
             .ToList();
 
-            var department = Employee[0].EmployeeProject.Select(x => x.Employee.EmployeeName);
-            var d2 =Employee[0].EmployeeProject.Select(x => x.Project.ProjectName);
-var a = department.Concat(d2).ToList();
- Dictionary<string, string> LoaderArray = new Dictionary<string, string>
-    {
-        {"Emploee","hhh" },
-        {"Project",""}
+            var department = Employee[0].EmployeeProject
+            .Select(x => x.Employee.EmployeeName);
+            var d2 =Employee[0].EmployeeProject
+            .Select(x => x.Project.ProjectName);
+            var a = department.Concat(d2).ToList();
+    //         Dictionary<string, string> LoaderArray = new Dictionary<string, string>
+    // {
+    //     {"Emploee","hhh" },
+    //     {"Project",""}
         
-    };
+    // };
 
     
   

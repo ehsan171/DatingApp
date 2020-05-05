@@ -4,14 +4,16 @@ using DatingApp.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatingApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200503105942_AddingvirtualOrgStructure")]
+    partial class AddingvirtualOrgStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,6 +83,12 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
+                    b.Property<string>("EmployeeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("EmployeeId", "ProjectId");
 
                     b.HasIndex("ProjectId");
@@ -122,6 +130,9 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("BasicDataId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.HasKey("EpisodeId", "BasicDataId");
 
                     b.HasIndex("BasicDataId");
@@ -135,6 +146,9 @@ namespace DatingApp.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.HasKey("EpisodeId", "PersonId");
@@ -281,6 +295,9 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("BasicDataId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.HasKey("ScreenplayId", "BasicDataId");
 
                     b.HasIndex("BasicDataId");
@@ -294,6 +311,9 @@ namespace DatingApp.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("BasicDataId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.HasKey("ScreenplayId", "BasicDataId");
@@ -311,6 +331,9 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.HasKey("ScreenplayId", "PersonId");
 
                     b.HasIndex("PersonId");
@@ -325,7 +348,7 @@ namespace DatingApp.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Namw")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -444,7 +467,7 @@ namespace DatingApp.API.Migrations
                         .IsRequired();
 
                     b.HasOne("DatingApp.API.Models.Episode", "Episode")
-                        .WithMany("EpisodeConcepts")
+                        .WithMany("EpisodeConcept")
                         .HasForeignKey("EpisodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -453,7 +476,7 @@ namespace DatingApp.API.Migrations
             modelBuilder.Entity("DatingApp.API.Models.EpisodeWriter", b =>
                 {
                     b.HasOne("DatingApp.API.Models.Episode", "Episode")
-                        .WithMany("EpisodeWriters")
+                        .WithMany()
                         .HasForeignKey("EpisodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -483,7 +506,7 @@ namespace DatingApp.API.Migrations
                         .IsRequired();
 
                     b.HasOne("DatingApp.API.Models.Status", "Status")
-                        .WithMany()
+                        .WithMany("Screenplays")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -528,7 +551,7 @@ namespace DatingApp.API.Migrations
                         .IsRequired();
 
                     b.HasOne("DatingApp.API.Models.Screenplay", "Screenplay")
-                        .WithMany("ScreenplayProducers")
+                        .WithMany()
                         .HasForeignKey("ScreenplayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

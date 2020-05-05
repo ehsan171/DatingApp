@@ -11,6 +11,7 @@ namespace DatingApp.API.Models
       public string Description { get; set; }
       public virtual Screenplay Screenplay { get; set; }
       public int ScreenplayId { get; set; }  
-      public ICollection<EpisodeConcept> EpisodeConcept { get; set; }
+      public ICollection<EpisodeConcept> EpisodeConcepts { get; set; }
+      public ICollection<EpisodeWriter> EpisodeWriters { get; set; }
     }
 }

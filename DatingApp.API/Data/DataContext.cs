@@ -11,7 +11,7 @@ namespace DatingApp.API.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-Q2C2TQL;Database=datingapp;Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-Q2C2TQL;Database=datingapp2;Trusted_Connection=True");
         }
 
     

@@ -1,5 +1,5 @@
 export interface BasicData {
     id: number;
-    Name: string;
+    name: string;
     Type: string;
 }

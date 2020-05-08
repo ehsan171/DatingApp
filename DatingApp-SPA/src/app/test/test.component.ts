@@ -168,7 +168,7 @@ gettingData2(){
     this.authService.register(this.model).subscribe(() => {
       this.alertify.success('register succ...');
     }, error => {
-      this.alertify.error('This is error from register');
+      this.alertify.error('This is error from register test');
     }
     );
 

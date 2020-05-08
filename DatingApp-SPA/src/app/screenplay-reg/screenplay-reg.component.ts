@@ -11,6 +11,9 @@ import { ScreenplayService } from '../_services/screenplay.service';
 import { Screenplay } from '../_models/screenplay';
 import { Person } from '../_models/person';
 import { BasicData } from '../_models/basicData';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Status } from '../_models/status';
+
 
 @Component({
   selector: 'app-screenplay-reg',
@@ -28,9 +31,12 @@ export class ScreenplayRegComponent implements OnInit {
   @Input() valuesFromHome;
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
+  screenplayRegForm: FormGroup;
   users: User[];
   persons: Person[];
   formats: BasicData[];
+  statuses: Status[];
+  genres: BasicData[];
   screenplays: Screenplay[];
   screenplayTitle: [];
   skillForm = {
@@ -39,6 +45,7 @@ export class ScreenplayRegComponent implements OnInit {
     totalNumberEpisodes: [],
     baravord: [],
     format: [],
+    genre: [],
 };
 
 
@@ -54,16 +61,27 @@ public text = 'عنوان فیلمنامه';
  // defined the array of data
 
  // tslint:disable-next-line: member-ordering
+ // tslint:disable-next-line: ban-types
  public dataPerson: { [key: string]: Object }[] = [];
+ // tslint:disable-next-line: ban-types
  public dataFormat: { [key: string]: Object }[] = [];
+ // tslint:disable-next-line: ban-types
+ public dataStatus: { [key: string]: Object }[] = [];
+ // tslint:disable-next-line: ban-types
+ public dataGenre: { [key: string]: Object }[] = [];
 // maps the appropriate column to fields property
 
 public fieldsPerson: object = { text: 'name', value: 'id' };
 public fieldsFormat: object = { text: 'name', value: 'id' };
+public fieldsStatus: object = { text: 'name', value: 'id' };
+public fieldsGenre: object = { text: 'name', value: 'id' };
 
 // set the placeholder to the DropDownList input
 public textProducer = 'تهیه کننده';
 public textFormat = 'قالب';
+public textStatus = 'وضعیت';
+public textGenre = 'ژانر';
+public textOrgStructure = 'ساختار سازمانی';
 
 // Dropdown Filtering End
 // Producer End ---- Producer End ---- Producer End ---- Producer End ---- Producer End ---- Producer End ---- Producer End ----
@@ -100,7 +118,6 @@ gettingDataProducer(){
       this.dataPerson[index].name = persons[index].firstName + ' ' + persons[index].lastName ;
       this.dataPerson[index].id = persons[index].id;
     }
-    console.log(this.dataPerson)
   }, error => {
     this.alertify.error('This is from member');
   }
@@ -124,13 +141,11 @@ public onFilteringPerson: EmitType<any> =  (e: FilteringEventArgs) => {
 gettingDataFormats(){
   this.screenplayService.getFormats().subscribe((formats: BasicData[]) => {
     this.formats = formats;
-    console.log(formats)
     for (let index = 0; index < formats.length; index++) {
       this.dataFormat.push({ id: '', name: ''});
       this.dataFormat[index].id = formats[index].id;
-      this.dataFormat[index].name = formats[index].Name;
+      this.dataFormat[index].name = formats[index].name;
     }
-    console.log(this.dataFormat)
   }, error => {
     this.alertify.error('This is from format');
   }
@@ -141,34 +156,133 @@ gettingDataFormats(){
 public onFilteringFormat: EmitType<any> =  (e: FilteringEventArgs) => {
   let queryFormat = new Query();
   // frame the query based on search string with filter type.
-  queryFormat = (e.text !== '') ? queryFormat.where('Name', 'contains', e.text, true) : queryFormat;
+  queryFormat = (e.text !== '') ? queryFormat.where('name', 'contains', e.text, true) : queryFormat;
   // pass the filter data source, filter query to updateData method.
   e.updateData(this.dataFormat, queryFormat);
 }
-// Total Number Episodes End ---- Total Number Episodes End ---- Total Number Episodes End ---- Total Number Episodes End ----
+
+// ---------------------------------STATUS START--------------------------------------
+
+
+gettingDataStatuses(){
+  this.screenplayService.getStatuses().subscribe((statuses: Status[]) => {
+    this.statuses = statuses;
+    // console.log("sddsddsdsd")
+    for (let index = 0; index < statuses.length; index++) {
+      this.dataStatus.push({ id: '', name: ''});
+      this.dataStatus[index].id = statuses[index].id;
+      this.dataStatus[index].name = statuses[index].name;
+    //   console.log(this.dataStatus)
+    }
+  }, error => {
+    this.alertify.error('This is from status');
+  }
+  );
+
+}
+// Bind the filter event
+public onFilteringStatus: EmitType<any> =  (e: FilteringEventArgs) => {
+  let queryStatus = new Query();
+  // frame the query based on search string with filter type.
+  queryStatus = (e.text !== '') ? queryStatus.where('name', 'contains', e.text, true) : queryStatus;
+  // pass the filter data source, filter query to updateData method.
+  e.updateData(this.dataStatus, queryStatus);
+}
+// ---------------------------------STATUS END---------------------------------------
+
+// ----------------------------------GENER START--------------------------------------
+gettingDataGeners(){
+  this.screenplayService.getGenres().subscribe((genres: BasicData[]) => {
+    this.genres = genres;
+    for (let index = 0; index < genres.length; index++) {
+      this.dataGenre.push({ id: '', name: ''});
+      this.dataGenre[index].id = genres[index].id;
+      this.dataGenre[index].name = genres[index].name;
+    }
+  }, error => {
+    this.alertify.error('This is from gettingDataGeners');
+  }
+  );
+
+}
+// Bind the filter event
+public onFilteringGenre: EmitType<any> =  (e: FilteringEventArgs) => {
+  let queryGenre = new Query();
+  // frame the query based on search string with filter type.
+  queryGenre = (e.text !== '') ? queryGenre.where('name', 'contains', e.text, true) : queryGenre;
+  // pass the filter data source, filter query to updateData method.
+  e.updateData(this.dataGenre, queryGenre);
+}
+// -----------------------------------GENER END----------------------------------------
+
 
 
 
 
 ngOnInit() {
-    this.gettingDataTitle();
-    this.gettingDataProducer();
-    this.gettingDataFormats();
+  this.screenplayRegForm = new FormGroup({
+      Title: new FormControl('', [
+        Validators.required
+      ]),
+
+      orgStructure: new FormControl(),
+      producer: new FormControl(),
+      baravordNo: new FormControl('', [
+        Validators.required,
+        Validators.pattern( '^[0-9]*$'),
+        Validators.minLength(6),
+        Validators.maxLength(6)
+      ]),
+      totalNumberEpisodes: new FormControl(),
+      format: new FormControl(),
+      statusId: new FormControl(),
+      genre: new FormControl(),
+      username: new FormControl(),
+      password: new FormControl(),
+      conformPassword: new FormControl(),
+      photoUrl: new FormControl(),
+      name: new FormControl(),
+
+  });
+
+  this.gettingDataTitle();
+  this.gettingDataProducer();
+  this.gettingDataFormats();
+  this.gettingDataGeners();
+  this.gettingDataStatuses();
   }
 
-  register(){
-    console.log(this.skillForm.screenplayTitle[0]);
-    console.log(this.skillForm.producer[0]);
-    console.log(this.skillForm.totalNumberEpisodes[0]);
-    console.log(this.skillForm.baravord[0]);
-    console.log(this.skillForm.format[0]);
-    console.log(this.skillForm);
-    console.log(this.model.username);
-    this.model.name = this.skillForm.screenplayTitle[0];
+  register2(){
+    // if (this.screenplayRegForm.valid){
+    //   this.model = Object.assign({}, this.screenplayRegForm.value);
+    //   console.log('model' + this.model);
+    // }
+    // console.log(this.skillForm.screenplayTitle[0]);
+    // console.log(this.skillForm.producer[0]);
+    // console.log(this.skillForm.totalNumberEpisodes[0]);
+    // console.log(this.skillForm.baravord[0]);
+    // console.log(this.skillForm.format[0]);
+    // console.log('gener is ' + this.skillForm.genre[0]);
+    // console.log(this.skillForm);
+    // console.log(this.model.username);
+    // this.model.name = this.skillForm.screenplayTitle[0];
     this.authService.register(this.model).subscribe(() => {
       this.alertify.success('register succ...');
     }, error => {
-      this.alertify.error('This is error from register');
+      this.alertify.error('This is error from register2');
+    }
+    );
+    console.log(this.screenplayRegForm.value);
+
+  }
+
+  register(){
+    this.model = Object.assign({}, this.screenplayRegForm.value);
+    console.log(this.model)
+    this.screenplayService.register(this.model).subscribe(() => {
+      this.alertify.success('register succ...');
+    }, error => {
+      this.alertify.error('This is error from register sssssstest');
     }
     );
 

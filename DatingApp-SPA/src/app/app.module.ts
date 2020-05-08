@@ -24,6 +24,7 @@ import { enableRipple } from '@syncfusion/ej2-base';
 import { DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { MultiSelectModule, DropDownTreeModule, AutoCompleteModule, DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { TestComponent } from './test/test.component';
+import { TextBoxModule } from '@syncfusion/ej2-angular-inputs';
 
 //  khat zir baraie checkbox ast pak shavad
 enableRipple(true);
@@ -45,6 +46,7 @@ enableRipple(true);
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      ReactiveFormsModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
@@ -55,7 +57,8 @@ enableRipple(true);
       ReactiveFormsModule,
       AutoCompleteModule,
       ButtonModule,
-      DropDownListModule
+      DropDownListModule,
+      TextBoxModule,
    ],
    providers: [
       AuthService

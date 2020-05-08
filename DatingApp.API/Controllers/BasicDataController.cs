@@ -34,15 +34,32 @@ namespace DatingApp.API.Controllers
         }
         
         [AllowAnonymous]
+        [HttpGet("statuses")]
+        public async Task<IActionResult> GetStatuses()
+        {
+            var statuses = await _context.Statuses
+            .Select(x => new{
+                Id = x.Id,
+                Name = x.Name,
+            } )
+            .ToListAsync();
+            
+            return Ok(statuses);
+        }
+        
+        [AllowAnonymous]
         [HttpGet("genres")]
         public async Task<IActionResult> GetGenres()
         {
-            var formats = await _context.BasicDatas
-            .Where(format => format.Type == "1")
-            .Select(x => x.Name)
+            var genres = await _context.BasicDatas
+            .Where(genre => genre.Type == "1")
+            .Select(x => new{
+                Id = x.Id,
+                Name = x.Name,
+            } )
             .ToListAsync();
             
-            return Ok(formats);
+            return Ok(genres);
         }
         
     }

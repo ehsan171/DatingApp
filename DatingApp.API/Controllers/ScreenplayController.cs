@@ -1,9 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using DatingApp.API.Dtos;
+using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DatingApp.API.Controllers
 {
@@ -13,10 +16,17 @@ namespace DatingApp.API.Controllers
     public class ScreenplayController : ControllerBase
      {
         private readonly DataContext _context;
-        public ScreenplayController(DataContext context)
+           private readonly IScreenplayRepository _repo;
+        private readonly IConfiguration _config;
+        public ScreenplayController(DataContext context,IScreenplayRepository repo, IConfiguration config)
         {
             _context = context;
+            _config = config;
+            _repo = repo; 
         }
+
+      
+      
 
 
         [AllowAnonymous]
@@ -136,6 +146,42 @@ namespace DatingApp.API.Controllers
         public void Delete(int id)
         {
         }
+
+            [AllowAnonymous]
+         [HttpPost("register")]
+        public async Task<IActionResult> Register(ScreenplayForRegisterDto userForRegisterDto)
+        {
+            // validate request
+            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+            if (await _repo.UserExists(userForRegisterDto.Username))
+                return BadRequest("Username already ex...");
+
+            
+            var userToCreate = new User
+            {
+                Username = userForRegisterDto.Username,
+                photoUrl = userForRegisterDto.photoUrl,
+
+            };
+
+            var studentToCreate = new Student
+            {
+                Name =userForRegisterDto.name
+            };
+            
+            var screenplayToCreate = new Screenplay
+            {
+                Title =userForRegisterDto.Title
+            };
+            
+
+            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
+            var createdStudent = await _repo.RegisterStudent(studentToCreate);
+            var createdS = await _repo.RegisterScreenplay(screenplayToCreate);
+            return StatusCode(201);
+        }
+
+        
     }
 
 }

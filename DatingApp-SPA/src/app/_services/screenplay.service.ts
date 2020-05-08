@@ -34,5 +34,16 @@ getPersons(): Observable<Person[]> {
 getFormats(): Observable<BasicData[]> {
   return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/formats', httpOptions);
 }
+getStatuses(): Observable<BasicData[]> {
+  return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/statuses', httpOptions);
+}
+getGenres(): Observable<BasicData[]> {
+  return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/genres', httpOptions);
+}
+
+register(model: any){
+  
+  return this.http.post(this.baseUrl + 'screenplay/register', model);
+}
 
 }

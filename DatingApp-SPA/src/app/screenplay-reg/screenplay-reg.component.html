@@ -1,33 +1,48 @@
 <div class="container mt-5">
- <form >
+  <form [formGroup]='screenplayRegForm'  (ngSubmit)='register()'>
   <div class="container  text-right">
     <div class="row">
       <div class="col">
         <div class="form-group">
-          <label for="screenplayTitleId" >عنوان فیلمنامه</label>
+          <!-- <label for="screenplayTitleId" >عنوان فیلمنامه</label> -->
+          
           <!-- <input type="text" class="form-control" id="screenplayTitleId" placeholder="عنوان فیلمنامه"> -->
-          <ejs-autocomplete enableRtl='true' id='screenplayTitleId' name="screenplayTitle" #book='ngModel' [(ngModel)]='skillForm.screenplayTitle' [dataSource]='titleData' [placeholder]='text'></ejs-autocomplete>
+          <ejs-autocomplete 
+          
+           class="" 
+          enableRtl='true' floatLabelType="Auto" 
+          id='screenplayTitleId' formControlName="Title" 
+          loatLabelType="Auto" [dataSource]='titleData' [placeholder]='text'
+          [ngClass]="{'is-invalid':screenplayRegForm.get('Title').errors &&
+            screenplayRegForm.get('Title').touched}">
+        </ejs-autocomplete> 
+        
+            <div  class="invalid-feedback">پرکردن این قسمت ضروری است.</div>
+          
 
         </div>
       </div>
+    
      
-      
     </div>
     <div class="row">
 
       <div class="col">
         <div class="form-group">
-          <label for="organizationalStructureId">ساختار سازمانی</label>
-          <select class="form-control" id="organizationalStructureId">
-            <option>Default select</option>
-          </select>
+          <!-- <label for="orgStructureId">ساختار سازمانی</label> -->
+          <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='orgStructureId' 
+          #samples [dataSource]='dataPerson' 
+          [fields]='' formControlName="orgStructure" 
+          [placeholder]='textOrgStructure' [allowFiltering]='true' 
+          (filtering)='onFilteringPerson($event)'>a</ejs-dropdownlist>
+
         </div>
       </div>
 
       <div class="col">
         <div class="form-group">
-          <label for="producer">تهیه کننده</label>
-          <ejs-dropdownlist enableRtl='true' id='ddlelement' #samples [dataSource]='dataPerson' [fields]='fieldsPerson' name="producer" #book='ngModel' [(ngModel)]='skillForm.producer' [placeholder]='textProducer' [allowFiltering]='true' (filtering)='onFilteringPerson($event)'>a</ejs-dropdownlist>
+          <!-- <label for="producer">تهیه کننده</label> -->
+          <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='ddlelement' #samples [dataSource]='dataPerson' [fields]='fieldsPerson' formControlName="producer" [placeholder]='textProducer' [allowFiltering]='true' (filtering)='onFilteringPerson($event)'>a</ejs-dropdownlist>
 
         </div>
       </div>
@@ -35,8 +50,35 @@
 
       <div class="col">
         <div class="form-group">
-          <label for="baravordId" >شماره برآورد</label>
-          <ejs-autocomplete enableRtl='true' id='baravordId' name="baravord" #book='ngModel' [(ngModel)]='skillForm.baravord' [dataSource]='' [placeholder]='textBaravord'></ejs-autocomplete>
+          <!-- <label for="baravordId" >شماره برآورد</label> -->
+          <ejs-textbox 
+          enableRtl='true' floatLabelType="Auto" 
+          id='baravordId' formControlName="baravordNo"  
+          [placeholder]='textBaravord'
+          [ngClass]="{'is-invalid':screenplayRegForm.get('baravordNo').errors &&
+            screenplayRegForm.get('baravordNo').touched}">
+          </ejs-textbox>
+          
+        <div  class="invalid-feedback"
+          *ngIf="screenplayRegForm.get('baravordNo').hasError('required') &&
+          screenplayRegForm.get('baravordNo').touched">پرکردن این قسمت ضروری است.
+        </div>
+          
+        <div  class="invalid-feedback"
+          *ngIf="  screenplayRegForm.get('baravordNo').hasError('pattern') && 
+          screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+        </div>
+          
+        <div  class="invalid-feedback"
+          *ngIf="  screenplayRegForm.get('baravordNo').hasError('minlength') &&
+          screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+        </div>
+          
+        <div  class="invalid-feedback"
+          *ngIf="  screenplayRegForm.get('baravordNo').hasError('maxlength') &&
+          screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+        </div>
+          
         </div>
       </div>
 
@@ -49,44 +91,63 @@
 
       <div class="col">
         <div class="form-group">
-          <label for="totalNumberEpisodesId">تعداد قسمت</label>
-          <ejs-autocomplete enableRtl='true' id='totalNumberEpisodesId' name="totalNumberEpisodes" #book='ngModel' [(ngModel)]='skillForm.totalNumberEpisodes' [dataSource]='' [placeholder]='textTotalNumberEpisodes'></ejs-autocomplete>
+          <!-- <label for="totalNumberEpisodesId">تعداد قسمت</label> -->
+          <ejs-textbox enableRtl='true' floatLabelType="Auto" id='totalNumberEpisodesId' formControlName="totalNumberEpisodes" [placeholder]='textTotalNumberEpisodes'></ejs-textbox>
         </div>
       </div>
 
       <div class="col">
         <div class="form-group">
-          <label for="formatId" >قالب</label>
-          <ejs-dropdownlist enableRtl='true' id='formatId' #samples [dataSource]='dataFormat' [fields]='fieldsFormat' name="format" #book='ngModel' [(ngModel)]='skillForm.format' [placeholder]='textFormat' [allowFiltering]='true' (filtering)='onFilteringFormat($event)'>a</ejs-dropdownlist>
+          <!-- <label for="formatId" >قالب</label> -->
+          <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='formatId' #samples [dataSource]='dataFormat' [fields]='fieldsFormat' formControlName="format" [placeholder]='textFormat' [allowFiltering]='true' (filtering)='onFilteringFormat($event)'>a</ejs-dropdownlist>
 
         </div>
       </div>
 
       <div class="col">
         <div class="form-group">
-          <label for="genreId">ژانر</label>
-          <select class="form-control" id="genreId">
-            <option>Default select</option>
-          </select>
+          <!-- <label for="genreId">ژانر</label> -->
+          <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='genreId' #samples [dataSource]='dataGenre' [fields]='fieldsGenre' formControlName="genre" [placeholder]='textGenre' [allowFiltering]='true' (filtering)='onFilteringGenre($event)'>a</ejs-dropdownlist>
+
         </div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+
+      <div class="col">
+        
+      </div>
+
+       <div class="col">
+        <div class="form-group">
+          <!-- <label for="statusId" >وضعیت</label> -->
+          <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='statusId' #samples [dataSource]='dataStatus' [fields]='fieldsStatus' formControlName="statusId" [placeholder]='textStatus' [allowFiltering]='true' (filtering)='onFilteringStatus($event)'>a</ejs-dropdownlist>
+
+        </div>
+      </div>
+
+      <div class="col">
+        
       </div>
       
     </div>
   </div>
   
   
-</form>
-</div>
 
 
 
-<form #registerForm='ngForm' (ngSubmit)='register()'>
+
+
+
   <h2 class="text-center text-primary">Sign Up</h2>
   <hr>
   
 
 <div class="form-group">
-    <input type="text" class="form-control" required name="username" [(ngModel)]="model.username" placeholder="Username">
+    <input type="text" class="form-control"  formControlName="username"  placeholder="Username">
   </div>
 
   <!-- <div class="form-group">
@@ -97,13 +158,18 @@
   </div> -->
 
   <div class="form-group">
-    <input type="password" class="form-control" required name="password" [(ngModel)]="model.password" placeholder="Password">
+    <input type="password" class="form-control"  formControlName="password"  placeholder="Password">
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control"  formControlName="conformPassword" placeholder="Conform Password">
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="form-control"  formControlName="photoUrl"placeholder="photoUrl">
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" required name="photoUrl" [(ngModel)]="model.photoUrl" placeholder="photoUrl">
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control"  placeholder="studentname">
+    <input type="text" class="form-control"  formControlName="name" placeholder="studentname">
   </div>
 
   <div class="form-group text-center">
@@ -112,3 +178,7 @@
   </div>
   
 </form>
+</div>
+
+<p>From value: {{screenplayRegForm.value | json}}</p>
+<p>From status: {{screenplayRegForm.status | json}}</p>

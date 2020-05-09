@@ -43,6 +43,8 @@ namespace DatingApp.API.Controllers
             // .Include(p => p.ScreenplayFormats).ThenInclude(g => g.BasicData)
             // .Include(p => p.ScreenplayProducers).ThenInclude(g => g.Producer)
             .Select(x => new { 
+                                id = x.Id,
+                                BaravordNo = x.BaravordNo,
                                 Title = x.Title,
                                 OrgStructure = x.OrgStructure.Name,
                                 Status = x.Status.Name,
@@ -95,13 +97,23 @@ namespace DatingApp.API.Controllers
             // .Include(p => p.ScreenplayGenres).ThenInclude(g => g.BasicData)
             // .Include(p => p.ScreenplayFormats).ThenInclude(g => g.BasicData)
             // .Include(p => p.ScreenplayProducers).ThenInclude(g => g.Producer)
-            .Select(x => new { 
+             .Select(x => new { 
+                                id = x.Id,
+                                BaravordNo = x.BaravordNo,
                                 Title = x.Title,
                                 OrgStructure = x.OrgStructure.Name,
                                 Status = x.Status.Name,
-                                EpisodeTitles = x.Episodes.Select(s => new {
-                                            EpisodeTitle = s.EpisodeTitle
-                                        }),
+                                EpisodeTitles = x.Episodes.Select(s => 
+                                
+                                new{
+                                    title =  s.EpisodeTitle,
+                                    writer = s.EpisodeWriters.Select(w => w.Writer).Select(a => new {
+                                                FirstName = a.FirstName,
+                                                LastName = a.LastName}),
+                                    concept = s.EpisodeConcepts.Select(w => w.BasicData).Select(a => new {
+                                                conceptName = a.Name,}),
+
+                                } ),
                                 Genre = x.ScreenplayGenres.Select(s => s.BasicData).Select(g => g.Name),
                                 Producers = x.ScreenplayProducers
                                     .Select(s => s.Producer)
@@ -113,8 +125,7 @@ namespace DatingApp.API.Controllers
                                     .Select(s => s.EpisodeWriters
                                         .Select(w => w.Writer)
                                             .Select(a => new {
-                                                FirstName = a.FirstName,
-                                                LastName = a.LastName,
+                                                FirstName = a.FirstName, LastName = a.LastName
                                 })),
                                 Concept = x.Episodes
                                     .Select(s => s.EpisodeConcepts

@@ -15,6 +15,19 @@
 @import '../node_modules/@syncfusion/ej2-angular-dropdowns/styles/material.css';
 
 @import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-inputs/styles/material.css';
+
+
+/* @font-face{
+    font-family: 'BTraffic';
+    src: url('/DatingApp-SPA/src/assets/library/fonts/BTraffic.eot');
+    src: url('/DatingApp-SPA/src/assets/library/fonts/BTraffic.eot') format('embedded-opentype'),
+        url('/DatingApp-SPA/src/assets/library/fonts/BTraffic.woff') format('woff'),
+        url('/DatingApp-SPA/src/assets/library/fonts/BTraffic.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    
+} */
 
 
 
@@ -27,6 +40,7 @@ body{
    
 };
 
+
 label{
  display: inline-block;
     width: 140px;
@@ -35,3 +49,10 @@ label{
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.br{
+    background-color:  rgba(205, 20, 50, 0.2);
+    
+}
+.rtl{
+    direction: rtl;
+}

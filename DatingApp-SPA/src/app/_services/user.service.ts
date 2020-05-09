@@ -21,8 +21,8 @@ constructor(private http: HttpClient) { }
 getUsers(): Observable<User[]> {
   return this.http.get<User[]>(this.baseUrl + 'tusers', httpOptions);
 }
-getUser(id): Observable<User[]> {
-  return this.http.get<User[]>(this.baseUrl + 'users/' + id, httpOptions);
+getUser(id): Observable<User> {
+  return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
 }
 test(): Observable<any>{
   return this.http.get<any>(this.baseUrl + 'EmployeeProject/' , httpOptions);

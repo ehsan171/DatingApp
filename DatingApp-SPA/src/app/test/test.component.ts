@@ -9,6 +9,7 @@ import { UserService } from '../_services/user.service';
 import { SafeScript } from '@angular/platform-browser';
 import { data } from '../test_data/datasource';
 import { TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
+import { ScreenplayService } from '../_services/screenplay.service';
 
 
 
@@ -22,8 +23,11 @@ const SERVICE_URI = 'http://localhost:5000/api/tusers';
 })
 export class TestComponent implements OnInit {
   
-  
-  constructor(private userService: UserService, private authService: AuthService, private alertify: AlertifyService) { }
+  public dropEle: HTMLElement ;
+  constructor(private screenplayService: ScreenplayService,
+              private userService: UserService, 
+              private authService: AuthService, 
+              private alertify: AlertifyService) { }
   // @ViewChild('samples')
   
   public tree: TreeViewComponent;
@@ -231,6 +235,7 @@ gettingData2(){
 
     this.gettingData();
     this.gettingData2();
+    this.dropEle = document.getElementById('droparea');
   }
 
 
@@ -255,4 +260,5 @@ gettingData2(){
     this.cancelRegister.emit(false);
     this.alertify.message('cancel...');
   }
+
 }

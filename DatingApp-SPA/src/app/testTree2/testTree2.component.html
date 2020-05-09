@@ -5,9 +5,17 @@
 
   <ejs-dropdowntree id='dropdownTree' name="skillname7" #book='ngModel' [(ngModel)]='skillForm.skillname7' [fields]='fields' [showCheckBox]='true'></ejs-dropdowntree>
 
+
   <div class="form-group text-center">
     <button class="btn btn-success" type="submit">Register</button>
     <button class="btn btn-default" type="button" (click)='cancel()'>Cancel</button>
   </div>
   
 </form>
+
+<div id='droparea'>
+  Drop files here to upload
+</div>
+<div id='uploadfile' >
+  <ejs-uploader #defaultupload [autoUpload]='false' [dropArea]='dropEle' [asyncSettings]='path' (success)="onUploadSuccess($event)" (failure)="onUploadFailure($event)"></ejs-uploader>
+       </div>

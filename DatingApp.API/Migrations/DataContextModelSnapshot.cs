@@ -125,6 +125,9 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("ScreenplayId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ScreenplayId");

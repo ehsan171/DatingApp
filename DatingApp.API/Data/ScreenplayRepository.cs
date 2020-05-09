@@ -137,5 +137,19 @@ namespace DatingApp.API.Data
             
             return false;
         }
+    
+    
+        public async Task<Screenplay> GetScreenplay(int id)
+        {
+            var screenplay =await _context.Screenplays.Include(p => p.Episodes).FirstOrDefaultAsync(u => u.Id == id);
+            return screenplay;
+        }
+      
+        public async Task<IEnumerable<Screenplay>> GetScreenplays()
+        {
+            var screenplays = await _context.Screenplays.Include(p => p.Episodes).ToListAsync();
+            return screenplays;
+        }
+    
     }
 }

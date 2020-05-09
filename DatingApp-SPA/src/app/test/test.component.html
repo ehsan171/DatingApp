@@ -23,6 +23,8 @@
 <ejs-dropdowntree id='dropdowntree' [fields]='fieldsTree' placeholder='Select a Item Tree'>a</ejs-dropdowntree>
 
 
+
+
 <!-- <select>
   <option *ngFor="let user of users | numFilter:search  | filter:player_filter">{{user.username}}</option>
 </select> -->
@@ -70,3 +72,9 @@
   </div>
   
 </form>
+<div id='droparea'>
+  Drop files here to upload
+</div>
+<div id='uploadfile' >
+     <ejs-uploader #defaultupload  [autoUpload]='false' [dropArea]='dropEle'></ejs-uploader>
+     </div>

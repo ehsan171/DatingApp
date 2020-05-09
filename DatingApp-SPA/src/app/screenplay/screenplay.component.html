@@ -1,38 +1,48 @@
-<div class="container mt-5">
- 
-  <tabset>
-    <tab heading="ثبت اطلاعات فیلمنامه" id="tab1">
-      <div  class="container">
-        <div class="row justify-content-center">
-          <div class="col-4">
-              <app-test [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-test>
-          </div>
-        </div>
-      </div>
-   
-    </tab>
-    <tab heading="Basic Title 1">
-      <app-screenplay-reg [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-screenplay-reg>
-         
-    </tab>
-    <tab heading="Basic Title 2">
-      <div *ngIf="registerMode" class="container">
-        <div class="row justify-content-center">
-          <div class="col-4">
-               </div>
-        </div>
-      </div>
-      <div class="mat-app-background basic-container">
-        <app-testTree2></app-testTree2>
-      </div>
-     
-    </tab>
-  </tabset>
-  
-  
-  
-  
-  
-  
 
+<div class="container mt-12 pd">
+  <div class="row">
+      <div class="col-sm-2 br"></div>
+      <div class="col-sm-10 bb mr" >
+        <div class="container mt-5">
+ 
+          <tabset>
+            <tab heading="ثبت اطلاعات فیلمنامه" id="tab1">
+              <div  class="container">
+                <div class="row justify-content-center">
+                  <div class="col-4">
+                      <app-test [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-test>
+                  </div>
+                </div>
+              </div>
+           
+            </tab>
+            <tab heading="Basic Title 1">
+              <app-screenplay-reg [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-screenplay-reg>
+                 
+            </tab>
+            <tab heading="Basic Title 2">
+              <div *ngIf="registerMode" class="container">
+                <div class="row justify-content-center">
+                  <div class="col-4">
+                       </div>
+                </div>
+              </div>
+              <div class="mat-app-background basic-container">
+                <app-testTree2></app-testTree2>
+              </div>
+             
+            </tab>
+          </tabset>
+          
+          
+          
+          
+          
+          
+        
+        </div>
+        
+
+      </div>
+  </div>
 </div>

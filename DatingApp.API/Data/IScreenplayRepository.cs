@@ -8,5 +8,7 @@ namespace DatingApp.API.Data
     {
         Task<Screenplay> RegisterScreenplay(Screenplay student,  Dictionary<string, object> otherData);
         Task<bool> ScreenplayExists(string title);
+         Task<IEnumerable<Screenplay>> GetScreenplays();
+         Task<Screenplay> GetScreenplay(int id);
     }
 }

@@ -6,6 +6,7 @@ import { ListsComponent } from './lists/lists.component';
 import { ScreenplayComponent } from './screenplay/screenplay.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthService } from './_services/auth.service';
+import { ScreenplayDetailComponent } from './screenplay-detail/screenplay-detail.component';
 
 
 
@@ -19,6 +20,7 @@ export const appRoutes: Routes = [
             {path: 'members', component: MemberListComponent},
             {path: 'messages', component: MessagesComponent},
             {path: 'screenplay', component: ScreenplayComponent},
+            {path: 'screenplay/:id', component: ScreenplayDetailComponent},
         ]
     },
     {path: 'lists', component: ListsComponent, canActivate: [AuthGuard]},

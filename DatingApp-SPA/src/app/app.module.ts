@@ -24,7 +24,7 @@ import { enableRipple } from '@syncfusion/ej2-base';
 import { DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { MultiSelectModule, DropDownTreeModule, AutoCompleteModule, DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { TestComponent } from './test/test.component';
-import { TextBoxModule } from '@syncfusion/ej2-angular-inputs';
+import { TextBoxModule, UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
@@ -32,6 +32,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { TestTreeComponent } from './testTree/testTree.component';
 import { TestTree2Component } from './testTree2/testTree2.component';
 import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
+import { Screenplays_tableComponent } from './screenplays_table/screenplays_table.component';
+import { ScreenplayIdComponent } from './screenplay-id/screenplay-id.component';
+import { ScreenplayAllComponent } from './screenplay-all/screenplay-all.component';
+import { ScreenplayDetailComponent } from './screenplay-detail/screenplay-detail.component';
+import { ScreenplayEditComponent } from './screenplay-edit/screenplay-edit.component';
 
 
 //  khat zir baraie checkbox ast pak shavad
@@ -50,7 +55,12 @@ enableRipple(true);
       ScreenplayComponent,
       TestComponent,
       TestTreeComponent,
-      TestTree2Component
+      TestTree2Component,
+      Screenplays_tableComponent,
+      ScreenplayIdComponent,
+      ScreenplayAllComponent,
+      ScreenplayDetailComponent,
+      ScreenplayEditComponent
    ],
    imports: [
       BrowserModule,
@@ -74,7 +84,8 @@ enableRipple(true);
       MatTreeModule,
       MatIconModule,
       MatCheckboxModule,
-      TreeViewModule
+      TreeViewModule,
+      UploaderModule
    ],
    providers: [
       AuthService

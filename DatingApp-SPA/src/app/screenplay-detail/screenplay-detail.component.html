@@ -1,0 +1,214 @@
+
+
+<div class="container mt-12 pd">
+  <div class="row">
+      <div class="col-sm-2 br mt-4" style="text-align: right; padding: 5px;">
+        <div class="mt-2" >
+          <strong>عنوان فیلمنامه:</strong>
+          <p class="trfont">{{screenplay[0]['title']}}</p>
+         
+        </div>
+        
+        <div  class="mt-2">
+          <strong>شماره برآورد:</strong>
+          <p class="trfont">{{screenplay[0]['baravordNo']}}</p>
+         
+        </div>
+        
+        <div class="mt-2">
+          <strong>تهیه کننده:</strong>
+          <div>
+               <span *ngFor="let item of screenplay[0]['producers']">
+                  {{item['firstName']}}&nbsp;{{item['lastName']}}&nbsp;&nbsp;
+               </span>
+          </div>
+        </div>
+       
+        <div class="mt-2" >
+          <strong>وضعیت:</strong>
+          <p class="trfont">{{screenplay[0]['status']}}</p>
+         
+        </div>
+       
+
+        
+      </div>
+      <div class="col-sm-10 bb mr" >
+        <div class="container mt-5">
+ 
+        
+          <tabset>
+            <tab heading="ثبت اطلاعات قسمت ها" id="tab1">
+              
+            </tab>
+            <tab heading="ویرایش اطلاعات">
+              <div class="container mt-5">
+                <form [formGroup]='screenplayRegForm'  (ngSubmit)='register()'>
+                <div class="container  text-right">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="screenplayTitleId" >عنوان فیلمنامه</label> -->
+                        
+                        <!-- <input type="text" class="form-control" id="screenplayTitleId" placeholder="عنوان فیلمنامه"> -->
+                        <ejs-autocomplete 
+                        
+                         class="" 
+                        enableRtl='true' floatLabelType="Auto" 
+                        id='screenplayTitleId' formControlName="Title" 
+                        loatLabelType="Auto" [dataSource]='titleData' [placeholder]='text'
+                        [ngClass]="{'is-invalid':screenplayRegForm.get('Title').errors &&
+                          screenplayRegForm.get('Title').touched}">
+                      </ejs-autocomplete> 
+                      
+                          <div  class="invalid-feedback">پرکردن این قسمت ضروری است.</div>
+                        
+              
+                      </div>
+                    </div>
+                  
+                   
+                  </div>
+                  <div class="row">
+              
+                    <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="orgStructureId">ساختار سازمانی</label> -->
+                        <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='orgStructureId' 
+                        #samples [dataSource]='dataPerson' 
+                        [fields]='' formControlName="orgStructure" 
+                        [placeholder]='textOrgStructure' [allowFiltering]='true' 
+                        (filtering)='onFilteringPerson($event)'>a</ejs-dropdownlist>
+              
+                      </div>
+                    </div>
+              
+                    <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="producer">تهیه کننده</label> -->
+                        <ejs-multiselect enableRtl='true' floatLabelType="Auto" id='ddlelement' #samples [dataSource]='dataPerson' [fields]='fieldsPerson' formControlName="producer" [placeholder]='textProducer' [allowFiltering]='true' (filtering)='onFilteringPerson($event)'>a</ejs-multiselect>
+              
+                      </div>
+                    </div>
+              
+              
+                    <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="baravordId" >شماره برآورد</label> -->
+                        <ejs-textbox 
+                        enableRtl='true' floatLabelType="Auto" 
+                        id='baravordId' formControlName="baravordNo"  
+                        [placeholder]='textBaravord'
+                        [ngClass]="{'is-invalid':screenplayRegForm.get('baravordNo').errors &&
+                          screenplayRegForm.get('baravordNo').touched}">
+                        </ejs-textbox>
+                        
+                      <div  class="invalid-feedback"
+                        *ngIf="screenplayRegForm.get('baravordNo').hasError('required') &&
+                        screenplayRegForm.get('baravordNo').touched">پرکردن این قسمت ضروری است.
+                      </div>
+                        
+                      <div  class="invalid-feedback"
+                        *ngIf="  screenplayRegForm.get('baravordNo').hasError('pattern') && 
+                        screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+                      </div>
+                        
+                      <div  class="invalid-feedback"
+                        *ngIf="  screenplayRegForm.get('baravordNo').hasError('minlength') &&
+                        screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+                      </div>
+                        
+                      <div  class="invalid-feedback"
+                        *ngIf="  screenplayRegForm.get('baravordNo').hasError('maxlength') &&
+                        screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+                      </div>
+                        
+                      </div>
+                    </div>
+              
+                  </div>
+               <div class="">
+                
+               </div>
+              
+                  <div class="row">
+              
+                    <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="totalNumberEpisodesId">تعداد قسمت</label> -->
+                        <ejs-textbox enableRtl='true' floatLabelType="Auto" id='totalNumberEpisodesId' formControlName="totalNumberEpisodes" [placeholder]='textTotalNumberEpisodes'></ejs-textbox>
+                      </div>
+                    </div>
+              
+                    <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="formatId" >قالب</label> -->
+                        <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='formatId' #samples [dataSource]='dataFormat' [fields]='fieldsFormat' formControlName="format" [placeholder]='textFormat' [allowFiltering]='true' (filtering)='onFilteringFormat($event)'>a</ejs-dropdownlist>
+              
+                      </div>
+                    </div>
+              
+                    <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="genreId">ژانر</label> -->
+                        <ejs-multiselect enableRtl='true' floatLabelType="Auto" id='genreId' #samples [dataSource]='dataGenre' [fields]='fieldsGenre' formControlName="genre" [placeholder]='textGenre' [allowFiltering]='true' (filtering)='onFilteringGenre($event)'>a</ejs-multiselect>
+              
+                      </div>
+                    </div>
+                    
+                  </div>
+              
+                  <div class="row">
+              
+                    <div class="col">
+                      
+                    </div>
+              
+                     <div class="col">
+                      <div class="form-group">
+                        <!-- <label for="statusId" >وضعیت</label> -->
+                        <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='statusId' #samples [dataSource]='dataStatus' [fields]='fieldsStatus' formControlName="statusId" [placeholder]='textStatus' [allowFiltering]='true' (filtering)='onFilteringStatus($event)'>a</ejs-dropdownlist>
+              
+                      </div>
+                    </div>
+              
+                    <div class="col">
+                      
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                
+              
+              
+              
+              
+              
+                <div class="form-group text-center">
+                  <button class="btn btn-success" type="submit">Register</button>
+                  <button class="btn btn-default" type="button" (click)='cancel()'>Cancel</button>
+                </div>
+                
+              </form>
+              </div>
+              <!-- 
+              <p>From value: {{screenplayRegForm.value | json}}</p>
+              <p>From status: {{screenplayRegForm.status | json}}</p> -->  
+            </tab>
+            <tab heading="Basic Title 2">
+              
+             
+            </tab>
+          </tabset>
+          
+          
+          
+          
+        
+        </div>
+        
+
+      </div>
+  </div>
+</div>

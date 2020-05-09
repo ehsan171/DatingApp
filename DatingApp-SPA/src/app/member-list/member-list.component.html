@@ -8,7 +8,13 @@
         <div *ngFor="let sc of screenplays ">
           <a>{{sc.title}}</a>
           <a *ngIf="sc.episodeTitles[0]!==undefined">
-            <div *ngFor="let item of sc.episodeTitles">{{item["title"]}}</div>
+            <div *ngFor="let item of sc.episodeTitles">
+              <button class="btn brn-primary" [routerLink]="['/screenplay', sc.id]"  ><i class="fa fa-user"></i></button>
+              {{item["title"]}}
+            </div>
+            
+            
+            
             <div *ngFor="let item of sc.episodeTitles">
              
             </div>

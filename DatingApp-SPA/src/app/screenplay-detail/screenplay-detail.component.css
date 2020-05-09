@@ -1,0 +1,11 @@
+@font-face {
+    font-family: BTrafic;
+    src: url('/DatingApp-SPA/src/assets/library/fonts/BVahidBold.eot');
+    font-weight: normal;
+}
+
+p{
+    font-family: "BTraffic";
+    color: red;
+
+}

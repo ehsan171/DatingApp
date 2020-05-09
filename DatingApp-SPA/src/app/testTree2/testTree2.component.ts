@@ -8,7 +8,20 @@ import { TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
   styleUrls: ['./testTree2.component.css']
 })
 export class TestTree2Component implements OnInit {
- 
+  public path: Object = {
+    saveUrl: 'https://ej2.syncfusion.com/services/api/uploadbox/Save',
+    removeUrl: 'https://ej2.syncfusion.com/services/api/uploadbox/Remove' };
+    public onUploadSuccess(args: any): void  {
+      if (args.operation === 'upload') {
+          console.log('File uploaded successfully');
+      }
+  }
+
+  public onUploadFailure(args: any): void  {
+  console.log('File failed to upload');
+  }
+
+  public dropEle: HTMLElement ;
   constructor() {
 
   }
@@ -18,6 +31,7 @@ export class TestTree2Component implements OnInit {
     skillname3: [],
     skillname4: [],
     skillname5: [],
+    skillname6: [],
     skillname7: [],
     sname: '',
     smail: ''
@@ -54,11 +68,13 @@ export class TestTree2Component implements OnInit {
   // defining fieldMapping
   public fields :Object = { dataSource: this.data, value: 'id', text: 'name', parentValue:"pid", hasChildren: 'hasChild'  };
   ngOnInit() {
+    this.dropEle = document.getElementById('droparea');
   }
   
   register(){
     console.log("jhjhg")
     console.log(this.skillForm.skillname7)
+    console.log(this.skillForm.skillname6)
     
   }
 

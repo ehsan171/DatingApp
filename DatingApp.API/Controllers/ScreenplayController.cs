@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
@@ -149,35 +151,34 @@ namespace DatingApp.API.Controllers
 
             [AllowAnonymous]
          [HttpPost("register")]
-        public async Task<IActionResult> Register(ScreenplayForRegisterDto userForRegisterDto)
-        {
+        public async Task<IActionResult> Register(ScreenplayForRegisterDto screenplayForRegisterDto)
+        { 
+            Console.WriteLine("ddsfdsfdfsdfsd");
             // validate request
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
-            if (await _repo.UserExists(userForRegisterDto.Username))
+            screenplayForRegisterDto.Title = screenplayForRegisterDto.Title.ToLower();
+            if (await _repo.ScreenplayExists(screenplayForRegisterDto.Title))
                 return BadRequest("Username already ex...");
 
             
-            var userToCreate = new User
-            {
-                Username = userForRegisterDto.Username,
-                photoUrl = userForRegisterDto.photoUrl,
-
-            };
-
-            var studentToCreate = new Student
-            {
-                Name =userForRegisterDto.name
-            };
+           
             
             var screenplayToCreate = new Screenplay
             {
-                Title =userForRegisterDto.Title
+                Title =screenplayForRegisterDto.Title,
+                BaravordNo =screenplayForRegisterDto.BaravordNo,
+                StatusId =screenplayForRegisterDto.StatusId,
+                TotalNumberEpisodes =screenplayForRegisterDto.TotalNumberEpisodes,
             };
             
+            Dictionary<string, object> otherData = new Dictionary<string,object>();
+            otherData.Add("Genres", screenplayForRegisterDto.Genre);
+            otherData.Add("Producers", screenplayForRegisterDto.Producer);
+            otherData.Add("Formats", screenplayForRegisterDto.Format);
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
-            var createdStudent = await _repo.RegisterStudent(studentToCreate);
-            var createdS = await _repo.RegisterScreenplay(screenplayToCreate);
+
+              
+
+          var createdS = await _repo.RegisterScreenplay(screenplayToCreate,  otherData);
             return StatusCode(201);
         }
 

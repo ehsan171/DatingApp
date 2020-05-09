@@ -25,6 +25,14 @@ import { DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { MultiSelectModule, DropDownTreeModule, AutoCompleteModule, DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { TestComponent } from './test/test.component';
 import { TextBoxModule } from '@syncfusion/ej2-angular-inputs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { TestTreeComponent } from './testTree/testTree.component';
+import { TestTree2Component } from './testTree2/testTree2.component';
+import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
+
 
 //  khat zir baraie checkbox ast pak shavad
 enableRipple(true);
@@ -40,7 +48,9 @@ enableRipple(true);
       MessagesComponent,
       ScreenplayRegComponent,
       ScreenplayComponent,
-      TestComponent
+      TestComponent,
+      TestTreeComponent,
+      TestTree2Component
    ],
    imports: [
       BrowserModule,
@@ -59,6 +69,12 @@ enableRipple(true);
       ButtonModule,
       DropDownListModule,
       TextBoxModule,
+      DropDownTreeModule,
+      BrowserAnimationsModule,
+      MatTreeModule,
+      MatIconModule,
+      MatCheckboxModule,
+      TreeViewModule
    ],
    providers: [
       AuthService

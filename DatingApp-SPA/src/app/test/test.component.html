@@ -10,11 +10,17 @@
 <ejs-dropdowntree id='dropdowntree' name="skillname2" #book='ngModel' [(ngModel)]='skillForm.skillname2' 
 [fields]='fields' placeholder='Select a Item'></ejs-dropdowntree>
 
-  
+<div id='treeparent'>
+  <div id='treeparent'><ejs-treeview #treeview="" id='treeelement' [fields]='fieldT' [showCheckBox]='showCheckBox' (nodeChecked)='nodeChecked($event)'></ejs-treeview></div>
+</div>
+
 <ejs-dropdownlist enableRtl='true' id='ddlelement' #samples [dataSource]='data_dropdown' [fields]='fieldsDropdown' name="skillname3" #book='ngModel' [(ngModel)]='skillForm.skillname3' [placeholder]='text' [allowFiltering]='true' (filtering)='onFiltering($event)'>a</ejs-dropdownlist>
   <br>
 <ejs-autocomplete id='atcelement' name="skillname4" #book='ngModel' [(ngModel)]='skillForm.skillname4' [dataSource]='sportsData'></ejs-autocomplete>
 
+<br>
+
+<ejs-dropdowntree id='dropdowntree' [fields]='fieldsTree' placeholder='Select a Item Tree'>a</ejs-dropdowntree>
 
 
 <!-- <select>

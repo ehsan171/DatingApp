@@ -42,7 +42,7 @@ getGenres(): Observable<BasicData[]> {
 }
 
 register(model: any){
-  
+  console.log('hjhjhjhjgjghjgjg');
   return this.http.post(this.baseUrl + 'screenplay/register', model);
 }
 

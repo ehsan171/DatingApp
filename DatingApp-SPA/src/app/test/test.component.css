@@ -21,3 +21,7 @@ e-table {
 .rtl option{
     background-color: darkred;
 }
+
+.example-tree-progress-bar {
+    margin-left: 30px;
+  }

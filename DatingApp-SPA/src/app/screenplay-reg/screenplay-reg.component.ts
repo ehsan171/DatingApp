@@ -94,6 +94,8 @@ public textTotalNumberEpisodes = 'تعداد قسمت ';
 public textBaravord = 'شماره برآورد';
 // Baravord End --- Baravord End --- Baravord End --- Baravord End --- Baravord End ---
 
+
+
 gettingDataTitle(){
   this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
     this.screenplays = screenplays;
@@ -278,7 +280,7 @@ ngOnInit() {
 
   register(){
     this.model = Object.assign({}, this.screenplayRegForm.value);
-    console.log(this.model)
+    console.log(this.model);
     this.screenplayService.register(this.model).subscribe(() => {
       this.alertify.success('register succ...');
     }, error => {

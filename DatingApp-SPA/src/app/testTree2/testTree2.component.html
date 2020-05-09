@@ -1,0 +1,13 @@
+
+<form #registerForm='ngForm' (ngSubmit)='register()'>
+  <h2 class="text-center text-primary">Sign Up</h2>
+  <hr>
+
+  <ejs-dropdowntree id='dropdownTree' name="skillname7" #book='ngModel' [(ngModel)]='skillForm.skillname7' [fields]='fields' [showCheckBox]='true'></ejs-dropdowntree>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" type="submit">Register</button>
+    <button class="btn btn-default" type="button" (click)='cancel()'>Cancel</button>
+  </div>
+  
+</form>

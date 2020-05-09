@@ -17,6 +17,7 @@
 @import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
 
 
+
 /* Taein total css  */
 body{
    /* direction: rtl; */
@@ -31,3 +32,6 @@ label{
     width: 140px;
     text-align: right;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -18,22 +18,50 @@
 @import '../node_modules/@syncfusion/ej2-angular-inputs/styles/material.css';
 
 
-/* @font-face{
+@font-face {
     font-family: 'BTraffic';
-    src: url('/DatingApp-SPA/src/assets/library/fonts/BTraffic.eot');
-    src: url('/DatingApp-SPA/src/assets/library/fonts/BTraffic.eot') format('embedded-opentype'),
-        url('/DatingApp-SPA/src/assets/library/fonts/BTraffic.woff') format('woff'),
-        url('/DatingApp-SPA/src/assets/library/fonts/BTraffic.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    
-} */
+     src: url('../src/assets/library/fonts/BTraffic.woff2') format('woff2'),
+      url('../src/assets/library/fonts/BVahidBold.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+  }
+
+
+@font-face {
+    font-family: 'Dima';
+     src: url('../src/assets/library/fonts/DimaShekastehFree.woff2') format('woff2'),
+      url('../src/assets/library/fonts/DimaShekastehFree.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+  }
+
+
+@font-face {
+    font-family: 'Shekaste';
+     src: url('../src/assets/library/fonts/Shekasteh.woff2') format('woff2'),
+      url('../src/assets/library/fonts/Shekasteh_Beta.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+  }
+
+
+@font-face {
+    font-family: 'BZar';
+     src: url('../src/assets/library/fonts/BZar0.woff2') format('woff2'),
+      url('../src/assets/library/fonts/BZar0.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+  }
+
+
+
 
 
 
 /* Taein total css  */
 body{
-   /* direction: rtl; */
+    margin: 0;
+    padding: 0;
 };
 .rtl{
     direction: rtl;

@@ -1,39 +1,40 @@
 
 
-<div class="container mt-12 pd">
+<div class="container mt-20 ">
   <div class="row">
-      <div class="col-sm-2 br mt-4" style="text-align: right; padding: 5px;">
-        <div class="mt-2" >
-          <strong>عنوان فیلمنامه:</strong>
-          <p class="trfont">{{screenplay[0]['title']}}</p>
-         
-        </div>
-        
-        <div  class="mt-2">
-          <strong>شماره برآورد:</strong>
-          <p class="trfont">{{screenplay[0]['baravordNo']}}</p>
-         
-        </div>
-        
-        <div class="mt-2">
-          <strong>تهیه کننده:</strong>
-          <div>
-               <span *ngFor="let item of screenplay[0]['producers']">
-                  {{item['firstName']}}&nbsp;{{item['lastName']}}&nbsp;&nbsp;
-               </span>
+      <div class="col-sm-3 ">
+          <div class="right-box">
+          <div class="mt-2 col-r-d">
+            <strong style="line-height: BTraffic;">عنوان فیلمنامه:</strong>
+            <span class="trfont">{{screenplay[0]['title']}}</span>
+          
           </div>
-        </div>
+          
+          <div  class="mt-2 col-r-d">
+            <strong>شماره برآورد:</strong>
+            <span class="num">{{screenplay[0]['baravordNo']}}</span>
+          
+          </div>
+          
+          <div class="mt-2 col-r-d">
+            <strong>تهیه کننده :</strong>
+          
+                <span *ngFor="let item of screenplay[0]['producers']">
+                    {{item['firstName']}}&nbsp;{{item['lastName']}}&nbsp;&nbsp;
+                </span>
+            
+          </div>
+        
+          <div class="mt-2" >
+            <strong>وضعیت &nbsp; :</strong>
+            <span class="trfont">{{screenplay[0]['status']}}</span>
+          
+          </div>
        
-        <div class="mt-2" >
-          <strong>وضعیت:</strong>
-          <p class="trfont">{{screenplay[0]['status']}}</p>
-         
-        </div>
-       
-
+      </div>
         
       </div>
-      <div class="col-sm-10 bb mr" >
+      <div class="col-sm-9 bb mr"  >
         <div class="container mt-5">
  
         

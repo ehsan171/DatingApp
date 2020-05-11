@@ -4,8 +4,34 @@
     font-weight: normal;
 }
 
-p{
-    font-family: "BTraffic";
-    color: red;
+.right-box span{
+    font-family: "Shekaste";
+    color: #4b06ba;
+    margin-right: 10px;
+    font-size: large;
 
+}
+
+strong{
+    font-family: "Dima";
+    font-size: large;
+    margin-bottom: 20px;
+}
+
+.right-box{
+    padding-top: 20px;
+    text-align: right;
+    border: 1px solid #f7ac83;
+    padding-right: 10%;
+    margin-top: 84px;
+    
+    height:75vh;
+   
+}
+.num{
+    font-family: BZar !important;
+}
+
+.col-r-d{
+    margin-bottom: 40px;
 }

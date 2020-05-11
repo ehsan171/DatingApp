@@ -23,6 +23,9 @@ const SERVICE_URI = 'http://localhost:5000/api/tusers';
 })
 export class TestComponent implements OnInit {
   
+  public path: Object = {
+    saveUrl: 'http://localhost:5000/api/eposide',
+    removeUrl: 'https://ej2.syncfusion.com/services/api/uploadbox/Remove' };
   public dropEle: HTMLElement ;
   constructor(private screenplayService: ScreenplayService,
               private userService: UserService, 

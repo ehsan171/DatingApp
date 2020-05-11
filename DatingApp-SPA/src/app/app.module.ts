@@ -37,6 +37,13 @@ import { ScreenplayIdComponent } from './screenplay-id/screenplay-id.component';
 import { ScreenplayAllComponent } from './screenplay-all/screenplay-all.component';
 import { ScreenplayDetailComponent } from './screenplay-detail/screenplay-detail.component';
 import { ScreenplayEditComponent } from './screenplay-edit/screenplay-edit.component';
+import { UploadComponent } from './upload/upload.component';
+import { Test2Component } from './test2/test2.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { AgGridModule } from 'ag-grid-angular';
+import { TableModule } from 'ngx-easy-table';
+
+
 
 
 //  khat zir baraie checkbox ast pak shavad
@@ -60,7 +67,9 @@ enableRipple(true);
       ScreenplayIdComponent,
       ScreenplayAllComponent,
       ScreenplayDetailComponent,
-      ScreenplayEditComponent
+      ScreenplayEditComponent,
+      UploadComponent,
+      Test2Component
    ],
    imports: [
       BrowserModule,
@@ -85,7 +94,10 @@ enableRipple(true);
       MatIconModule,
       MatCheckboxModule,
       TreeViewModule,
-      UploaderModule
+      UploaderModule,
+      Ng2SmartTableModule,
+      AgGridModule.withComponents([]),
+      TableModule,
    ],
    providers: [
       AuthService

@@ -12,8 +12,8 @@ using Microsoft.Extensions.Options;
 
 namespace DatingApp.API.Controllers
 {
-    [Authorize]
-    [Route("api/{screenplayId}/eposides")]
+    // [Authorize]
+    [Route("api/eposide")]
     [ApiController]
     public class EpisodeController :ControllerBase
     {

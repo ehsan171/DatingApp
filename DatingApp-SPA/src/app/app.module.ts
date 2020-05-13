@@ -42,6 +42,7 @@ import { Test2Component } from './test2/test2.component';
 import { AgTableModule } from 'ag-table';
 import { FancyGridModule } from 'fancy-grid-angular';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+import { EposidesComponent } from './eposides/eposides.component';
 
 
 //  khat zir baraie checkbox ast pak shavad
@@ -67,7 +68,8 @@ enableRipple(true);
       ScreenplayDetailComponent,
       ScreenplayEditComponent,
       UploadComponent,
-      Test2Component
+      Test2Component,
+      EposidesComponent
    ],
    imports: [
       BrowserModule,
@@ -95,9 +97,7 @@ enableRipple(true);
       UploaderModule,
       AgTableModule,
       FancyGridModule,
-      BackButtonDisableModule.forRoot(),
-
-
+      BackButtonDisableModule.forRoot()
    ],
    providers: [
       AuthService

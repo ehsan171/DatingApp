@@ -5,18 +5,20 @@
       <div class="col-sm-10 bb mr" >
         <div class="container mt-5">
  
-          <tabset>
-            <tab heading="ثبت اطلاعات فیلمنامه" id="tab1">
+          <tabset class="tabset">
+            <tab heading="لیست فیلمنامه ها" id="tab1">
               <div  class="container">
                 <div class="row justify-content-center">
-                  <div class="col-4">
-                      <app-test [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-test>
+                  <div >
+                    <div class="" style="direction: ltr;">
+                      <app-screenplay-all></app-screenplay-all>
+                   </div>
                   </div>
                 </div>
               </div>
            
             </tab>
-            <tab heading="Basic Title 1">
+            <tab heading="ثبت فیلمنامه">
               <app-screenplay-reg [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-screenplay-reg>
                  
             </tab>

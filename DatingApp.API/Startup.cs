@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DatingApp.API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -49,24 +50,30 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers().AddNewtonsoftJson(opt =>
-            {
-                opt.SerializerSettings.ReferenceLoopHandling=
-                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            }
-
-            );
+         
             services.AddCors(options => 
             {
                 options.AddPolicy("CorsPolicy",
-                builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                builder => builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
+            
+          
+
+            services.Configure<FormOptions>(o => 
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
             });
 
-            services.Configure<FormOptions>(o => {
-    o.ValueLengthLimit = int.MaxValue;
-    o.MultipartBodyLengthLimit = int.MaxValue;
-    o.MemoryBufferThreshold = int.MaxValue;
-});
+              services.AddControllers().AddNewtonsoftJson(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling=
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IScreenplayRepository, ScreenplayRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
@@ -100,6 +107,7 @@ namespace DatingApp.API
             app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            // app.UseCors(CorsPolicy);
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {

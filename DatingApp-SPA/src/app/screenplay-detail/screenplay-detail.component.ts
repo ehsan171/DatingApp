@@ -23,6 +23,7 @@ import { Status } from '../_models/status';
   styleUrls: ['./screenplay-detail.component.css']
 })
 export class ScreenplayDetailComponent implements OnInit {
+  values: any;
   screenplay: Screenplay[];
   constructor( private screenplayService: ScreenplayService, private alertify: AlertifyService,
                private route: ActivatedRoute,
@@ -257,6 +258,7 @@ this.gettingDataGeners();
 this.gettingDataStatuses();
 this.loadScreenplay();
 
+this.values = this.route.snapshot.params['id'];
 }
 
 register2(){

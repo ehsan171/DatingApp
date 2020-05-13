@@ -137,6 +137,28 @@ namespace DatingApp.API.Controllers
             return Ok(screenplay);
         }
 
+  [AllowAnonymous]
+        [HttpGet("episode/{id}")]
+        public async Task<IActionResult> Episode(int id)
+        {
+
+           var value = await _context.Episodes.Include(p => p.EpisodeWriters).Where(screenplay => screenplay.ScreenplayId == id)
+           .Select(x => new { 
+               EpisodeNumber = x.EpisodeNumber,
+               EpisodeTitle = x.EpisodeTitle,
+               Writers = x.EpisodeWriters
+                        .Select(W => W.Writer)
+                        .Select(a => a.FirstName + ' ' + a.LastName),
+                                    
+           })
+           
+           .ToListAsync();
+            return Ok(value);
+            
+
+        }
+
+
         // POST api/tusers
         [HttpPost]
         public void Post([FromBody] string value)

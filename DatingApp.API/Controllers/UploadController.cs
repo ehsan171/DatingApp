@@ -13,12 +13,12 @@ using DatingApp.API.Data;
 namespace DatingApp.API.Controllers
 {
     [Authorize]
-    [Route("api/screenplay/{screenplayId}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class EpisodeController :ControllerBase
+    public class UploadController :ControllerBase
     {
     private readonly DataContext _context;
-        public EpisodeController(DataContext context)
+        public UploadController(DataContext context)
         {
             _context = context;
 
@@ -26,9 +26,9 @@ namespace DatingApp.API.Controllers
     
         [AllowAnonymous]
         [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Upload(int screenplayId)
+        public IActionResult Upload()
         {
-            Console.WriteLine(screenplayId);
+            
             try
             {
                 // Console.WriteLine("dsfsdfsdfsdfdsf");
@@ -43,12 +43,11 @@ namespace DatingApp.API.Controllers
                     var fullPath = Path.Combine(pathToSave, fileName);
                     var dbPath = Path.Combine(folderName, fileName);
 
-                     var scGeToCreate = new Episode
+                     var scGeToCreate = new UserTest
                 {
-                   Url = dbPath,
-                   ScreenplayId = screenplayId,
+                   ImgPath = dbPath
                 };
- _context.Episodes.Add(scGeToCreate);
+ _context.UserTests.Add(scGeToCreate);
              _context.SaveChanges();
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {

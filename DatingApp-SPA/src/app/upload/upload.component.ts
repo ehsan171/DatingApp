@@ -1,35 +1,46 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpEventType, HttpClient } from '@angular/common/http';
- 
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
-  public progress: number;
   public message: string;
+  public progress: number;
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() public onUploadFinished = new EventEmitter();
- 
+  @Input() valuesFromDetail;
+  
   constructor(private http: HttpClient) { }
- 
+
   ngOnInit() {
+    
   }
- 
-  public uploadFile = (files) => {
+
+  public uploadFile = (files, screenplayId) => {
     if (files.length === 0) {
       return;
     }
- 
-    let fileToUpload = <File>files[0];
+
+    // let fileToUpload = <File>files[0];
+    const fileToUpload = files[0] as File;
     const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
  
-    this.http.post('http://localhost:5000/api/eposide', formData, {reportProgress: true, observe: 'events'})
+    formData.append('file', fileToUpload, "scsi"+fileToUpload.name);
+   console.log('http://localhost:5000/api/screenplay/' + screenplayId +
+   '/Episode/')
+    // this.http.post('http://localhost:5000/api/upload', formData);
+    this.http.post('http://localhost:5000/api/screenplay/' + screenplayId +
+     '/Episode/', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress)
+        if (event.type === HttpEventType.UploadProgress) {
+         
           this.progress = Math.round(100 * event.loaded / event.total);
+        }
         else if (event.type === HttpEventType.Response) {
+          console.log("fffffff")
           this.message = 'Upload success.';
           this.onUploadFinished.emit(event.body);
         }

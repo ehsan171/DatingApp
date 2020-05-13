@@ -52,7 +52,7 @@ namespace DatingApp.API.Data
         public DbSet< Basic> Basic { get; set; }
         public DbSet< BasicData > BasicDatas{ get; set;}
 
-
+        public DbSet<UserTest> UserTests { get; set; }
      
 
         

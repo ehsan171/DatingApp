@@ -46,6 +46,7 @@ namespace DatingApp.API.Controllers
                                 id = x.Id,
                                 BaravordNo = x.BaravordNo,
                                 Title = x.Title,
+                                TotalNumberEpisodes =x.TotalNumberEpisodes,
                                 OrgStructure = x.OrgStructure.Name,
                                 Status = x.Status.Name,
                                 EpisodeTitles = x.Episodes.Select(s => 
@@ -60,18 +61,16 @@ namespace DatingApp.API.Controllers
 
                                 } ),
                                 Genre = x.ScreenplayGenres.Select(s => s.BasicData).Select(g => g.Name),
+                                Format = x.ScreenplayFormats.Select(s => s.BasicData).Select(g => g.Name),
                                 Producers = x.ScreenplayProducers
                                     .Select(s => s.Producer)
-                                        .Select(g => new {
-                                            FirstName = g.FirstName,
-                                            LastName = g.LastName,
-                                        }),
+                                        .Select(g => g.FirstName + ' ' + g.LastName ),
                                 Writers = x.Episodes
                                     .Select(s => s.EpisodeWriters
                                         .Select(w => w.Writer)
-                                            .Select(a => new {
-                                                FirstName = a.FirstName, LastName = a.LastName
-                                })),
+                                            .Select(a => 
+                                               a.FirstName + ' ' + a.LastName
+                                )),
                                 Concept = x.Episodes
                                     .Select(s => s.EpisodeConcepts
                                         .Select(w => w.BasicData)
@@ -101,6 +100,7 @@ namespace DatingApp.API.Controllers
                                 id = x.Id,
                                 BaravordNo = x.BaravordNo,
                                 Title = x.Title,
+                                TotalNumberEpisodes =x.TotalNumberEpisodes,
                                 OrgStructure = x.OrgStructure.Name,
                                 Status = x.Status.Name,
                                 EpisodeTitles = x.Episodes.Select(s => 
@@ -117,16 +117,11 @@ namespace DatingApp.API.Controllers
                                 Genre = x.ScreenplayGenres.Select(s => s.BasicData).Select(g => g.Name),
                                 Producers = x.ScreenplayProducers
                                     .Select(s => s.Producer)
-                                        .Select(g => new {
-                                            FirstName = g.FirstName,
-                                            LastName = g.LastName,
-                                        }),
+                                        .Select(g =>g.FirstName + ' ' + g.LastName),
                                 Writers = x.Episodes
                                     .Select(s => s.EpisodeWriters
                                         .Select(w => w.Writer)
-                                            .Select(a => new {
-                                                FirstName = a.FirstName, LastName = a.LastName
-                                })),
+                                            .Select(a => a.FirstName + ' ' + a.LastName)),
                                 Concept = x.Episodes
                                     .Select(s => s.EpisodeConcepts
                                         .Select(w => w.BasicData)

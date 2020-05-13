@@ -24,10 +24,8 @@
               "src/assets"
             ],
             "styles": [
-              
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-          
-              "src/styles.css",
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -128,5 +126,10 @@
   "defaultProject": "DatingApp-SPA",
   "cli": {
     "analytics": false
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
   }
 }

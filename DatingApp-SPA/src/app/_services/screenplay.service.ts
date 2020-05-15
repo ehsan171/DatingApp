@@ -6,6 +6,7 @@ import { User } from '../_models/user';
 import { Screenplay } from '../_models/screenplay';
 import { Person } from '../_models/person';
 import { BasicData } from '../_models/basicData';
+import { Episode } from '../_models/episode';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,6 +27,10 @@ getScreenplays(): Observable<Screenplay[]> {
 }
 getScreenplay(id): Observable<Screenplay[]> {
   return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/' + id, httpOptions);
+}
+
+getEpidode(screenplayId): Observable<Episode[]> {
+  return this.http.get<Episode[]>(this.baseUrl + 'screenplay/episode/' + screenplayId, httpOptions);
 }
 
 getPersons(): Observable<Person[]> {

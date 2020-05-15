@@ -15,42 +15,48 @@ import { data } from '../test_data/datasource';
   styleUrls: ['./eposides.component.css']
 })
 export class EposidesComponent implements OnInit {
-  episodes: any[];
+  screenplays: any[];
   @Input() valuesFromDetail;
   
   public dataEpisode: { [key: string]: Object }[] = [];
 
-// gettingEpisode(){
-//   console.log(this.valuesFromDetail)
-//   this.screenplayService.getEpidode(this.valuesFromDetail).subscribe((episodes: Episode[]) => {
-//     this.episodes = episodes;
-//     console.log("fsdsdfsdf")
-    
-//     for (let index = 0; index < episodes.length; index++) {
-//       this.dataEpisode.push({ id: '', title: '', episodeNumber: '', writer: ''});
-//       this.dataEpisode[index].id = episodes[index].id;
-//       this.dataEpisode[index].title = episodes[index].episodeTitle;
-//       this.dataEpisode[index].baravordNo = episodes[index].episodeNumber;
-//       this.dataEpisode[index].writer = episodes
-//               .map(item => item.writers)
-//               .reduce((prev, curr) => prev.concat(curr), [])
-//               .filter((item, i, arr) => arr.indexOf(item) === i)[index];
-    
 
-//     }
-//     episodes.map(item => item.writers);
-//     console.log(episodes.map(item => item.writers)
-//     .reduce((prev, curr) => prev.concat(curr), [])
-//     .filter((item, i, arr) => arr.indexOf(item) === i)[1]
-   
-// )
-    
-//   }, error => {
-//     // this.alertify.error('gettingDataTitle');
-//   }
-//   );
+  public dataScreenplay: { [key: string]: Object }[] = [];
 
-// }
+gettingDataTitle()
+  {
+        this.screenplayService.getEpidode(this.valuesFromDetail)
+        .subscribe
+        (
+          (screenplays: Episode[]) => 
+          {
+              this.screenplays = screenplays;
+            this.dataEpisode[0].title = screenplays[0].episodeTitle
+              // for (let index = 0; index < screenplays.length; index++) 
+              // {
+              //   this.dataScreenplay.push({ id: '', title: '', episodeNumber: '', writer: ''});
+              //   this.dataScreenplay[index].id = screenplays[index].id;
+              //   this.dataScreenplay[index].title = screenplays[index].episodeTitle;
+              //   // this.dataScreenplay[index].episodeNumber = screenplays[index].episodeNumber;
+              //   // this.dataScreenplay[index].writer = screenplays
+              //   //         .map(item => item.writers)
+              //   //         .reduce((prev, curr) => prev.concat(curr), [])
+              //   //         .filter((item, i, arr) => arr.indexOf(item) === i)[index];
+
+              // }
+              // screenplays.map(item => item.writers);
+            //   console.log(screenplays.map(item => item.writers)
+            //   .reduce((prev, curr) => prev.concat(curr), [])
+            //   .filter((item, i, arr) => arr.indexOf(item) === i)[1]
+            // )
+              return this.dataScreenplay[0].title;
+        
+      }, error => {
+        this.alertify.error('gettingDataTitle');
+      }
+      );
+
+  }
 
   constructor(
     private screenplayService: ScreenplayService,
@@ -61,9 +67,9 @@ export class EposidesComponent implements OnInit {
     public router: Router){ }
 
   ngOnInit() {
-    // this.gettingEpisode();
-    const data = this.dataEpisode;
-    console.log(data)
+    this.gettingDataTitle();
+    console.log("lfsdflsdkflskflslslsflsdfl")
+    console.log(this.gettingDataTitle());
   }
 
 }

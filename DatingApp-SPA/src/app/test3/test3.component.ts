@@ -8,15 +8,16 @@ import { Screenplay } from '../_models/screenplay';
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { data } from '../test_data/datasource';
 
 
 @Component({
-  selector: 'app-test2',
-  templateUrl: './test2.component.html',
-  styleUrls: ['./test2.component.css'],
+  selector: 'app-test3',
+  templateUrl: './test3.component.html',
+  styleUrls: ['./test3.component.css']
 })
 
-export class Test2Component implements OnInit {
+export class Test3Component implements OnInit {
   title = 'My App';
   gridConfig: object;
   screenplays: any[];
@@ -78,6 +79,7 @@ export class Test2Component implements OnInit {
 gettingDataTitle(){
   this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
     this.screenplays = screenplays;
+    console.log(screenplays.length)
     for (let index = 0; index < screenplays.length; index++) {
       this.dataScreenplay.push({ id: '', title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '', });
       this.dataScreenplay[index].id = screenplays[index].id;
@@ -278,10 +280,10 @@ gettingDataTitle(){
   ngOnInit() {
   
     
-  
+
     this.gettingDataTitle();
     const data3 = this.dataScreenplay;
-   
+    console.log("ksmfksmfdksdmfksdmfkmsdfklmsdfkl   "+data3)
    
   }
 

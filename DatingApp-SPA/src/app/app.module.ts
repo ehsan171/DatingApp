@@ -41,9 +41,18 @@ import { UploadComponent } from './upload/upload.component';
 import { Test2Component } from './test2/test2.component';
 import { AgTableModule } from 'ag-table';
 import { FancyGridModule } from 'fancy-grid-angular';
-import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+// import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { EposidesComponent } from './eposides/eposides.component';
-
+import { Test3Component } from './test3/test3.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DataTablesModule } from 'angular-datatables';
+import { EpisodeRegComponent } from './episode-reg/episode-reg.component';
 
 //  khat zir baraie checkbox ast pak shavad
 enableRipple(true);
@@ -69,7 +78,9 @@ enableRipple(true);
       ScreenplayEditComponent,
       UploadComponent,
       Test2Component,
-      EposidesComponent
+      EposidesComponent,
+      Test3Component,
+      EpisodeRegComponent
    ],
    imports: [
       BrowserModule,
@@ -97,7 +108,17 @@ enableRipple(true);
       UploaderModule,
       AgTableModule,
       FancyGridModule,
-      BackButtonDisableModule.forRoot()
+      //BackButtonDisableModule.forRoot(),
+      MatTableModule,
+      MatFormFieldModule,
+      BrowserAnimationsModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule,
+      MatInputModule,
+      MDBBootstrapModule.forRoot(),
+      NgbModule,
+      DataTablesModule
    ],
    providers: [
       AuthService

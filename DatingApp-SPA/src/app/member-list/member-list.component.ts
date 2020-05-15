@@ -22,6 +22,7 @@ export class MemberListComponent implements OnInit {
     this.loadUsers();
     this.loadScreenplays();
     this.test();
+
   }
   test() {
     this.userService.test().subscribe((users: any) => {
@@ -34,7 +35,6 @@ export class MemberListComponent implements OnInit {
    loadUsers() {
     this.userService.getUsers().subscribe((users: User[]) => {
       this.users = users;
-      console.log(users);
     }, error => {
       this.alertify.error('This is from member');
     }
@@ -43,7 +43,6 @@ export class MemberListComponent implements OnInit {
    loadScreenplays() {
       this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
       this.screenplays = screenplays;
-      console.log(screenplays);
     }, error => {
       this.alertify.error('This is from member');
     }

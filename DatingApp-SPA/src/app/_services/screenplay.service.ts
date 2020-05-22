@@ -63,6 +63,7 @@ episodeRegister(model: any, screenplayId){
 }
 
 public downloadFile(file: string): Observable<HttpEvent<Blob>> {
+  console.log(file)
   return this.httpClient.request(new HttpRequest(
     'GET',
     `${'http://localhost:5000/api/episode/upload/download2'}?file=${file}`,

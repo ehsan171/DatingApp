@@ -23,7 +23,7 @@ export class TestDownloadComponent implements OnInit {
  
   public download() {
     
-    this.fileName = '1.jpg';
+    this.fileName = 'myFile_20-5-23-01-51-58.pdf';
     
     // this.downloadStatus.emit( {status: ProgressStatusEnum.START});
     this.screenplayService.downloadFile(this.fileName).subscribe(

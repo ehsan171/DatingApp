@@ -133,25 +133,27 @@ namespace DatingApp.API.Controllers
         [HttpGet("download2")]
         public async Task<IActionResult> Download([FromQuery] string file) 
        {
-         Console.WriteLine("FASDFSFSFD");
+         Console.WriteLine("FASDFSFSFD2");
         
         //    var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                 var folderName = Path.Combine("Resources", "Images");
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-           if (!System.IO.File.Exists(filePath+"/1.jpg"))
-                Console.WriteLine(filePath);
+           if (!System.IO.File.Exists(filePath + '/' + file)){
+               Console.WriteLine("44444444444444444");
                 return NotFound();
+           }
+             
  
            var memory = new MemoryStream();
-            Console.WriteLine("ddddggggggggggggggg");
-           using (var stream = new FileStream(filePath+"/1.jpg", FileMode.Open))
+          
+           using (var stream = new FileStream(filePath +"/" + file, FileMode.Open))
            {
                await stream.CopyToAsync(memory);
            }
            memory.Position = 0;
-
-           return File(memory, GetContentType(filePath+"/1.jpg"), file);
+ 
+           return File(memory, GetContentType(filePath + "/" ), file);
        }
 
        private string GetContentType(string path)
@@ -160,6 +162,7 @@ namespace DatingApp.API.Controllers
            string contentType;
            if(!provider.TryGetContentType(path, out contentType))
            {
+                Console.WriteLine(provider.TryGetContentType(path, out contentType));
                contentType = "application/octet-stream";
            }
            return contentType;

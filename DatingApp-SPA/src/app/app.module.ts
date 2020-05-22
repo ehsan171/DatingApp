@@ -58,6 +58,7 @@ import { EpisodeRegComponent } from './episode-reg/episode-reg.component';
 import { Upload2Component } from './upload2/upload2.component';
 import { TestDownloadComponent } from './test-download/test-download.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 //  khat zir baraie checkbox ast pak shavad
@@ -131,7 +132,8 @@ enableRipple(true);
       DataTablesModule,
       MaskedTextBoxModule,
       NumericTextBoxModule,
-      PdfViewerModule
+      PdfViewerModule,
+      FileUploadModule
    ],
    providers: [
       AuthService

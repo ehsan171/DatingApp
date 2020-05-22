@@ -1,8 +1,11 @@
-<p>
-  test-download works!
-</p>
-<pdf-viewer  [src]="pdfSrc" 
-              [render-text]="true"
-              style="display: block;"
-  >a</pdf-viewer>
-  <a href="../../../../DatingApp.API/Resources/Images/myFile_20-5-21-23-42-12.pdf" class=""></a>
+<div class="container-upload">
+  <button [disabled]="disabled" [ngClass]="{'disabled': disabled}" class="button upload" (click)="inputFile.click()">
+      UPLOAD
+  </button>
+  <input name="file" id="file"(change)="upload($event)" type="file" #inputFile hidden>
+</div>
+<button
+ [disabled]="disabled"
+ class="button download"
+ [ngClass]="{'disabled': disabled}"
+ (click)="download()">download</button>

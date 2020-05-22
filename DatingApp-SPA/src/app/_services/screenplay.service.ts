@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { Screenplay } from '../_models/screenplay';
@@ -12,6 +12,7 @@ const httpOptions = {
   headers: new HttpHeaders({
     Authorization: 'Bearer' + localStorage.getItem('token')
   })
+
 };
 
 @Injectable({
@@ -20,7 +21,10 @@ const httpOptions = {
 export class ScreenplayService {
   baseUrl = environment.apiUrl;
 
-constructor(private http: HttpClient) { }
+constructor(
+  private http: HttpClient,
+  private httpClient: HttpClient
+  ) { }
 
 getScreenplays(): Observable<Screenplay[]> {
   console.log(this.baseUrl + 'screenplay')
@@ -56,6 +60,17 @@ episodeRegister(model: any, screenplayId){
   console.log(this.baseUrl + 'screenplay/' + screenplayId + '/Episode/register')
   console.log(model);
   return this.http.post(this.baseUrl + 'screenplay/' + screenplayId + '/Episode/register', model);
+}
+
+public downloadFile(file: string): Observable<HttpEvent<Blob>> {
+  return this.httpClient.request(new HttpRequest(
+    'GET',
+    `${'http://localhost:5000/api/episode/upload/download2'}?file=${file}`,
+    null,
+    {
+      reportProgress: true,
+      responseType: 'blob'
+    }));
 }
 
 

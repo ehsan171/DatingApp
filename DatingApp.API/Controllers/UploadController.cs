@@ -11,6 +11,9 @@ using DatingApp.API.Models;
 using DatingApp.API.Data;
 using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.Hosting;
+using System.Data.Entity;
 
 namespace DatingApp.API.Controllers
 {
@@ -20,6 +23,8 @@ namespace DatingApp.API.Controllers
 
     public class UploadController :ControllerBase
     {
+   
+    
             private readonly DataContext _context;
         //    private readonly IEpisodeRepository _repo;
         private readonly IConfiguration _config;
@@ -90,60 +95,79 @@ namespace DatingApp.API.Controllers
             }
         }
     
-    
-    [AllowAnonymous]
-[HttpGet("delete")]
-    // [ValidateAntiForgeryToken]
-    public ActionResult delete()
-    {
 
-        // ViewBag.deleteSuccess = "false";
-        var fileName = "";
+     [AllowAnonymous]
+        [HttpGet("test")]
+        public async Task<IActionResult> GetValues2()
+        {
+            Console.WriteLine("FASDFSFSFD");
+            var values = await _context.Values.ToListAsync();
+            return Ok(values);
+        }
+
+    
+        [AllowAnonymous]
+        [Route("delete")]
+        // [ValidateAntiForgeryToken]
+        public ActionResult delete()
+        {
+
+            // ViewBag.deleteSuccess = "false";
+            var fileName = "";
             fileName = "30.pdf";
        
-                var folderName = Path.Combine("Resources", "Images");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var fullPath = Path.Combine(pathToSave, fileName);
-                   Console.WriteLine(fullPath);
+            var folderName = Path.Combine("Resources", "Images");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            var fullPath = Path.Combine(pathToSave, fileName);
+            Console.WriteLine(fullPath);
 
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
             }
            return StatusCode(201);
+        }
+
+      
+        [AllowAnonymous]
+        [HttpGet("download2")]
+        public async Task<IActionResult> Download([FromQuery] string file) 
+       {
+         Console.WriteLine("FASDFSFSFD");
+        
+        //    var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                var folderName = Path.Combine("Resources", "Images");
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+           if (!System.IO.File.Exists(filePath+"/1.jpg"))
+                Console.WriteLine(filePath);
+                return NotFound();
+ 
+           var memory = new MemoryStream();
+            Console.WriteLine("ddddggggggggggggggg");
+           using (var stream = new FileStream(filePath+"/1.jpg", FileMode.Open))
+           {
+               await stream.CopyToAsync(memory);
+           }
+           memory.Position = 0;
+
+           return File(memory, GetContentType(filePath+"/1.jpg"), file);
+       }
+
+       private string GetContentType(string path)
+       {
+           var provider = new FileExtensionContentTypeProvider();
+           string contentType;
+           if(!provider.TryGetContentType(path, out contentType))
+           {
+               contentType = "application/octet-stream";
+           }
+           return contentType;
+       }
+
     }
-    
 
 
-        // [AllowAnonymous]
-        //  [HttpPost("register")]
-        // public async Task<IActionResult> Register(EpisodeForCreationDto episodeForRegisterDto)
-        // { 
-        //     Console.WriteLine("ddsfdsfdfsdfsd");
-        //     // validate request
-        //     episodeForRegisterDto.EpisodeTitle = episodeForRegisterDto.EpisodeTitle.ToLower();
-            
-            
-           
-            
-        //     var episodeToCreate = new Episode
-        //     {
-        //         EpisodeTitle =episodeForRegisterDto.EpisodeTitle,
-                
-        //         ScreenplayId =episodeForRegisterDto.ScreenplayId,
-        //         Url =episodeForRegisterDto.Url,
-        //     };
-            
-        //     Dictionary<string, object> otherData = new Dictionary<string,object>();
-        //     otherData.Add("Concepts", episodeForRegisterDto.Concept);
-        //     otherData.Add("Writers", episodeForRegisterDto.Writer);
 
 
-              
-
-        //   var createdS = await _repo.RegisterEpisode(episodeToCreate,  otherData);
-        //     return StatusCode(201);
-        // }
-
-    }
 }

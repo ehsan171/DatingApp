@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
@@ -14,6 +15,7 @@ namespace DatingApp.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        
         private readonly DataContext _context;
         public ValuesController(DataContext context)
         {
@@ -26,6 +28,8 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> GetValues()
         {
             Console.WriteLine("FASDFSFSFD");
+
+
             var values = await _context.Values.ToListAsync();
             return Ok(values);
         }

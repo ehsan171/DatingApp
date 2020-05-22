@@ -4,3 +4,24 @@
     margin-left: 15px;
     line-height: 36px;
 }
+.upload-btn{
+    display: block;
+     width: 100%;
+     border: none;
+     background-color: #E95420;
+     padding: 5px 10px;
+     font-size: 16px;
+     cursor: pointer;
+     text-align: center;
+}
+
+.upload-btn:hover{
+    background-color:#d14b1c ;
+}
+
+.upload-box{
+    width: 280px;
+    border-bottom-color: #94908E;
+    border-bottom-width: thin;
+    border-bottom-style: solid;
+}

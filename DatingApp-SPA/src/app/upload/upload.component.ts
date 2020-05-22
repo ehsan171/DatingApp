@@ -20,6 +20,7 @@ export class UploadComponent implements OnInit {
   }
 
   public uploadFile = (files, screenplayId) => {
+  
     if (files.length === 0) {
       return;
     }
@@ -28,12 +29,10 @@ export class UploadComponent implements OnInit {
     const fileToUpload = files[0] as File;
     const formData = new FormData();
  
-    formData.append('file', fileToUpload, "scsi"+fileToUpload.name);
-   console.log('http://localhost:5000/api/screenplay/' + screenplayId +
-   '/Episode/')
+    formData.append('file', fileToUpload, fileToUpload.name);
+    console.log('http://localhost:5000/api/' + 'episode/upload/')
     // this.http.post('http://localhost:5000/api/upload', formData);
-    this.http.post('http://localhost:5000/api/screenplay/' + screenplayId +
-     '/Episode/', formData, {reportProgress: true, observe: 'events'})
+    this.http.post('http://localhost:5000/api/' + 'episode/upload/', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
          
@@ -41,7 +40,7 @@ export class UploadComponent implements OnInit {
         }
         else if (event.type === HttpEventType.Response) {
           console.log("fffffff")
-          this.message = 'Upload success.';
+          this.message = 'فایل با موفقیت دریافت شد.';
           this.onUploadFinished.emit(event.body);
         }
       });

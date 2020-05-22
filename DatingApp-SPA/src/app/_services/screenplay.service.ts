@@ -23,13 +23,14 @@ export class ScreenplayService {
 constructor(private http: HttpClient) { }
 
 getScreenplays(): Observable<Screenplay[]> {
+  console.log(this.baseUrl + 'screenplay')
   return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay', httpOptions);
 }
 getScreenplay(id): Observable<Screenplay[]> {
   return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/' + id, httpOptions);
 }
 
-getEpidode(screenplayId): Observable<Episode[]> {
+getEpisode(screenplayId): Observable<Episode[]> {
   return this.http.get<Episode[]>(this.baseUrl + 'screenplay/episode/' + screenplayId, httpOptions);
 }
 
@@ -47,8 +48,14 @@ getGenres(): Observable<BasicData[]> {
 }
 
 register(model: any){
-  console.log('hjhjhjhjgjghjgjg');
+  console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
   return this.http.post(this.baseUrl + 'screenplay/register', model);
+}
+
+episodeRegister(model: any, screenplayId){
+  console.log(this.baseUrl + 'screenplay/' + screenplayId + '/Episode/register')
+  console.log(model);
+  return this.http.post(this.baseUrl + 'screenplay/' + screenplayId + '/Episode/register', model);
 }
 
 

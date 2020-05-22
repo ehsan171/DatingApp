@@ -161,11 +161,14 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("EpisodeId", "PersonId");
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("EpisodeWriter");
+                    b.ToTable("EpisodeWriters");
                 });
 
             modelBuilder.Entity("DatingApp.API.Models.OrgStructure", b =>
@@ -273,11 +276,17 @@ namespace DatingApp.API.Migrations
                     b.Property<string>("BaravordNo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrgStructureId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("RegDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");

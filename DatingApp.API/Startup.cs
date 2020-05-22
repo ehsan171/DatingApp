@@ -76,6 +76,7 @@ namespace DatingApp.API
 
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IScreenplayRepository, ScreenplayRepository>();
+            services.AddScoped<IEpisodeRepository, EpisodeRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {

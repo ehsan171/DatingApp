@@ -25,7 +25,7 @@ export class EposidesComponent implements OnInit {
 
 gettingDataTitle()
   {
-        this.screenplayService.getEpidode(this.valuesFromDetail)
+        this.screenplayService.getEpisode(this.valuesFromDetail)
         .subscribe
         (
           (screenplays: Episode[]) => 
@@ -52,7 +52,7 @@ gettingDataTitle()
               return this.dataScreenplay[0].title;
         
       }, error => {
-        this.alertify.error('gettingDataTitle');
+        this.alertify.error('gettingDataTitle 55');
       }
       );
 

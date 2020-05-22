@@ -1,10 +1,13 @@
-<div class="row mt-20" style="margin-bottom:15px;">
-  <div class="col-md-3">
-    <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files,valuesFromDetail)"
+<div class="row " style="margin-bottom:15px;">
+  <div class="">
+    <input type="file" #file placeholder="Choose file" 
+    (change)="uploadFile(file.files,valuesFromDetail)"
      style="display:none;">
-    <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+    <button type="button"
+     class="btn btn-success upload-btn"
+     style=" " (click)="file.click()">بارگذاری فایل</button>
   </div>
-  <div class="col-md-4" style="background-color: chocolate;">
+  <div class="upload-box" style="">
     <span class="upload" *ngIf="progress > 0">
       {{progress}}%
     </span>

@@ -23,11 +23,11 @@ import { Status } from '../_models/status';
   styleUrls: ['./screenplay-detail.component.css']
 })
 export class ScreenplayDetailComponent implements OnInit {
-  values: any;
-  screenplay: Screenplay[];
   constructor( private screenplayService: ScreenplayService, private alertify: AlertifyService,
                private route: ActivatedRoute,
                private authService: AuthService,) { }
+  values: any;
+  screenplay: Screenplay[];
 
                
 
@@ -43,6 +43,7 @@ statuses: Status[];
 genres: BasicData[];
 screenplays: Screenplay[];
 screenplayTitle: [];
+
 skillForm = {
 screenplayTitle: [],
 producer: [],
@@ -96,6 +97,8 @@ public textTotalNumberEpisodes = 'تعداد قسمت ';
 
 // Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start ---
 public textBaravord = 'شماره برآورد';
+
+public dataScreenplay: { [key: string]: Object }[] = [];
 // Baravord End --- Baravord End --- Baravord End --- Baravord End --- Baravord End ---
 
 
@@ -107,7 +110,7 @@ for (let index = 0; index < screenplays.length; index++) {
 this.titleData[index] = screenplays[index].title;
 }
 }, error => {
-this.alertify.error('gettingDataTitle');
+this.alertify.error('gettingDataTitle 110');
 }
 );
 
@@ -224,7 +227,6 @@ e.updateData(this.dataGenre, queryGenre);
 
 
 
-
 ngOnInit() {
 this.screenplayRegForm = new FormGroup({
 Title: new FormControl('', [
@@ -303,14 +305,34 @@ this.alertify.message('cancel...');
 }
 
 
+onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+loadScreenplay() {
+  this.screenplayService.getScreenplay(+this.route.snapshot.params['id']).subscribe((screenplay: Screenplay[]) => {
+    this.screenplay = screenplay;
+    console.log("ssssssssssssssssssssssssssssssssssssssss")
+    console.log(this.screenplay.length)
+    
+    for (let index = 0; index < screenplay.length; index++) {
+      this.dataScreenplay.push( {row: 0, id: 0, title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '' });
+      this.dataScreenplay[index].row = index + 1;
+      this.dataScreenplay[index].id = screenplay[index].id;
+      console.log(this.dataScreenplay);
+      this.dataScreenplay[index].title = screenplay[index].title;
+      this.dataScreenplay[index].baravordNo = screenplay[index].baravordNo;
+      this.dataScreenplay[index].writer = screenplay[index].writers;
+      const merged = [].concat.apply([], this.dataScreenplay[index].writer);
+      this.dataScreenplay[index].writer = merged.filter( this.onlyUnique );
+      this.dataScreenplay[index].producer = screenplay[index].producers;
+      this.dataScreenplay[index].format = screenplay[index].format;
+      this.dataScreenplay[index].genre = screenplay[index].genre;
+    }
+    console.log(this.dataScreenplay);
+  }, error => {
+    this.alertify.error(error);
+  });
+}
 
-
-  loadScreenplay() {
-    this.screenplayService.getScreenplay(+this.route.snapshot.params['id']).subscribe((screenplay: Screenplay[]) => {
-      this.screenplay = screenplay;
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
 
 }

@@ -1,0 +1,6 @@
+<div id='droparea'>
+  Drop files here to upload
+</div>
+<div id='uploadfile' >
+  <ejs-uploader  #defaultupload (uploading)='onUploadSuccess($event)'  [autoUpload]='false' [dropArea]='dropEle' [asyncSettings]='path'   multiple = 'false' (success)="onUploadSuccess($event)" (failure)="onUploadFailure($event) " (uploading)='onUploadBegin($event)'></ejs-uploader>
+       </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { enableRipple } from '@syncfusion/ej2-base';
 import { TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
+import { UploadingEventArgs } from '@syncfusion/ej2-angular-inputs';
  
 @Component({
   selector: 'app-testTree2',
@@ -9,8 +10,8 @@ import { TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
 })
 export class TestTree2Component implements OnInit {
   public path: Object = {
-    saveUrl: 'https://ej2.syncfusion.com/services/api/uploadbox/Save',
-    removeUrl: 'https://ej2.syncfusion.com/services/api/uploadbox/Remove' };
+    saveUrl: 'http://localhost:5000/api/' + 'episode/upload/',
+    removeUrl: 'http://localhost:5000/api/episode/upload/delete' };
     public onUploadSuccess(args: any): void  {
       if (args.operation === 'upload') {
           console.log('File uploaded successfully');
@@ -22,6 +23,14 @@ export class TestTree2Component implements OnInit {
   }
 
   public dropEle: HTMLElement ;
+
+  public onUploadBegin(args: UploadingEventArgs) {
+    // check whether the file is uploading from paste.
+    // if (args.fileData.fileSource === 'paste') {
+        // let newName: string = getUniqueID(args.fileData.name.substring(0, args.fileData.name.lastIndexOf('.'))) + '.png';
+        args.customFormData = [{'fileName': "ggggggg"}];
+    // }
+}
   constructor() {
 
   }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 namespace DatingApp.API.Models
 {
@@ -13,6 +14,8 @@ namespace DatingApp.API.Models
         public virtual Status Status { get; set; }
         public int StatusId { get; set; }
         public string Description { get; set; }
+        public DateTime RegDate { get; set; }
+        public DateTime Created { get; set; }
          public virtual ICollection<Episode> Episodes { get; set; }
         public virtual ICollection<ScreenplayFormat> ScreenplayFormats { get; set; }
         public virtual ICollection<ScreenplayGenre> ScreenplayGenres { get; set; }

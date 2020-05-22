@@ -81,7 +81,7 @@ namespace DatingApp.API.Data
             int formats = (int) otherData["Formats"];
             List<int> genres = (List<int>) otherData["Genres"];
             List<int> producers = (List<int>) otherData["Producers"];
-
+            
 // var names = new List<string>() { "John", "Tom", "Peter" };
             foreach (int genre in genres)
             {
@@ -104,8 +104,21 @@ namespace DatingApp.API.Data
 
                 await _context.ScreenplayProducers.AddAsync(scProToCreate);
                 await _context.SaveChangesAsync();
+
+                
+                // var scWriToCreate = new EpisodeWriter
+                // {
+                //     PersonId = producer,
+                //     EpisodeId = 23,
+                // };
+
+                // await _context.EpisodeWriters.AddAsync(scWriToCreate);
+                // await _context.SaveChangesAsync();
+
+
+                
             }
-        Console.WriteLine(screenplay.Id);
+       
 
             var scForToCreate = new ScreenplayFormat
                 {

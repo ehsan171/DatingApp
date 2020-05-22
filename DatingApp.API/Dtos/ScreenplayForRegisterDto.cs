@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,6 +19,12 @@ namespace DatingApp.API.Dtos
          public int Format { get; set; }
          public int StatusId { get; set; }
          public string Description { get; set; }
+         public DateTime RegDate { get; set; }
+         public DateTime Created { get; set; }
+
+        public ScreenplayForRegisterDto(){
+            Created =DateTime.Now;
+        }
          
         //   public string Username { get; set; }
 

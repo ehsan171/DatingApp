@@ -3,18 +3,20 @@
 <div class="hide">
   <!-- {{dataScreenplay[0]['title']}} -->
 </div>
-
-<mat-form-field>
-  <mat-label>Filter</mat-label>
+<div style="font-family: BTraffic; direction: rtl;text-align: right;">
+  <mat-form-field style="text-align: right;">
+  <mat-label><span style="font-family: BTraffic;">جستجو</span></mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
 </mat-form-field>
+</div>
+
 
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource2"  matSort class="mat-elevation-z8">
   
     <ng-container matColumnDef="row" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class=""  style="padding-right: 20px"> ردیف </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header  class="title"  style="padding-right: 20px"> ردیف </th>
       <td mat-cell *matCellDef="let element"  class="tar font-td" style="padding-right: 20px"> {{element.row}} </td>
     </ng-container>
   
@@ -30,27 +32,27 @@
     </ng-container>
  
     <ng-container matColumnDef="baravordNo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center;width:10%"> شماره برآورد </th>
-      <td mat-cell *matCellDef="let element" style=" text-align: center;"> {{element.baravordNo}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title" style="text-align: center;width:10%"> شماره برآورد </th>
+      <td mat-cell *matCellDef="let element" style=" text-align: center; font-family: BTraffic;"> {{element.baravordNo}} </td>
     </ng-container>
 
     <ng-container matColumnDef="writer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> نویسنده </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title"> نویسنده </th>
       <td mat-cell *matCellDef="let element"  class="tar font-td"> {{element.writer}} </td>
     </ng-container>
     
     <ng-container matColumnDef="producer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header > تهیه کننده </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title" > تهیه کننده </th>
       <td mat-cell *matCellDef="let element"  class="tar font-td"> {{element.producer}} </td>
     </ng-container>
     
     <ng-container matColumnDef="format">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> قالب </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title"> قالب </th>
       <td mat-cell *matCellDef="let element"  class="tar font-td"> {{element.format}} </td>
     </ng-container>
     
     <ng-container matColumnDef="genre">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ژنر </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title"> ژانر </th>
       <td mat-cell *matCellDef="let element"  class="tar font-td"> {{element.genre}} </td>
     </ng-container>
     
@@ -61,6 +63,9 @@
     <!-- <mat-row  *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></mat-row> -->
   </table>
 
+  <div style="direction: ltr;">
     <mat-paginator  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
+  </div>
+    
 </div>

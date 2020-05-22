@@ -3,6 +3,10 @@
  * version : 4.15.35
  * https://github.com/Eonasdan/bootstrap-datetimepicker/
  */
+
+
+
+
  .bootstrap-datetimepicker-widget {
     list-style: none;
   }
@@ -371,4 +375,102 @@
     clip: rect(0, 0, 0, 0);
     border: 0;
   }
+
+
+  /* Persian Datepicker */
+  /* .example1{
+    border: none;
+    width: 100%;
+    border-bottom: solid 1px #868e96;
+  }
+
+  .example1:focus{
+    border-bottom : solid 2 px #DF382C;
+    
+  } */
+/* 
+  .input_container{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    border-bottom: solid 1px #868e96;
+  } */
+  .awsome_input{
+    padding: 5px 10px;
+    border: none;
+    background: transparent;
+    display: block;
+   
+    /* color: #868e96; */
+    width: 100%;
+  }
+  .awsome_input_border{
+    display:inline-block;
+    width:0px;
+    height: 2px;
+    background: rgba(227, 22, 91);
+    position: relative;
+    top:-5px;
+    -webkit-transition: all ease-in-out .15s;
+    -o-transition: all ease-in-out .15s;
+    transition: all ease-in-out .15s;
+  }
+
+
+  .awsome_input:hover,
+  .awsome_input:active, 
+  .awsome_input:focus{
+    outline: none;
+  }
+  /* .awsome_input:hover+.awsome_input_border, */
+  .awsome_input:active+.awsome_input_border, 
+  .awsome_input:focus+.awsome_input_border{
+    width:100%;
+    
+  }
+
+
+  #container {
+    visibility: hidden;
+  }
   
+  #loader {  
+    color: #008cff;
+    height: 40px;
+    left: 45%;
+    position: absolute;
+    top: 45%;
+    width: 30%;
+  }
+  
+  .wrap {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 20px 10px;
+    width: 260px;
+  }
+  
+  
+  .wrap label { /* csslint allow: adjoining-classes */
+   font-weight:bold;
+  }
+  
+  .wrap .e-input-group {/* csslint allow: adjoining-classes */
+     margin:25px 0;
+  }
+  
+  .e-input-group-icon:before {
+    font-family: e-icons;
+  }
+  
+  .e-input-group .e-input-group-icon.e-input-popup-date { /* csslint allow: adjoining-classes */
+    font-size:16px;
+  }
+  
+  .e-input-group.e-small .e-input-group-icon.e-input-popup-date { /* csslint allow: adjoining-classes */
+    font-size:14px;
+  }
+  
+  .e-input-group-icon.e-input-popup-date:before { /* csslint allow: adjoining-classes */
+    content: "";
+  }

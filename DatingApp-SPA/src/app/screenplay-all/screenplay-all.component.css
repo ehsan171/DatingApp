@@ -7,9 +7,11 @@ display: none !important;
 th{
   text-align: center !important;
   font-family: BTraffic;
+  
   font-weight: bold;
   font-size: medium;
-  background-color: #dcdcdc;
+  background-color: #cf4314;
+  color: #fff;
 }
 td{
   text-align: center !important;
@@ -29,5 +31,18 @@ th.mat-sort-header-sorted {
 .mat-sort-header-container {
   display:flex;
   justify-content:center;
+}
+
+.title{
+  color:#fff;
+  font-size: medium;
+}
+
+.mat-sort-header-arrow{
+  color: #fff;
+}
+
+tr{
+  cursor: pointer;
 }
 

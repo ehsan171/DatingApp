@@ -1,0 +1,58 @@
+
+<div class="hide">
+  <!-- {{dataScreenplay[0]['title']}} -->
+</div>
+
+
+
+<div style="font-family: BTraffic; direction: rtl;text-align: right;">
+  <mat-form-field style="text-align: right;">
+  <mat-label><span style="font-family: BTraffic;">جستجو</span></mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+</mat-form-field>
+</div>
+
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource2"  matSort class="mat-elevation-z8">
+  
+    <ng-container matColumnDef="row" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title"  style="width: 20px;;padding-right: 20px"> ردیف </th>
+      <td mat-cell *matCellDef="let element"  class="tar font-td" style="padding-right: 20px"> {{element.row}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="id" >
+      <th mat-header-cell *matHeaderCellDef class="hide"> No. </th>
+      <td mat-cell *matCellDef="let element" class="hide"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title" style="width: 20%;" > عنوان قسمت </th>
+      <td mat-cell *matCellDef="let element" class="tar font-td"> {{element.title}} </td>
+      
+    </ng-container>
+ 
+    <ng-container matColumnDef="episodeNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title" style="text-align: center;width:10%"> شماره قسمت </th>
+      <td mat-cell *matCellDef="let element" style=" text-align: center;"> {{element.episodeNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="writer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title"> نویسنده </th>
+      <td mat-cell *matCellDef="let element"  class="tar font-td"> {{element.writer}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="concept">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title" >محتوا </th>
+      <td mat-cell *matCellDef="let element"  class="tar font-td"> {{element.concept}} </td>
+    </ng-container>
+   
+   
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr> 
+    <!-- <mat-row  *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></mat-row> -->
+  </table>
+  <div style="direction: ltr;">
+    <mat-paginator  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+</div>

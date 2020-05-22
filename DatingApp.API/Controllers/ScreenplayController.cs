@@ -89,6 +89,7 @@ namespace DatingApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetScreenplays(int id)
         {
+            Console.WriteLine("ddddddddddddddd");
             var screenplay = await _context.Screenplays.Where(screenplay => screenplay.Id == id)
             // .Include(p => p.Status)
             // .Include(or => or.OrgStructure)
@@ -149,6 +150,8 @@ namespace DatingApp.API.Controllers
                Writers = x.EpisodeWriters
                         .Select(W => W.Writer)
                         .Select(a => a.FirstName + ' ' + a.LastName),
+              Concept = x.EpisodeConcepts.Select(s => s.BasicData).Select(g => g.Name),
+                                
                                     
            })
            
@@ -181,13 +184,13 @@ namespace DatingApp.API.Controllers
          [HttpPost("register")]
         public async Task<IActionResult> Register(ScreenplayForRegisterDto screenplayForRegisterDto)
         { 
-            Console.WriteLine("ddsfdsfdfsdfsd");
+            Console.WriteLine("ssssssssssssssssssssssssdddddddddddddddddd");
             // validate request
             screenplayForRegisterDto.Title = screenplayForRegisterDto.Title.ToLower();
             if (await _repo.ScreenplayExists(screenplayForRegisterDto.Title))
                 return BadRequest("Username already ex...");
 
-            
+         
            
             
             var screenplayToCreate = new Screenplay
@@ -196,11 +199,14 @@ namespace DatingApp.API.Controllers
                 BaravordNo =screenplayForRegisterDto.BaravordNo,
                 StatusId =screenplayForRegisterDto.StatusId,
                 TotalNumberEpisodes =screenplayForRegisterDto.TotalNumberEpisodes,
+                RegDate = screenplayForRegisterDto.RegDate
             };
             
             Dictionary<string, object> otherData = new Dictionary<string,object>();
             otherData.Add("Genres", screenplayForRegisterDto.Genre);
             otherData.Add("Producers", screenplayForRegisterDto.Producer);
+          Console.WriteLine(screenplayForRegisterDto.Producer);
+       
             otherData.Add("Formats", screenplayForRegisterDto.Format);
 
 

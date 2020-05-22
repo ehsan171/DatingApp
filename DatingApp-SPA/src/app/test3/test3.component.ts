@@ -101,7 +101,7 @@ gettingDataTitle(){
 )
     
   }, error => {
-    this.alertify.error('gettingDataTitle');
+    this.alertify.error('gettingDataTitle 104');
   }
   );
 

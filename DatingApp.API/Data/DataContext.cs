@@ -42,6 +42,7 @@ namespace DatingApp.API.Data
         public DbSet< EmployeeProject > EmployeeProject { get; set; }
         public DbSet< Episode> Episodes { get; set; }
         public DbSet< EpisodeConcept> EpisodeConcepts { get; set; }
+        public DbSet< EpisodeWriter> EpisodeWriters { get; set; }
         public DbSet<OrgStructure> OrgStructures { get; set; }
         public DbSet< Person> Persons { get; set; }
         public DbSet< Screenplay> Screenplays { get; set; }

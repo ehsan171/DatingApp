@@ -51,13 +51,13 @@
       <div class="col">
         <div class="form-group">
           <!-- <label for="baravordId" >شماره برآورد</label> -->
-          <ejs-textbox 
+          <ejs-maskedtextbox mask='999999' 
           enableRtl='true' floatLabelType="Auto" 
           id='baravordId' formControlName="baravordNo"  
-          [placeholder]='textBaravord'
+          placeholder='Mask ###### (ex: 986543)'
           [ngClass]="{'is-invalid':screenplayRegForm.get('baravordNo').errors &&
             screenplayRegForm.get('baravordNo').touched}">
-          </ejs-textbox>
+          </ejs-maskedtextbox>
           
         <div  class="invalid-feedback"
           *ngIf="screenplayRegForm.get('baravordNo').hasError('required') &&
@@ -90,14 +90,14 @@
     <div class="row">
 
       <div class="col">
-        <div class="form-group">
+        <div class="form-group" style="margin-top: 4px;">
           <!-- <label for="totalNumberEpisodesId">تعداد قسمت</label> -->
-          <ejs-textbox enableRtl='true' floatLabelType="Auto" id='totalNumberEpisodesId' formControlName="totalNumberEpisodes" [placeholder]='textTotalNumberEpisodes'></ejs-textbox>
+          <ejs-numerictextbox   format='n0' value=1 min=1   mask='9999' enableRtl='true' floatLabelType="Auto" id='totalNumberEpisodesId' formControlName="totalNumberEpisodes" [placeholder]='textTotalNumberEpisodes'></ejs-numerictextbox >
         </div>
       </div>
 
       <div class="col">
-        <div class="form-group">
+        <div class="form-group" style="margin-top: 4px;">
           <!-- <label for="formatId" >قالب</label> -->
           <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='formatId' #samples [dataSource]='dataFormat' [fields]='fieldsFormat' formControlName="format" [placeholder]='textFormat' [allowFiltering]='true' (filtering)='onFilteringFormat($event)'>a</ejs-dropdownlist>
 
@@ -115,12 +115,7 @@
     </div>
 
     <div class="row">
-
       <div class="col">
-        
-      </div>
-
-       <div class="col">
         <div class="form-group">
           <!-- <label for="statusId" >وضعیت</label> -->
           <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='statusId' #samples [dataSource]='dataStatus' [fields]='fieldsStatus' formControlName="statusId" [placeholder]='textStatus' [allowFiltering]='true' (filtering)='onFilteringStatus($event)'>a</ejs-dropdownlist>
@@ -129,11 +124,32 @@
       </div>
 
       <div class="col">
+       
+<input id='exa2' formControlName="regDate" style="display: none;"> 
+        
+      </div >
+
+     
+
+      <div class="col">
+      
+                <div class="e-input-group" style="margin-top: 18px;">
+
+                <input id="exa" class="e-input example1"
+                 type="text" (focus)="focusIn($event.target)"
+                placeholder = "تاریخ ثبت" (blur)="focusOut($event.target)"
+                autocomplete="off"/>
+                <span class="e-input-group-icon e-input-popup-date" (mouseup)="onMouseUp($event.target)" (mousedown)="onMouseDown($event.target)"></span>
+                </div>
+              </div>
+
+              <!-- <ejs-textbox class="example1" enableRtl='true' floatLabelType="Auto" id='totalNumberEpisodesId' formControlName="totalNumberEpisodes" [placeholder]='textTotalNumberEpisodes'></ejs-textbox> -->
+
         
       </div>
       
     </div>
-  </div>
+
   
   
 
@@ -142,12 +158,13 @@
 
 
   <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Register</button>
+    <button class="btn btn-success regbtn" type="submit">Register</button>
     <button class="btn btn-default" type="button" (click)='cancel()'>Cancel</button>
   </div>
   
 </form>
 </div>
+
 <!-- 
 <p>From value: {{screenplayRegForm.value | json}}</p>
 <p>From status: {{screenplayRegForm.status | json}}</p> -->

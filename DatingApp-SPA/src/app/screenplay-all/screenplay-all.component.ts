@@ -44,10 +44,14 @@ export class ScreenplayAllComponent implements OnInit {
 
   public dataScreenplay2: PeriodicElement2[] = [];
   screenplays2: any[];
+  dummy: any[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+   onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
   gettingDataTitle(){
     this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
       this.screenplays2 = screenplays;
@@ -56,13 +60,12 @@ export class ScreenplayAllComponent implements OnInit {
         this.dataScreenplay2.push( {row: 0, id: 0, title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '' });
         this.dataScreenplay2[index].row = index + 1;
         this.dataScreenplay2[index].id = screenplays[index].id;
-        console.log(this.dataScreenplay2);
+        // console.log(this.dataScreenplay2);
         this.dataScreenplay2[index].title = screenplays[index].title;
         this.dataScreenplay2[index].baravordNo = screenplays[index].baravordNo;
-        this.dataScreenplay2[index].writer = screenplays
-                .map(item => item.writers)
-                .reduce((prev, curr) => prev.concat(curr), [])
-                .filter((item, i, arr) => arr.indexOf(item) === i)[index];
+        this.dataScreenplay2[index].writer = screenplays[index].writers;
+        const merged = [].concat.apply([], this.dataScreenplay2[index].writer);
+        this.dataScreenplay2[index].writer = merged.filter( this.onlyUnique );
         this.dataScreenplay2[index].producer = screenplays[index].producers;
         this.dataScreenplay2[index].format = screenplays[index].format;
         this.dataScreenplay2[index].genre = screenplays[index].genre;
@@ -70,11 +73,7 @@ export class ScreenplayAllComponent implements OnInit {
       this.dataSource2 = new MatTableDataSource<PeriodicElement2>(this.dataScreenplay2);
       this.dataSource2.paginator = this.paginator;
       this.dataSource2.sort = this.sort;
-      screenplays.map(item => item.writers);
-      console.log(screenplays.map(item => item.writers)
-      .reduce((prev, curr) => prev.concat(curr), [])
-      .filter((item, i, arr) => arr.indexOf(item) === i)[1]
-  );
+
 
     }, error => {
       this.alertify.error('getting Data Title');

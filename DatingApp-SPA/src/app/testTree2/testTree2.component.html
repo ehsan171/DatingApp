@@ -17,5 +17,5 @@
   Drop files here to upload
 </div>
 <div id='uploadfile' >
-  <ejs-uploader #defaultupload [autoUpload]='false' [dropArea]='dropEle' [asyncSettings]='path' (success)="onUploadSuccess($event)" (failure)="onUploadFailure($event)"></ejs-uploader>
+  <ejs-uploader #defaultupload  [autoUpload]='false' [dropArea]='dropEle' [asyncSettings]='path' (success)="onUploadSuccess($event)" (failure)="onUploadFailure($event) " (uploading)='onUploadBegin($event)'></ejs-uploader>
        </div>

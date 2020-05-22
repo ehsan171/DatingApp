@@ -13,7 +13,10 @@ import { Person } from '../_models/person';
 import { BasicData } from '../_models/basicData';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Status } from '../_models/status';
+import { data } from '../test_data/datasource';
 
+
+declare var $: any;
 
 @Component({
   selector: 'app-screenplay-reg',
@@ -28,7 +31,7 @@ export class ScreenplayRegComponent implements OnInit {
               private authService: AuthService,
               private alertify: AlertifyService) { }
 
-  @Input() valuesFromHome;
+  @Input() valuesFromDetail;
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
   screenplayRegForm: FormGroup;
@@ -47,7 +50,7 @@ export class ScreenplayRegComponent implements OnInit {
     format: [],
     genre: [],
 };
-
+myDate: any;
 
 public sportsData: string[] = [];
 public titleData: string[] = [];
@@ -103,7 +106,7 @@ gettingDataTitle(){
       this.titleData[index] = screenplays[index].title;
     }
   }, error => {
-    this.alertify.error('gettingDataTitle');
+    this.alertify.error('gettingDataTitle 106');
   }
   );
 
@@ -218,10 +221,70 @@ public onFilteringGenre: EmitType<any> =  (e: FilteringEventArgs) => {
 // -----------------------------------GENER END----------------------------------------
 
 
+public focusIn(target: HTMLElement): void {
+  target.parentElement.classList.add('e-input-focus');
+}
+
+public focusOut(target: HTMLElement): void {
+  target.parentElement.classList.remove('e-input-focus');
+}
+
+public onMouseDown(target: HTMLElement): void {
+  target.classList.add('e-input-btn-ripple');
+
+}
+
+public onMouseUp(target: HTMLElement): void {
+  let ele: HTMLElement = target;
+  setTimeout(
+          () => {ele.classList.remove('e-input-btn-ripple'); },
+          500);
+}
 
 
 
 ngOnInit() {
+
+  $(document).ready(function() {
+ 
+    $('.example1').pDatepicker({
+      observer: true,
+      format: 'YYYY/MM/DD',
+      altField: '.observer-example-alt',
+      initialValue: false,
+      onSelect: function(dateText) {
+        $('#exa2').val(dateText);
+        // alert(dateText)
+
+}
+      
+    });
+
+  });
+
+//   $(document).ready(function(){
+//    $( ".table-days" ).click(function() {
+//   $('#exa2').val(this.dataset.unix);
+//   // alert(this.dataset.unix)
+// });
+//     });
+  
+
+  // tslint:disable-next-line: only-arrow-functions
+  $('.awsome_input').focusin(function() {
+    $('#tool-tip').show();
+}).change(function()
+{
+ //  alert($(this).val());
+  if ($(this).val() === ''){
+    if ($(this).val() === ''){
+     $('#tool-tip').hide();
+    }
+  }
+
+});
+  
+
   this.screenplayRegForm = new FormGroup({
       Title: new FormControl('', [
         Validators.required
@@ -243,7 +306,7 @@ ngOnInit() {
       password: new FormControl(),
       conformPassword: new FormControl(),
       photoUrl: new FormControl(),
-      name: new FormControl(),
+      regDate: new FormControl(),
 
   });
 
@@ -279,14 +342,41 @@ ngOnInit() {
   }
 
   register(){
-    this.model = Object.assign({}, this.screenplayRegForm.value);
-    console.log(this.model);
-    this.screenplayService.register(this.model).subscribe(() => {
-      this.alertify.success('register succ...');
-    }, error => {
-      this.alertify.error('This is error from register sssssstest');
-    }
-    );
+
+    const el = document.querySelector('table tr td');
+    // alert((document.getElementById('exa2') as HTMLInputElement).value);
+    const regDate = (document.getElementById('exa') as HTMLInputElement).value;
+    const regDate2 = (document.getElementById('exa') as HTMLInputElement).dataset[0];
+    const unixTimestamp = 1590020379  ;
+
+    this.model.regDate = (document.getElementById('exa2') as HTMLInputElement).value;
+        
+    const date = new Date(this.model.regDate * 1);
+    
+    console.log(`${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`);
+
+
+
+
+
+    if (this.screenplayRegForm.valid){
+        this.model = Object.assign({}, this.screenplayRegForm.value);
+        this.model.regDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+        // alert(regDate)
+        // console.log('model' + this.model);
+        // this.myDate = new Date();
+       
+        // this.model.regDate =  '5/21/2020';
+        console.log(this.model);
+
+        this.screenplayService.register(this.model).subscribe(() => {
+          this.alertify.success('register succ...');
+        }, error => {
+          this.alertify.error('This is error from register sssssstest');
+        }
+        );
+      }
+   
 
   }
 

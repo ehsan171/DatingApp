@@ -1,0 +1,45 @@
+table {
+    width: 795px;
+  }
+.hide{
+display: none !important;
+}
+th{
+  text-align: center !important;
+  font-family: BTraffic;
+  font-weight: bold;
+  font-size: medium;
+  background-color: #cf4314;
+}
+td{
+  text-align: center !important;
+}
+.tar{
+  /* text-align: right !important; */
+}
+.font-td{
+  font-family: BTraffic;
+  
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-sort-header-container {
+  display:flex;
+  justify-content:center;
+}
+
+.title{
+  color:#fff;
+  font-size: medium;
+}
+
+.mat-sort-header-arrow{
+  color: #fff;
+}
+
+tr{
+  cursor: pointer;
+}

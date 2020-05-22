@@ -24,7 +24,7 @@ import { enableRipple } from '@syncfusion/ej2-base';
 import { DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { MultiSelectModule, DropDownTreeModule, AutoCompleteModule, DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { TestComponent } from './test/test.component';
-import { TextBoxModule, UploaderModule } from '@syncfusion/ej2-angular-inputs';
+import { TextBoxModule, UploaderModule, MaskedTextBoxModule, NumericTextBoxModule   } from '@syncfusion/ej2-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
@@ -52,7 +52,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
+import { EpisodeComponent } from './episode/episode.component';
+import { EpisodeAllComponent } from './episode-all/episode-all.component';
 import { EpisodeRegComponent } from './episode-reg/episode-reg.component';
+import { Upload2Component } from './upload2/upload2.component';
+import { TestDownloadComponent } from './test-download/test-download.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 //  khat zir baraie checkbox ast pak shavad
 enableRipple(true);
@@ -80,7 +86,11 @@ enableRipple(true);
       Test2Component,
       EposidesComponent,
       Test3Component,
-      EpisodeRegComponent
+      EpisodeRegComponent,
+      EpisodeComponent,
+      EpisodeAllComponent,
+      Upload2Component,
+      TestDownloadComponent
    ],
    imports: [
       BrowserModule,
@@ -118,7 +128,10 @@ enableRipple(true);
       MatInputModule,
       MDBBootstrapModule.forRoot(),
       NgbModule,
-      DataTablesModule
+      DataTablesModule,
+      MaskedTextBoxModule,
+      NumericTextBoxModule,
+      PdfViewerModule
    ],
    providers: [
       AuthService

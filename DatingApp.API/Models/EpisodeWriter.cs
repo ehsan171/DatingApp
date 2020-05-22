@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 namespace DatingApp.API.Models
 {
     public class EpisodeWriter
@@ -7,5 +9,8 @@ namespace DatingApp.API.Models
         public int EpisodeId { get; set; }
         public virtual Person Writer { get; set; }
         public int PersonId { get; set; }
+        public DateTime Created { get; set; }
     }
 }
+
+

@@ -28,11 +28,11 @@ gettingDataTitle()
         this.screenplayService.getEpisode(this.valuesFromDetail)
         .subscribe
         (
-          (screenplays: Episode[]) => 
+          (screenplays: Episode[]) =>
           {
               this.screenplays = screenplays;
-            this.dataEpisode[0].title = screenplays[0].episodeTitle
-              // for (let index = 0; index < screenplays.length; index++) 
+              this.dataEpisode[0].title = screenplays[0].episodeTitle;
+              // for (let index = 0; index < screenplays.length; index++)
               // {
               //   this.dataScreenplay.push({ id: '', title: '', episodeNumber: '', writer: ''});
               //   this.dataScreenplay[index].id = screenplays[index].id;
@@ -45,12 +45,11 @@ gettingDataTitle()
 
               // }
               // screenplays.map(item => item.writers);
-            //   console.log(screenplays.map(item => item.writers)
             //   .reduce((prev, curr) => prev.concat(curr), [])
             //   .filter((item, i, arr) => arr.indexOf(item) === i)[1]
             // )
               return this.dataScreenplay[0].title;
-        
+
       }, error => {
         this.alertify.error('gettingDataTitle 55');
       }
@@ -68,8 +67,6 @@ gettingDataTitle()
 
   ngOnInit() {
     this.gettingDataTitle();
-    console.log("lfsdflsdkflskflslslsflsdfl")
-    console.log(this.gettingDataTitle());
   }
 
 }

@@ -7,6 +7,7 @@ import { ScreenplayComponent } from './screenplay/screenplay.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthService } from './_services/auth.service';
 import { ScreenplayDetailComponent } from './screenplay-detail/screenplay-detail.component';
+import { ScreenplayEditComponent } from './screenplay-edit/screenplay-edit.component';
 
 
 
@@ -20,6 +21,7 @@ export const appRoutes: Routes = [
             {path: 'members', component: MemberListComponent},
             {path: 'messages', component: MessagesComponent},
             {path: 'screenplay', component: ScreenplayComponent},
+            {path: 'screenplay/edit', component: ScreenplayEditComponent},
             {path: 'screenplay/:id', component: ScreenplayDetailComponent},
         ]
     },

@@ -90,14 +90,8 @@ gettingDataTitle(){
       this.dataScreenplay[index].producer = screenplays[index].producers;
       this.dataScreenplay[index].format = screenplays[index].format;
       this.dataScreenplay[index].genre = screenplays[index].genre;
-// console.log(this.dataScreenplay[index].writer )
     }
     screenplays.map(item => item.writers);
-    console.log(screenplays.map(item => item.writers)
-    .reduce((prev, curr) => prev.concat(curr), [])
-    .filter((item, i, arr) => arr.indexOf(item) === i)[1]
-)
-    
   }, error => {
     this.alertify.error('gettingDataTitle 102');
   }

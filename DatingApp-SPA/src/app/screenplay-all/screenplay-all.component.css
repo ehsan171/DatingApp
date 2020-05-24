@@ -42,7 +42,9 @@ th.mat-sort-header-sorted {
   color: #fff;
 }
 
-tr{
+tr:hover{
   cursor: pointer;
+  background-color: #f9cfc1;
 }
+
 

@@ -172,12 +172,10 @@ public onFilteringFormat: EmitType<any> =  (e: FilteringEventArgs) => {
 gettingDataStatuses(){
   this.screenplayService.getStatuses().subscribe((statuses: Status[]) => {
     this.statuses = statuses;
-    // console.log("sddsddsdsd")
     for (let index = 0; index < statuses.length; index++) {
       this.dataStatus.push({ id: '', name: ''});
       this.dataStatus[index].id = statuses[index].id;
       this.dataStatus[index].name = statuses[index].name;
-    //   console.log(this.dataStatus)
     }
   }, error => {
     this.alertify.error('This is from status');
@@ -320,16 +318,7 @@ ngOnInit() {
   register2(){
     // if (this.screenplayRegForm.valid){
     //   this.model = Object.assign({}, this.screenplayRegForm.value);
-    //   console.log('model' + this.model);
     // }
-    // console.log(this.skillForm.screenplayTitle[0]);
-    // console.log(this.skillForm.producer[0]);
-    // console.log(this.skillForm.totalNumberEpisodes[0]);
-    // console.log(this.skillForm.baravord[0]);
-    // console.log(this.skillForm.format[0]);
-    // console.log('gener is ' + this.skillForm.genre[0]);
-    // console.log(this.skillForm);
-    // console.log(this.model.username);
     // this.model.name = this.skillForm.screenplayTitle[0];
     this.authService.register(this.model).subscribe(() => {
       this.alertify.success('register succ...');
@@ -337,7 +326,6 @@ ngOnInit() {
       this.alertify.error('This is error from register2');
     }
     );
-    console.log(this.screenplayRegForm.value);
 
   }
 
@@ -353,7 +341,6 @@ ngOnInit() {
         
     const date = new Date(this.model.regDate * 1);
     
-    console.log(`${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`);
 
 
 
@@ -363,11 +350,9 @@ ngOnInit() {
         this.model = Object.assign({}, this.screenplayRegForm.value);
         this.model.regDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         // alert(regDate)
-        // console.log('model' + this.model);
         // this.myDate = new Date();
        
         // this.model.regDate =  '5/21/2020';
-        console.log(this.model);
 
         this.screenplayService.register(this.model).subscribe(() => {
           this.alertify.success('register succ...');

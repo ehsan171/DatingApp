@@ -59,6 +59,9 @@ import { Upload2Component } from './upload2/upload2.component';
 import { TestDownloadComponent } from './test-download/test-download.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
+import { EpisodeDownloadComponent } from './episode-download/episode-download.component';
+import { EpisodeEditComponent } from './episode-edit/episode-edit.component';
+
 
 
 //  khat zir baraie checkbox ast pak shavad
@@ -91,7 +94,10 @@ enableRipple(true);
       EpisodeComponent,
       EpisodeAllComponent,
       Upload2Component,
-      TestDownloadComponent
+      TestDownloadComponent,
+      EpisodeDownloadComponent,
+      EpisodeEditComponent,
+      ScreenplayEditComponent
    ],
    imports: [
       BrowserModule,

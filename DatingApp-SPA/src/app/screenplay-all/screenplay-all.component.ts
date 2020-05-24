@@ -19,7 +19,7 @@ import { ViewEncapsulation } from '@angular/core';
 
 const ELEMENT_DATA2: PeriodicElement2[] = [
   {row: 1, id: 1, title: '', format: '', genre: '', baravordNo: '', producer: '', writer: ''},
-]
+];
 export interface PeriodicElement2 {
 
   row: number;
@@ -35,7 +35,7 @@ export interface PeriodicElement2 {
   selector: 'app-screenplay-all',
   templateUrl: './screenplay-all.component.html',
   styleUrls: ['./screenplay-all.component.css'],
-  encapsulation: ViewEncapsulation.None 
+  encapsulation: ViewEncapsulation.None
 })
 export class ScreenplayAllComponent implements OnInit {
   dataSource2: MatTableDataSource<PeriodicElement2>;
@@ -55,12 +55,10 @@ export class ScreenplayAllComponent implements OnInit {
   gettingDataTitle(){
     this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
       this.screenplays2 = screenplays;
-      console.log(screenplays.length);
       for (let index = 0; index < screenplays.length; index++) {
         this.dataScreenplay2.push( {row: 0, id: 0, title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '' });
         this.dataScreenplay2[index].row = index + 1;
         this.dataScreenplay2[index].id = screenplays[index].id;
-        // console.log(this.dataScreenplay2);
         this.dataScreenplay2[index].title = screenplays[index].title;
         this.dataScreenplay2[index].baravordNo = screenplays[index].baravordNo;
         this.dataScreenplay2[index].writer = screenplays[index].writers;

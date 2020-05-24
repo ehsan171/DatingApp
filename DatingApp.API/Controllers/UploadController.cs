@@ -66,16 +66,10 @@ namespace DatingApp.API.Controllers
                     var fullPath = Path.Combine(pathToSave, fileName);
                                        Console.WriteLine(fullPath);
 
-                    var dbPath = Path.Combine(folderName, fileName);
+                    // var dbPath = Path.Combine(folderName, fileName);
+                    var dbPath = fileName;
 
-            //          var scGeToCreate = new Episode
-            //             {
-            //                 Url = dbPath,
-            //                 ScreenplayId = screenplayId,
-            //                 // EpisodeTitle = Request.Form['s'],
-            //             };
-            // _context.Episodes.Add(scGeToCreate);
-            //  _context.SaveChanges();
+          
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);

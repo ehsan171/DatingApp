@@ -27,7 +27,6 @@ constructor(
   ) { }
 
 getScreenplays(): Observable<Screenplay[]> {
-  console.log(this.baseUrl + 'screenplay')
   return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay', httpOptions);
 }
 getScreenplay(id): Observable<Screenplay[]> {
@@ -52,18 +51,14 @@ getGenres(): Observable<BasicData[]> {
 }
 
 register(model: any){
-  console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
   return this.http.post(this.baseUrl + 'screenplay/register', model);
 }
 
 episodeRegister(model: any, screenplayId){
-  console.log(this.baseUrl + 'screenplay/' + screenplayId + '/Episode/register')
-  console.log(model);
   return this.http.post(this.baseUrl + 'screenplay/' + screenplayId + '/Episode/register', model);
 }
 
 public downloadFile(file: string): Observable<HttpEvent<Blob>> {
-  console.log(file)
   return this.httpClient.request(new HttpRequest(
     'GET',
     `${'http://localhost:5000/api/episode/upload/download2'}?file=${file}`,

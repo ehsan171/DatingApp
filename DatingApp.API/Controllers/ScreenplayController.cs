@@ -46,6 +46,7 @@ namespace DatingApp.API.Controllers
                                 id = x.Id,
                                 BaravordNo = x.BaravordNo,
                                 Title = x.Title,
+                                RegDate = x.RegDate,
                                 TotalNumberEpisodes =x.TotalNumberEpisodes,
                                 OrgStructure = x.OrgStructure.Name,
                                 Status = x.Status.Name,
@@ -101,6 +102,7 @@ namespace DatingApp.API.Controllers
                                 id = x.Id,
                                 BaravordNo = x.BaravordNo,
                                 Title = x.Title,
+                                RegDate = x.RegDate,
                                 TotalNumberEpisodes =x.TotalNumberEpisodes,
                                 OrgStructure = x.OrgStructure.Name,
                                 Status = x.Status.Name,
@@ -147,6 +149,7 @@ namespace DatingApp.API.Controllers
            .Select(x => new { 
                EpisodeNumber = x.EpisodeNumber,
                EpisodeTitle = x.EpisodeTitle,
+               Url = x.Url,
                Writers = x.EpisodeWriters
                         .Select(W => W.Writer)
                         .Select(a => a.FirstName + ' ' + a.LastName),

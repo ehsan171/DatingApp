@@ -6,4 +6,5 @@ export interface Episode {
     episodeTitle: string;
     concept: string;
     writers?: Writer[];
+    url?: string;
 }

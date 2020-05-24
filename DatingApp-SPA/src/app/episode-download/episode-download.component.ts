@@ -1,15 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpEvent, HttpRequest, HttpEventType } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
 import { ScreenplayService } from '../_services/screenplay.service';
 
 @Component({
-  selector: 'app-test-download',
-  templateUrl: './test-download.component.html',
-  styleUrls: ['./test-download.component.css'],
-  // providers: [FileService]
+  selector: 'app-episode-download',
+  templateUrl: './episode-download.component.html',
+  styleUrls: ['./episode-download.component.css']
 })
-export class TestDownloadComponent implements OnInit {
+export class EpisodeDownloadComponent implements OnInit {
   @Input() public disabled: boolean;
   @Input() public fileName: string;
   @Input() valuesFromEpisodeAll;
@@ -26,9 +24,8 @@ export class TestDownloadComponent implements OnInit {
   }
 
   public download() {
-  
 
-    this.fileName = '1.pdf';
+    this.fileName = this.valuesFromEpisodeAll;
 
     // this.downloadStatus.emit( {status: ProgressStatusEnum.START});
     this.screenplayService.downloadFile(this.fileName).subscribe(

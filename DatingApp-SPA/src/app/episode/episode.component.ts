@@ -16,8 +16,7 @@ export class EpisodeComponent implements OnInit {
   screenplays: any[];
   values: any;
   @Input() valuesFromDetail;
-  
-  
+
   public dataEpisode: { [key: string]: Object }[] = [];
 
 
@@ -27,11 +26,11 @@ gettingDataEpisode()
         this.screenplayService.getEpisode(this.valuesFromDetail)
         .subscribe
         (
-          (episodes: Episode[]) => 
+          (episodes: Episode[]) =>
           {
               this.screenplays = episodes;
-           
-              for (let index = 0; index < episodes.length; index++) 
+
+              for (let index = 0; index < episodes.length; index++)
               {
                 this.dataEpisode.push({ id: '', title: '', episodeNumber: '', writer: '', concept: ''});
                 this.dataEpisode[index].id = episodes[index].id;
@@ -45,15 +44,14 @@ gettingDataEpisode()
 
               }
               // screenplays.map(item => item.writers);
-            //   console.log(screenplays.map(item => item.writers)
             //   .reduce((prev, curr) => prev.concat(curr), [])
             //   .filter((item, i, arr) => arr.indexOf(item) === i)[1]
             // )
-     
+
 
               return this.dataEpisode;
-              
-        
+
+
       }, error => {
         this.alertify.error('getting Data Episode');
       }
@@ -70,10 +68,7 @@ gettingDataEpisode()
     public router: Router){ }
 
   ngOnInit() {
-    console.log(this.valuesFromDetail)
     this.gettingDataEpisode();
-    console.log("lfsdflsdkflskflslslsflsdfl")
-    console.log(this.gettingDataEpisode());
   }
 
 }

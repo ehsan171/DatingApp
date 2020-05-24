@@ -3,7 +3,7 @@ import { ScreenplayService } from '../_services/screenplay.service';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -15,7 +15,7 @@ import { Episode } from '../_models/episode';
 
 
 const ELEMENT_DATA2: PeriodicElement2[] = [
-  {row: 1, id: 1, title: '', episodeNumber: '', writer: '', concept: ''},
+  {row: 1, id: 1, title: '', episodeNumber: '', writer: '', concept: '', url: ''},
 ]
 export interface PeriodicElement2 {
 
@@ -25,6 +25,7 @@ export interface PeriodicElement2 {
   episodeNumber: string;
   writer: any;
   concept: string;
+  url: string;
  
 }
 @Component({
@@ -35,10 +36,12 @@ export interface PeriodicElement2 {
 })
 export class EpisodeAllComponent implements OnInit {
   episodes: any[];
+  fileName: any;
+  @Input() public disabled: boolean;
   @Input() valuesFromDetail;
   dataSource2: MatTableDataSource<PeriodicElement2>;
 
-  displayedColumns: string[] = ['row', 'id', 'title', 'episodeNumber', 'writer', 'concept'];
+  displayedColumns: string[] = ['row', 'id', 'title', 'episodeNumber', 'writer', 'concept', 'url'];
 
   public dataEpisode: PeriodicElement2[] = [];
   screenplays2: any[];
@@ -55,16 +58,16 @@ gettingDataEpisode()
         (episodes: Episode[]) =>
         {
             this.episodes = episodes;
-            console.log(episodes.length);
             for (let index = 0; index < episodes.length; index++)
             {
-              this.dataEpisode.push({row: 0, id: 0, title: '', episodeNumber: '', writer: '', concept: ''});
+              this.dataEpisode.push({row: 0, id: 0, title: '', episodeNumber: '', writer: '', concept: '', url: ''});
               this.dataEpisode[index].row = index + 1;
               this.dataEpisode[index].id = episodes[index].id;
               this.dataEpisode[index].title = episodes[index].episodeTitle;
               this.dataEpisode[index].episodeNumber = episodes[index].episodeNumber;
               this.dataEpisode[index].concept = episodes[index].concept;
               this.dataEpisode[index].writer = episodes[index].writers;
+              this.dataEpisode[index].url = episodes[index].url;
                       // .map(item => item.writers)
                       // .reduce((prev, curr) => prev.concat(curr), [])
                       // .filter((item, i, arr) => arr.indexOf(item) === i)[index];
@@ -104,6 +107,37 @@ applyFilter(event: Event) {
   getRecord(id: { id: string; }){
       window.location.href = 'screenplay/' + id.id;
 
+  }
+
+
+  public download(fileName?: string) {
+  
+
+    this.fileName = fileName || '';
+
+    // this.downloadStatus.emit( {status: ProgressStatusEnum.START});
+    this.screenplayService.downloadFile(this.fileName).subscribe(
+      data => {
+
+        switch (data.type) {
+
+          case HttpEventType.Response:
+            const downloadedFile = new Blob([data.body], { type: data.body.type });
+            const a = document.createElement('a');
+            a.setAttribute('style', 'display:none;');
+            document.body.appendChild(a);
+            a.download = this.fileName;
+            a.href = URL.createObjectURL(downloadedFile);
+            a.target = '_blank';
+            a.click();
+            document.body.removeChild(a);
+            break;
+        }
+      },
+      error => {
+
+      }
+    );
   }
   ngOnInit() {
     

@@ -30,16 +30,13 @@ export class UploadComponent implements OnInit {
     const formData = new FormData();
  
     formData.append('file', fileToUpload, fileToUpload.name);
-    console.log('http://localhost:5000/api/' + 'episode/upload/')
     // this.http.post('http://localhost:5000/api/upload', formData);
     this.http.post('http://localhost:5000/api/' + 'episode/upload/', formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
-         
           this.progress = Math.round(100 * event.loaded / event.total);
         }
         else if (event.type === HttpEventType.Response) {
-          console.log("fffffff")
           this.message = 'فایل با موفقیت دریافت شد.';
           this.onUploadFinished.emit(event.body);
         }

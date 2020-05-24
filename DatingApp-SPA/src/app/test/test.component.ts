@@ -188,7 +188,6 @@ public countries: Object[] = [
     //set the checknodes to the TreeView
     public checkedNodes: string[] = ['2','6'];
     public nodeChecked(args): void{
-      console.log("The checked node's id is: "+this.tree.checkedNodes);
 
     }
 
@@ -244,11 +243,6 @@ gettingData2(){
 
   register(){
     
-    console.log(this.skillForm.skillname7[0]);
-    console.log(this.skillForm);
-    console.log("csacascdasd")
-    console.log("The checked node's id is: "+this.tree.nodeChecked);
-    console.log(this.model.username);
     this.model.name = this.skillForm.skillname[0];
     this.authService.register(this.model).subscribe(() => {
       this.alertify.success('register succ...');

@@ -146,7 +146,6 @@ this.screenplayService.getEpisode(this.valuesFromDetail).subscribe((episodes: Ep
 this.episodes = episodes;
 for (let index = 0; index < episodes.length; index++) {
 this.eposideTitleData[index] = episodes[index].episodeTitle;
-console.log(this.eposideTitleData[index])
 }
 }, error => {
 this.alertify.error('getting Episode Title');
@@ -218,12 +217,10 @@ e.updateData(this.dataFormat, queryFormat);
 gettingDataStatuses(){
 this.screenplayService.getStatuses().subscribe((statuses: Status[]) => {
 this.statuses = statuses;
-// console.log("sddsddsdsd")
 for (let index = 0; index < statuses.length; index++) {
 this.dataStatus.push({ id: '', name: ''});
 this.dataStatus[index].id = statuses[index].id;
 this.dataStatus[index].name = statuses[index].name;
-//   console.log(this.dataStatus)
 }
 }, error => {
 this.alertify.error('This is from status');
@@ -270,7 +267,6 @@ e.updateData(this.dataGenre, queryGenre);
 
 public uploadFinished = (event) => {
   this.response = event;
-  console.log(this.response)
 }
 
 
@@ -295,16 +291,7 @@ public uploadFinished = (event) => {
   register2(){
   // if (this.screenplayRegForm.valid){
   //   this.model = Object.assign({}, this.screenplayRegForm.value);
-  //   console.log('model' + this.model);
   // }
-  // console.log(this.skillForm.screenplayTitle[0]);
-  // console.log(this.skillForm.producer[0]);
-  // console.log(this.skillForm.totalNumberEpisodes[0]);
-  // console.log(this.skillForm.baravord[0]);
-  // console.log(this.skillForm.format[0]);
-  // console.log('gener is ' + this.skillForm.genre[0]);
-  // console.log(this.skillForm);
-  // console.log(this.model.username);
   // this.model.name = this.skillForm.screenplayTitle[0];
   this.authService.register(this.model).subscribe(() => {
   this.alertify.success('register succ...');
@@ -312,7 +299,6 @@ public uploadFinished = (event) => {
   this.alertify.error('This is error from register2');
   }
   );
-  console.log(this.screenplayRegForm.value);
 
   }
 
@@ -321,15 +307,12 @@ public uploadFinished = (event) => {
 
     if (this.screenplayRegForm.valid){
       this.model = Object.assign({}, this.screenplayRegForm.value);
-      console.log('model' + this.model); 
       // this.model = Object.assign({}, this.screenplayRegForm.value);
      
     }
     this.model = Object.assign({}, this.screenplayRegForm.value);
     this.model.url = this.response.dbPath;
-    console.log('model' + this.model);
     //  this.model = Object.assign({}, this.screenplayRegForm.value);
-    // console.log(this.model);
     this.screenplayService.episodeRegister(this.model, this.valuesFromDetail).subscribe(() => {
       this.alertify.success('register succ...');
     }, error => {

@@ -79,7 +79,6 @@ export class Test3Component implements OnInit {
 gettingDataTitle(){
   this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
     this.screenplays = screenplays;
-    console.log(screenplays.length)
     for (let index = 0; index < screenplays.length; index++) {
       this.dataScreenplay.push({ id: '', title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '', });
       this.dataScreenplay[index].id = screenplays[index].id;
@@ -92,14 +91,8 @@ gettingDataTitle(){
       this.dataScreenplay[index].producer = screenplays[index].producers;
       this.dataScreenplay[index].format = screenplays[index].format;
       this.dataScreenplay[index].genre = screenplays[index].genre;
-// console.log(this.dataScreenplay[index].writer )
     }
     screenplays.map(item => item.writers);
-    console.log(screenplays.map(item => item.writers)
-    .reduce((prev, curr) => prev.concat(curr), [])
-    .filter((item, i, arr) => arr.indexOf(item) === i)[1]
-)
-    
   }, error => {
     this.alertify.error('gettingDataTitle 104');
   }
@@ -283,7 +276,6 @@ gettingDataTitle(){
 
     this.gettingDataTitle();
     const data3 = this.dataScreenplay;
-    console.log("ksmfksmfdksdmfksdmfkmsdfklmsdfkl   "+data3)
    
   }
 

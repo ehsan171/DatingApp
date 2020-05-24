@@ -14,5 +14,6 @@ export interface Screenplay {
     baravordNo?: string;
     totalNumberEpisodes?: number;
     format?: string;
+    regDate: Date;
     
 }

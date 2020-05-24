@@ -19,7 +19,6 @@ export class TestTree2Component implements OnInit {
   }
 
   public onUploadFailure(args: any): void  {
-  console.log('File failed to upload');
   }
 
   public dropEle: HTMLElement ;
@@ -79,12 +78,7 @@ export class TestTree2Component implements OnInit {
   ngOnInit() {
     this.dropEle = document.getElementById('droparea');
   }
-  
   register(){
-    console.log("jhjhg")
-    console.log(this.skillForm.skillname7)
-    console.log(this.skillForm.skillname6)
-    
   }
 
   cancel(){

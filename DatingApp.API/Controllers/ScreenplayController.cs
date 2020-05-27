@@ -121,6 +121,9 @@ namespace DatingApp.API.Controllers
                                 Producers = x.ScreenplayProducers
                                     .Select(s => s.Producer)
                                         .Select(g =>g.FirstName + ' ' + g.LastName),
+                               
+                                ProducerCodes = x.ScreenplayProducers
+                                    .Select(s => s.Producer.Id),
                                 Writers = x.Episodes
                                     .Select(s => s.EpisodeWriters
                                         .Select(w => w.Writer)
@@ -187,7 +190,7 @@ namespace DatingApp.API.Controllers
          [HttpPost("register")]
         public async Task<IActionResult> Register(ScreenplayForRegisterDto screenplayForRegisterDto)
         { 
-            Console.WriteLine("ssssssssssssssssssssssssdddddddddddddddddd");
+           
             // validate request
             screenplayForRegisterDto.Title = screenplayForRegisterDto.Title.ToLower();
             if (await _repo.ScreenplayExists(screenplayForRegisterDto.Title))
@@ -218,6 +221,50 @@ namespace DatingApp.API.Controllers
           var createdS = await _repo.RegisterScreenplay(screenplayToCreate,  otherData);
             return StatusCode(201);
         }
+
+        [AllowAnonymous]
+        [HttpGet("formatReport")]
+        public async Task<IActionResult> GetScreenplaysFormatReport()
+        {
+           
+
+
+     var formatReport = await _context.ScreenplayFormats.Include(p => p.BasicData).GroupBy(p => p.BasicDataId)
+           .Select(x => new { 
+               FormatNumber = x.Count(),
+               FormatKey = x.Key,
+              
+                // FormatName = x.BasicData                
+                                    
+           })
+           
+           .ToListAsync();
+            return Ok(formatReport);
+            
+        }
+
+        [AllowAnonymous]
+        [HttpGet("statusReport")]
+        public async Task<IActionResult> GetScreenplaysStatusReport()
+        {
+           
+
+
+     var statusReport = await _context.Screenplays.GroupBy(p => p.StatusId)
+           .Select(x => new { 
+               StatusNumber = x.Count(),
+               StatusKey = x.Key,
+              
+                // FormatName = x.BasicData                
+                                    
+           })
+           
+           .ToListAsync();
+            return Ok(statusReport);
+            
+        }
+
+
 
         
     }

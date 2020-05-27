@@ -84,5 +84,14 @@ namespace DatingApp.API.Data
             
             return false;
         }
+
+          public async Task<ProcessDataReg> ProcessReg (ProcessDataReg processDataReg)
+        {
+      
+            await _context.ProcessDataRegs.AddAsync(processDataReg);
+            await _context.SaveChangesAsync();
+
+            return processDataReg;
+        }
     }
 }

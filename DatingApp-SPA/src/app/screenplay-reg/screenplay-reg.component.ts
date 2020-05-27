@@ -34,6 +34,7 @@ export class ScreenplayRegComponent implements OnInit {
   @Input() valuesFromDetail;
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
+  modelProcess: any = {};
   screenplayRegForm: FormGroup;
   users: User[];
   persons: Person[];
@@ -244,7 +245,7 @@ public onMouseUp(target: HTMLElement): void {
 ngOnInit() {
 
   $(document).ready(function() {
- 
+
     $('.example1').pDatepicker({
       observer: true,
       format: 'YYYY/MM/DD',
@@ -255,7 +256,7 @@ ngOnInit() {
         // alert(dateText)
 
 }
-      
+
     });
 
   });
@@ -266,7 +267,7 @@ ngOnInit() {
 //   // alert(this.dataset.unix)
 // });
 //     });
-  
+
 
   // tslint:disable-next-line: only-arrow-functions
   $('.awsome_input').focusin(function() {
@@ -281,7 +282,7 @@ ngOnInit() {
   }
 
 });
-  
+
 
   this.screenplayRegForm = new FormGroup({
       Title: new FormControl('', [
@@ -338,12 +339,8 @@ ngOnInit() {
     const unixTimestamp = 1590020379  ;
 
     this.model.regDate = (document.getElementById('exa2') as HTMLInputElement).value;
-        
+
     const date = new Date(this.model.regDate * 1);
-    
-
-
-
 
 
     if (this.screenplayRegForm.valid){
@@ -351,17 +348,25 @@ ngOnInit() {
         this.model.regDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
         // alert(regDate)
         // this.myDate = new Date();
-       
+
         // this.model.regDate =  '5/21/2020';
 
         this.screenplayService.register(this.model).subscribe(() => {
+
+          this.modelProcess.UserId = this.authService.decodedToken?.nameid;
+          this.modelProcess.Type = '3';
+          this.modelProcess.Activity = 'ثبت فیلمنامه ' +  this.model.Title ;
+          this.authService.processReg(this.modelProcess).subscribe(() => {
+          }, error => {
+            this.alertify.error('This is error from register Process');
+          }
+          );
           this.alertify.success('register succ...');
         }, error => {
           this.alertify.error('This is error from register sssssstest');
         }
         );
       }
-   
 
   }
 

@@ -42,6 +42,7 @@ public message: string;
   public progress: number;
 screenplayId: any;
 model: any = {};
+modelProcess: any = {};
 screenplayRegForm: FormGroup;
 users: User[];
 persons: Person[];
@@ -50,7 +51,7 @@ statuses: Status[];
 genres: BasicData[];
 episodes: Episode[];
 screenplayTitle: [];
-public response: {'dbPath': ''};
+public response: string;
 skillForm = {
 screenplayTitle: [],
 writer: [],
@@ -266,7 +267,9 @@ e.updateData(this.dataGenre, queryGenre);
 
 
 public uploadFinished = (event) => {
+ 
   this.response = event;
+  console.log(this.response);
 }
 
 
@@ -311,9 +314,20 @@ public uploadFinished = (event) => {
      
     }
     this.model = Object.assign({}, this.screenplayRegForm.value);
-    this.model.url = this.response.dbPath;
+    this.model.url = this.response;
     //  this.model = Object.assign({}, this.screenplayRegForm.value);
     this.screenplayService.episodeRegister(this.model, this.valuesFromDetail).subscribe(() => {
+     
+      this.modelProcess.UserId = this.authService.decodedToken?.nameid;
+      console.log(this.model.screenplayId)
+      this.modelProcess.Type = '3';
+      this.modelProcess.ScreenplayId = this.valuesFromDetail;
+      this.modelProcess.Activity = 'ثبت قسمت ' +  this.model.Title ;
+      this.authService.processReg(this.modelProcess).subscribe(() => {
+      }, error => {
+        this.alertify.error('This is error from register Process');
+      }
+      );
       this.alertify.success('register succ...');
     }, error => {
       this.alertify.error('This is error from register EPISODE');

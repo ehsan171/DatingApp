@@ -257,6 +257,7 @@ this.gettingDataStatuses();
 this.loadScreenplay();
 
 this.values = this.route.snapshot.params['id'];
+
 }
 
 register2(){
@@ -294,7 +295,7 @@ onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 loadScreenplay() {
-  this.screenplayService.getScreenplay(+this.route.snapshot.params['id']).subscribe((screenplay: Screenplay[]) => {
+  this.screenplayService.getScreenplay(+this.route.snapshot.params.id).subscribe((screenplay: Screenplay[]) => {
     this.screenplay = screenplay;
     for (let index = 0; index < screenplay.length; index++) {
       this.dataScreenplay.push( {row: 0, id: 0, title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '' });

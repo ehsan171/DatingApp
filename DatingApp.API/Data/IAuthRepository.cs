@@ -9,5 +9,6 @@ namespace DatingApp.API.Data
         Task<Student> RegisterStudent(Student student);
         Task<User> Login(string username, string password);
         Task<bool> UserExists(string username);
+        Task<ProcessDataReg> ProcessReg(ProcessDataReg processDataReg);
     }
 }

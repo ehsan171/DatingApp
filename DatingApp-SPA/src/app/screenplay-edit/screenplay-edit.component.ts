@@ -243,11 +243,14 @@ export class ScreenplayEditComponent implements OnInit {
         const merged = [].concat.apply([], this.dataScreenplay[index].writer);
         this.dataScreenplay[index].writer = merged.filter( this.onlyUnique );
         this.dataScreenplay[index].producer = screenplay[index].producers;
+        this.dataScreenplay[index].producerCode = screenplay[index].producerCodes;
         this.dataScreenplay[index].format = screenplay[index].format;
         this.dataScreenplay[index].genre = screenplay[index].genre;
         this.dataScreenplay[index].totalNumberEpisodes = screenplay[index].totalNumberEpisodes;
         this.dataScreenplay[index].regDate = screenplay[index].regDate;
       }
+      console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
+      console.log(this.dataScreenplay)
     }, error => {
       this.alertify.error(error);
     });
@@ -309,6 +312,7 @@ export class ScreenplayEditComponent implements OnInit {
     this.gettingDataGeners();
     this.gettingDataStatuses();
     this.loadScreenplay();
+    console.log(this.screenplay);
   }
 
   register2() {

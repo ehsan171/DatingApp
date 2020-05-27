@@ -76,7 +76,7 @@ namespace DatingApp.API.Controllers
                     }
               
 
-                    return Ok(new { dbPath });
+                    return Ok( dbPath );
                 }
                 else
                 {

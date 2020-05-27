@@ -10,10 +10,11 @@ export interface Screenplay {
     episodeTitles?: EpisodeTitle[];
     genre?: string;
     producers?: Producer[];
+    producerCodes?: number[];
     writers?: Writer[];
     baravordNo?: string;
     totalNumberEpisodes?: number;
     format?: string;
     regDate: Date;
-    
+
 }

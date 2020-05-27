@@ -10,18 +10,27 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  constructor(public authService: AuthService, private alerfify: AlertifyService, private router: Router) { }
+  modelProcess: any = {};
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
   }
 
   login(){
     this.authService.login(this.model).subscribe(next => {
-      this.alerfify.success('Logged in succe...');
+      this.modelProcess.UserId = this.authService.decodedToken?.nameid;
+      this.modelProcess.Type = '1';
+      this.modelProcess.Activity = ' ورود کاربر ' +  this.authService.decodedToken?.unique_name ;
+      this.authService.processReg(this.modelProcess).subscribe(() => {
+          }, error => {
+            this.alertify.error('This is error from Process Registration');
+          }
+          );
+      this.alertify.success('Logged in succe...');
     }, error => {
-      this.alerfify.error('Failed to ...');
+      this.alertify.error('Failed to ...');
     }, () => {
-      this.router.navigate(['/members']);
+      this.router.navigate(['/screenplay']);
     });
   }
 
@@ -31,7 +40,15 @@ export class NavComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('token');
-    this.alerfify.message('logout...');
+    this.modelProcess.UserId = this.authService.decodedToken?.nameid;
+    this.modelProcess.Type = '2';
+    this.modelProcess.Activity = ' خروج کاربر ' +  this.authService.decodedToken?.unique_name ;
+    this.authService.processReg(this.modelProcess).subscribe(() => {
+        }, error => {
+          this.alertify.error('This is error from Process Registration');
+        }
+        );
+    this.alertify.message('logout...');
     this.router.navigate(['/home']);
   }
 

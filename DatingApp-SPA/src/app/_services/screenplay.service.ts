@@ -7,6 +7,8 @@ import { Screenplay } from '../_models/screenplay';
 import { Person } from '../_models/person';
 import { BasicData } from '../_models/basicData';
 import { Episode } from '../_models/episode';
+import { ScreenplayFormat } from '../_models/screenplayFormat';
+import { ScreenplayStatus } from '../_models/screenplayStatus';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -42,6 +44,12 @@ getPersons(): Observable<Person[]> {
 }
 getFormats(): Observable<BasicData[]> {
   return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/formats', httpOptions);
+}
+getFormatNumbers(): Observable<ScreenplayFormat[]> {
+  return this.http.get<ScreenplayFormat[]>(this.baseUrl + 'screenplay/formatReport', httpOptions);
+}
+getStatusNumbers(): Observable<ScreenplayStatus[]> {
+  return this.http.get<ScreenplayStatus[]>(this.baseUrl + 'screenplay/statusReport', httpOptions);
 }
 getStatuses(): Observable<BasicData[]> {
   return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/statuses', httpOptions);

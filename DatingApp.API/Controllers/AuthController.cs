@@ -50,6 +50,30 @@ namespace DatingApp.API.Controllers
             var createdStudent = await _repo.RegisterStudent(studentToCreate);
             return StatusCode(201);
         }
+        [HttpPost("processReg")]
+        public async Task<IActionResult> ProcessReg(ProcessDataForRegisterDto processDataForRegisterDto)
+        {
+            // validate request
+        
+           
+            
+            var processDataToCreate = new ProcessDataReg
+            {
+                Activity = processDataForRegisterDto.Activity,
+                Type = processDataForRegisterDto.Type,
+                UserId = processDataForRegisterDto.UserId,
+                ScreenplayId = processDataForRegisterDto.ScreenplayId,
+                Time = DateTime.Now
+
+            };
+
+            
+            
+
+            var createdUser = await _repo.ProcessReg(processDataToCreate);
+        
+            return StatusCode(201);
+        }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)

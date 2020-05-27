@@ -61,7 +61,17 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
 import { EpisodeDownloadComponent } from './episode-download/episode-download.component';
 import { EpisodeEditComponent } from './episode-edit/episode-edit.component';
-
+import { UploadTest2Component } from './upload-test2/upload-test2.component';
+import { AccumulationChartModule, ChartModule, CategoryService, DateTimeService,
+         ScrollBarService, ChartAnnotationService, RangeColumnSeriesService,
+         StackingColumnSeriesService, LineSeriesService, LegendService,
+         ColumnSeriesService, TooltipService} from '@syncfusion/ej2-angular-charts';
+import { ChartFormatAllComponent } from './chart-format-all/chart-format-all.component';
+import { PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationAnnotationService,
+   AccumulationDataLabelService } from '@syncfusion/ej2-angular-charts';
+import { ChartFormatAll2Component } from './chart-format-all2/chart-format-all2.component';
+import { ChartsModule } from 'ng2-charts';
+import { ChartStatusAllComponent } from './chart-status-all/chart-status-all.component';
 
 
 //  khat zir baraie checkbox ast pak shavad
@@ -97,7 +107,11 @@ enableRipple(true);
       TestDownloadComponent,
       EpisodeDownloadComponent,
       EpisodeEditComponent,
-      ScreenplayEditComponent
+      ScreenplayEditComponent,
+      UploadTest2Component,
+      ChartFormatAllComponent,
+      ChartFormatAll2Component,
+      ChartStatusAllComponent
    ],
    imports: [
       BrowserModule,
@@ -139,7 +153,10 @@ enableRipple(true);
       MaskedTextBoxModule,
       NumericTextBoxModule,
       PdfViewerModule,
-      FileUploadModule
+      FileUploadModule,
+      ChartModule,
+      AccumulationChartModule,
+      ChartsModule
    ],
    providers: [
       AuthService

@@ -1,29 +1,37 @@
+<div class="col-sm-10">
+  <div *ngIf="editForm.dirty" class="alert alert-info">
+    <span style="font-weight: bold;font-size: large; ">توجه: </span>شما تغییراتی در اطلاعات فیلمنامه ایجاد کرده اید. برای اعمال تغییرات لازم است بر روی دکمه ثبت کلیک نمایید.
+  </div>
+</div>
+
 <div class="container mt-5">
-  <form #editForm="ngForm" (ngSubmit)='register()'>
+
+  <form #editForm="ngForm" (ngSubmit)='updateScreenplay()'>
     <div class="container  text-right">
+
+
       <div class="row">
         <div class="col">
           <div class="form-group">
             <!-- <label for="screenplayTitleId" >عنوان فیلمنامه</label> -->
-            {{screenplays[0]['title']}}
+            <!-- {{screenplays[0]['title']}} -->
             <!-- <input type="text" class="form-control" id="screenplayTitleId" placeholder="عنوان فیلمنامه"> -->
-         <input   [value]="screenplays[0]['title']"> 
+         <!-- <input   [value]="screenplays[0]['title']">  -->
          
       
           <!-- <ejs-textbox [multiline]='false' [value]="screenplays[0]['title']">{{screenplays[0]['title']}}vcbcvbcvbc</ejs-textbox> -->
      
+          <textarea name="title" rows="1" class="form-control" [(ngModel)]="screenplay[0].title"></textarea>
             <ejs-autocomplete 
-                  [value]="screenplays[0]['title']"
-                  class="" enableRtl='true' 
+                  [(ngModel)]="screenplay[0].title"
+                  enableRtl='true' 
                   floatLabelType="Auto" 
                   id='screenplayTitleId'
                   name ='Title'
-                  
                   loatLabelType="Auto" 
-                 
                   [dataSource]='titleData' 
                   [placeholder]='text'
-                 >
+            >
             </ejs-autocomplete>
 
             <div class="invalid-feedback">پرکردن این قسمت ضروری است.</div>
@@ -57,15 +65,14 @@
           <div class="form-group">
             <!-- <label for="producer">تهیه کننده</label> -->
             <ejs-multiselect 
+                [(ngModel)]="screenplay[0].producerCodes"
                 enableRtl='true' 
-                [value]=[2,3]
                 name ='producer'
-                [(ngModel)]="model.producer"
                 floatLabelType="Auto" 
                 id='ddlelement' #samples 
                 [dataSource]='dataPerson'
                 [fields]='fieldsPerson' 
-                formControlName="producer"  
+               
                 [allowFiltering]='true'
                 (filtering)='onFilteringPerson($event)'>a
             </ejs-multiselect>
@@ -86,7 +93,7 @@
                 floatLabelType="Auto" 
                 id='baravordId'
                 formControlName="baravordNo" 
-                placeholder='Mask ###### (ex: 986543)'>
+                placeholder='شماره برآورد ###### (ex: 986543)'>
             </ejs-maskedtextbox>
 
                      </div>
@@ -227,6 +234,6 @@
 
   </form>
 </div>
-
+<!-- 
 <p>From value: {{screenplayEditForm.value | json}}</p>
-<p>From status: {{screenplayEditForm.status | json}}</p> 
+<p>From status: {{screenplayEditForm.status | json}}</p>  -->

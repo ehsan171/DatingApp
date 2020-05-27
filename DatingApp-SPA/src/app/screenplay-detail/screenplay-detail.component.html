@@ -6,7 +6,7 @@
           <div class="right-box">
           <div class="mt-2 col-r-d">
             <strong style="line-height: BTraffic;">عنوان فیلمنامه:</strong>
-            <span class="trfont">{{screenplay[0]['title'] || '--'}}</span>
+            <span class="trfont">{{screenplay[0].title || '--'}}</span>
           
           </div>
           
@@ -96,11 +96,6 @@
 
 
 
-            <tab heading="Basic Title 2">
-              
-              <app-upload  [valuesFromDetail]="values"></app-upload>
-             
-            </tab>
           </tabset>
           
           

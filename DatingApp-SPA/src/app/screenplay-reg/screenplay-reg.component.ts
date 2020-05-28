@@ -223,7 +223,7 @@ public onFilteringGenre: EmitType<any> =  (e: FilteringEventArgs) => {
 
 
 public focusIn(target: HTMLElement): void {
-  alert()
+  
   target.parentElement.classList.add('e-input-focus');
 }
 

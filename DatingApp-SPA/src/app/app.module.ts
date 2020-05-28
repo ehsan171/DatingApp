@@ -111,7 +111,8 @@ enableRipple(true);
       UploadTest2Component,
       ChartFormatAllComponent,
       ChartFormatAll2Component,
-      ChartStatusAllComponent
+      ChartStatusAllComponent,
+      
    ],
    imports: [
       BrowserModule,
@@ -156,7 +157,8 @@ enableRipple(true);
       FileUploadModule,
       ChartModule,
       AccumulationChartModule,
-      ChartsModule
+      ChartsModule,
+      
    ],
    providers: [
       AuthService

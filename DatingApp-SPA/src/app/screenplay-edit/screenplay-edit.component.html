@@ -22,9 +22,9 @@
       
           <!-- <ejs-textbox [multiline]='false' [value]="screenplays[0]['title']">{{screenplays[0]['title']}}vcbcvbcvbc</ejs-textbox> -->
      
-          <textarea name="title" rows="1" class="form-control" [(ngModel)]="dataScreenplay[0].title"></textarea>
+          <textarea name="title" rows="1" class="form-control"></textarea>
             <ejs-autocomplete 
-                  [(ngModel)]="screenplay[0].title"
+          
                   enableRtl='true' 
                   floatLabelType="Auto" 
                   id='screenplayTitleId'
@@ -66,7 +66,7 @@
           <div class="form-group">
             <!-- <label for="producer">تهیه کننده</label> -->
             <ejs-multiselect 
-                [(ngModel)]="screenplay[0].producerCodes"
+         
                 enableRtl='true' 
                 name ='producer'
                 floatLabelType="Auto" 
@@ -86,7 +86,7 @@
           <div class="form-group">
             <!-- <label for="baravordId" >شماره برآورد</label> -->
             <ejs-maskedtextbox 
-                [(ngModel)]="screenplay[0].baravordNo"
+ 
                 name ='baravordNo'
               
                 mask='999999' 
@@ -112,7 +112,7 @@
             <!-- <label for="totalNumberEpisodesId">تعداد قسمت</label> -->
             <ejs-numerictextbox 
                   format='n0' 
-                  [(ngModel)]="screenplay[0].totalNumberEpisodes"
+             
                   name ='totalNumberEpisodes'
                  
                   min=1 mask='9999' 
@@ -129,7 +129,7 @@
           <div class="form-group" style="margin-top: 4px;">
             <!-- <label for="formatId" >قالب</label> -->
             <ejs-dropdownlist 
-                  [(ngModel)]="screenplay[0].formatCodes[0]"
+   
                   name ='format'
                  
                   enableRtl='true' 
@@ -150,7 +150,7 @@
           <div class="form-group">
             <!-- <label for="genreId">ژانر</label> -->
             <ejs-multiselect 
-                [(ngModel)]="screenplay[0].genreCodes"
+
                 name ='genre'
               
                 enableRtl='true' 
@@ -175,7 +175,7 @@
             <!-- <label for="statusId" >وضعیت</label> -->
 
             <ejs-dropdownlist 
-            [(ngModel)]="screenplay[0].statusCodes"
+         
                 name ='status'
                
                 enableRtl='true' 
@@ -209,7 +209,7 @@
 
           <div class="e-input-group" style="margin-top: 18px;">
 
-            <input id="exa" class="e-input example1" type="text" (focus)="focusIn($event.target)"
+            <input id="exa" class="e-input exampleEdit" type="text" (focus)="focusIn($event.target)"
               placeholder="تاریخ ثبت" (blur)="focusOut($event.target)" autocomplete="off" />
             <span class="e-input-group-icon e-input-popup-date" (mouseup)="onMouseUp($event.target)"
               (mousedown)="onMouseDown($event.target)"></span>
@@ -238,6 +238,6 @@
   </form>
 </div>
 
-<p>From value: {{screenplayEditForm.value | json}}</p>
-<p>From status: {{screenplayEditForm.status | json}}</p>
+<!-- <p>From value: {{screenplayEditForm.value | json}}</p>
+<p>From status: {{screenplayEditForm.status | json}}</p> -->
 </ng-container>

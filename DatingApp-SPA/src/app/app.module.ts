@@ -57,7 +57,7 @@ import { EpisodeAllComponent } from './episode-all/episode-all.component';
 import { EpisodeRegComponent } from './episode-reg/episode-reg.component';
 import { Upload2Component } from './upload2/upload2.component';
 import { TestDownloadComponent } from './test-download/test-download.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+// import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FileUploadModule } from 'ng2-file-upload';
 import { EpisodeDownloadComponent } from './episode-download/episode-download.component';
 import { EpisodeEditComponent } from './episode-edit/episode-edit.component';
@@ -152,7 +152,7 @@ enableRipple(true);
       DataTablesModule,
       MaskedTextBoxModule,
       NumericTextBoxModule,
-      PdfViewerModule,
+      // PdfViewerModule,
       FileUploadModule,
       ChartModule,
       AccumulationChartModule,

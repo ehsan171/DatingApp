@@ -26,9 +26,9 @@ export class NavComponent implements OnInit {
             this.alertify.error('This is error from Process Registration');
           }
           );
-      this.alertify.success('Logged in succe...');
+      this.alertify.success('شما با موفقیت وارد سامانه شدید.');
     }, error => {
-      this.alertify.error('Failed to ...');
+      this.alertify.error('عدم موفقیت در ورود به سامانه');
     }, () => {
       this.router.navigate(['/screenplay']);
     });

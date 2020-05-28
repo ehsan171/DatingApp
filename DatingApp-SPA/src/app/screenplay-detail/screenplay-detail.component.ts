@@ -96,7 +96,7 @@ public textTotalNumberEpisodes = 'تعداد قسمت ';
 // Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start ---
 public textBaravord = 'شماره برآورد';
 
-public dataScreenplay: { [key: string]: Object }[] = [];
+public dataScreenplay: { [key: string]: any }[] = [];
 // Baravord End --- Baravord End --- Baravord End --- Baravord End --- Baravord End ---
 
 
@@ -256,7 +256,8 @@ this.gettingDataGeners();
 this.gettingDataStatuses();
 this.loadScreenplay();
 
-this.values = this.route.snapshot.params['id'];
+const newLocal = 'id';
+this.values = this.route.snapshot.params[newLocal];
 
 }
 

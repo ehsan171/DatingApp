@@ -19,18 +19,24 @@ confirm(message: string, okCallback: () => any){
 }
 
 success(message: string){
+  alertify.set('notifier', 'delay', 5);
   alertify.success(message);
 }
 
 error(message: string){
+
+  alertify.set('notifier', 'delay', 5);
+
   alertify.error(message);
 }
 
 warning(message: string){
+  alertify.set('notifier', 'delay', 5);
   alertify.warning(message);
 }
 
 message(message: string){
+  alertify.set('notifier', 'delay', 5);
   alertify.message(message);
 }
 

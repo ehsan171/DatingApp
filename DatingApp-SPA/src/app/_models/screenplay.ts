@@ -7,14 +7,17 @@ export interface Screenplay {
     title: string;
     orgStructure?: string;
     status?: string;
+    statusCodes: number;
     episodeTitles?: EpisodeTitle[];
     genre?: string;
+    genreCodes?: number[];
     producers?: Producer[];
     producerCodes?: number[];
     writers?: Writer[];
     baravordNo?: string;
     totalNumberEpisodes?: number;
     format?: string;
+    formatCodes?: number[];
     regDate: Date;
 
 }

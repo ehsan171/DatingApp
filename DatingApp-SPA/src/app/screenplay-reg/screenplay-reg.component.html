@@ -51,10 +51,13 @@
       <div class="col">
         <div class="form-group">
           <!-- <label for="baravordId" >شماره برآورد</label> -->
-          <ejs-maskedtextbox mask='999999' 
-          enableRtl='true' floatLabelType="Auto" 
-          id='baravordId' formControlName="baravordNo"  
-          placeholder='Mask ###### (ex: 986543)'
+          <ejs-maskedtextbox 
+          mask='999999' 
+          enableRtl='true' 
+          floatLabelType="Auto" 
+          id='baravordId' 
+          formControlName="baravordNo"  
+          placeholder='شماره برآورد: ###### (ex: 986543)'
           [ngClass]="{'is-invalid':screenplayRegForm.get('baravordNo').errors &&
             screenplayRegForm.get('baravordNo').touched}">
           </ejs-maskedtextbox>
@@ -92,7 +95,7 @@
       <div class="col">
         <div class="form-group" style="margin-top: 4px;">
           <!-- <label for="totalNumberEpisodesId">تعداد قسمت</label> -->
-          <ejs-numerictextbox   format='n0' value=1 min=1   mask='9999' enableRtl='true' floatLabelType="Auto" id='totalNumberEpisodesId' formControlName="totalNumberEpisodes" [placeholder]='textTotalNumberEpisodes'></ejs-numerictextbox >
+          <ejs-numerictextbox   format='n0' min=1   mask='9999' enableRtl='true' floatLabelType="Auto" id='totalNumberEpisodesId' formControlName="totalNumberEpisodes" [placeholder]='textTotalNumberEpisodes'></ejs-numerictextbox >
         </div>
       </div>
 
@@ -158,8 +161,8 @@
 
 
   <div class="form-group text-center">
-    <button class="btn btn-success regbtn" type="submit">Register</button>
-    <button class="btn btn-default" type="button" (click)='cancel()'>Cancel</button>
+    <button class="btn btn-success regbtn" type="submit">ثبت</button>
+    <button class="btn btn-default" type="button" (click)='cancel()'>انصراف</button>
   </div>
   
 </form>

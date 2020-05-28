@@ -32,7 +32,7 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
 
-              "./src/assets/library/js/persian-date.min.js",
+              
               "./src/assets/library/js/persian-datepicker.min.js",
               "./node_modules/chart.js/dist/Chart.js",
               "./node_modules/hammerjs/hammer.min.js",

@@ -14,7 +14,7 @@ import { BasicData } from '../_models/basicData';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Status } from '../_models/status';
 import { data } from '../test_data/datasource';
-
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -29,7 +29,8 @@ export class ScreenplayRegComponent implements OnInit {
   constructor(private screenplayService: ScreenplayService,
               private userService: UserService,
               private authService: AuthService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService,
+              private router: Router) { }
 
   @Input() valuesFromDetail;
   @Output() cancelRegister = new EventEmitter();
@@ -52,6 +53,7 @@ export class ScreenplayRegComponent implements OnInit {
     genre: [],
 };
 myDate: any;
+id: any;
 
 public sportsData: string[] = [];
 public titleData: string[] = [];
@@ -331,7 +333,7 @@ ngOnInit() {
   }
 
   register(){
-
+    
     const el = document.querySelector('table tr td');
     // alert((document.getElementById('exa2') as HTMLInputElement).value);
     const regDate = (document.getElementById('exa') as HTMLInputElement).value;
@@ -351,7 +353,7 @@ ngOnInit() {
 
         // this.model.regDate =  '5/21/2020';
 
-        this.screenplayService.register(this.model).subscribe(() => {
+        this.screenplayService.register(this.model).subscribe(res => {
 
           this.modelProcess.UserId = this.authService.decodedToken?.nameid;
           this.modelProcess.Type = '3';
@@ -361,11 +363,17 @@ ngOnInit() {
             this.alertify.error('This is error from register Process');
           }
           );
-          this.alertify.success('register succ...');
+
+          this.alertify.success('فیلمنامه «' + this.model.Title + '» باموفقیت ثبت شد.');
+          this.router.navigate(['/screenplay/' + res['data'].id]);
         }, error => {
           this.alertify.error('This is error from register sssssstest');
         }
         );
+      }
+      else{
+
+        this.alertify.error('ثبت تمامی قسمت ها الزامی می باشد');
       }
 
   }

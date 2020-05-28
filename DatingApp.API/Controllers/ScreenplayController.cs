@@ -106,6 +106,7 @@ namespace DatingApp.API.Controllers
                                 TotalNumberEpisodes =x.TotalNumberEpisodes,
                                 OrgStructure = x.OrgStructure.Name,
                                 Status = x.Status.Name,
+                                StatusCodes = x.Status.Id,
                                 EpisodeTitles = x.Episodes.Select(s => 
                                 
                                 new{
@@ -118,6 +119,11 @@ namespace DatingApp.API.Controllers
 
                                 } ),
                                 Genre = x.ScreenplayGenres.Select(s => s.BasicData).Select(g => g.Name),
+                                GenreCodes = x.ScreenplayGenres
+                                    .Select(s => s.BasicDataId),
+                                Format = x.ScreenplayFormats.Select(s => s.BasicData).Select(g => g.Name),
+                                FormatCodes = x.ScreenplayFormats
+                                    .Select(s => s.BasicDataId),
                                 Producers = x.ScreenplayProducers
                                     .Select(s => s.Producer)
                                         .Select(g =>g.FirstName + ' ' + g.LastName),
@@ -128,6 +134,7 @@ namespace DatingApp.API.Controllers
                                     .Select(s => s.EpisodeWriters
                                         .Select(w => w.Writer)
                                             .Select(a => a.FirstName + ' ' + a.LastName)),
+                                
                                 Concept = x.Episodes
                                     .Select(s => s.EpisodeConcepts
                                         .Select(w => w.BasicData)
@@ -135,6 +142,7 @@ namespace DatingApp.API.Controllers
                                                 ConceptName = a.Name,
                                                 
                                 })),
+
 
   })
      
@@ -219,7 +227,10 @@ namespace DatingApp.API.Controllers
               
 
           var createdS = await _repo.RegisterScreenplay(screenplayToCreate,  otherData);
-            return StatusCode(201);
+            // return StatusCode(201);
+            return StatusCode(201, new {
+    data = new { id = screenplayToCreate.Id }
+});
         }
 
         [AllowAnonymous]

@@ -108,3 +108,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .rtl{
     direction: rtl;
 }
+.alertify-notifier .ajs-message.ajs-error{
+  color: #fff;
+  background: rgba(217, 92, 92, 0,95);
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0,5);
+  direction: rtl;
+  font-family: BTraffic;
+}
+
+.alertify-notifier .ajs-message.ajs-success{
+ 
+  direction: rtl;
+  font-family: BTraffic;
+}
+
+.regbtn{
+  min-width: 75px;
+}

@@ -62,10 +62,10 @@ export class ScreenplayEditComponent implements OnInit {
 
   // defined the array of data
 
-  public dataPerson: { [key: string]: Object }[] = [];
-  public dataFormat: { [key: string]: Object }[] = [];
-  public dataStatus: { [key: string]: Object }[] = [];
-  public dataGenre: { [key: string]: Object }[] = [];
+  public dataPerson: { [key: string]: any }[] = [];
+  public dataFormat: { [key: string]: any }[] = [];
+  public dataStatus: { [key: string]: any }[] = [];
+  public dataGenre: { [key: string]: any }[] = [];
 
   public fieldsPerson: object = { text: 'name', value: 'id' };
   public fieldsFormat: object = { text: 'name', value: 'id' };
@@ -80,7 +80,7 @@ export class ScreenplayEditComponent implements OnInit {
   public textOrgStructure = 'ساختار سازمانی';
   public textTotalNumberEpisodes = 'تعداد قسمت ';
   public textBaravord = 'شماره برآورد';
-  public dataScreenplay: { [key: string]: Object }[] = [];
+  public dataScreenplay: { [key: string]: any }[] = [];
 
   gettingDataTitle() {
     this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
@@ -134,6 +134,7 @@ export class ScreenplayEditComponent implements OnInit {
         this.dataFormat[index].id = formats[index].id;
         this.dataFormat[index].name = formats[index].name;
       }
+
     }, error => {
       this.alertify.error('This is from format');
     }
@@ -160,6 +161,7 @@ export class ScreenplayEditComponent implements OnInit {
         this.dataStatus[index].id = statuses[index].id;
         this.dataStatus[index].name = statuses[index].name;
       }
+      console.log(this.dataGenre);
     }, error => {
       this.alertify.error('This is from status');
     }
@@ -245,12 +247,12 @@ export class ScreenplayEditComponent implements OnInit {
         this.dataScreenplay[index].producer = screenplay[index].producers;
         this.dataScreenplay[index].producerCode = screenplay[index].producerCodes;
         this.dataScreenplay[index].format = screenplay[index].format;
+        this.dataScreenplay[index].formatCode = screenplay[index].formatCodes;
         this.dataScreenplay[index].genre = screenplay[index].genre;
         this.dataScreenplay[index].totalNumberEpisodes = screenplay[index].totalNumberEpisodes;
         this.dataScreenplay[index].regDate = screenplay[index].regDate;
       }
-      console.log('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-      console.log(this.dataScreenplay)
+
     }, error => {
       this.alertify.error(error);
     });
@@ -258,14 +260,14 @@ export class ScreenplayEditComponent implements OnInit {
 
   ngOnInit() {
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
       $('.example1').pDatepicker({
         observer: true,
         format: 'YYYY/MM/DD',
         altField: '.observer-example-alt',
         initialValue: false,
-        onSelect: function (dateText) {
+        onSelect: function(dateText) {
           $('#exa2').val(dateText);
           // alert(dateText)
 
@@ -275,9 +277,9 @@ export class ScreenplayEditComponent implements OnInit {
 
     });
 
-    $('.awsome_input').focusin(function () {
+    $('.awsome_input').focusin(function() {
       $('#tool-tip').show();
-    }).change(function () {
+    }).change(function() {
       //  alert($(this).val());
       if ($(this).val() === '') {
         if ($(this).val() === '') {
@@ -288,7 +290,7 @@ export class ScreenplayEditComponent implements OnInit {
     });
 
 
-    this.screenplayEditForm = new FormGroup({ 
+    this.screenplayEditForm = new FormGroup({
       Title: new FormControl(),
 
       orgStructure: new FormControl(),
@@ -330,6 +332,7 @@ export class ScreenplayEditComponent implements OnInit {
   }
 
   register() {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaa')
 
     const el = document.querySelector('table tr td');
     // alert((document.getElementById('exa2') as HTMLInputElement).value);

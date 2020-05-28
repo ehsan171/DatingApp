@@ -1,3 +1,4 @@
+<ng-container *ngIf="screenplay">
 <div class="col-sm-10">
   <div *ngIf="editForm.dirty" class="alert alert-info">
     <span style="font-weight: bold;font-size: large; ">توجه: </span>شما تغییراتی در اطلاعات فیلمنامه ایجاد کرده اید. برای اعمال تغییرات لازم است بر روی دکمه ثبت کلیک نمایید.
@@ -6,7 +7,7 @@
 
 <div class="container mt-5">
 
-  <form #editForm="ngForm" (ngSubmit)='updateScreenplay()'>
+  <form #editForm="ngForm" >
     <div class="container  text-right">
 
 
@@ -21,7 +22,7 @@
       
           <!-- <ejs-textbox [multiline]='false' [value]="screenplays[0]['title']">{{screenplays[0]['title']}}vcbcvbcvbc</ejs-textbox> -->
      
-          <textarea name="title" rows="1" class="form-control" [(ngModel)]="screenplay[0].title"></textarea>
+          <textarea name="title" rows="1" class="form-control" [(ngModel)]="dataScreenplay[0].title"></textarea>
             <ejs-autocomplete 
                   [(ngModel)]="screenplay[0].title"
                   enableRtl='true' 
@@ -85,14 +86,14 @@
           <div class="form-group">
             <!-- <label for="baravordId" >شماره برآورد</label> -->
             <ejs-maskedtextbox 
-                [value]="screenplays[0]['baravordNo']"
+                [(ngModel)]="screenplay[0].baravordNo"
                 name ='baravordNo'
-                [(ngModel)]="model.baravordNo"
+              
                 mask='999999' 
                 enableRtl='true' 
                 floatLabelType="Auto" 
                 id='baravordId'
-                formControlName="baravordNo" 
+               
                 placeholder='شماره برآورد ###### (ex: 986543)'>
             </ejs-maskedtextbox>
 
@@ -111,14 +112,14 @@
             <!-- <label for="totalNumberEpisodesId">تعداد قسمت</label> -->
             <ejs-numerictextbox 
                   format='n0' 
-                  [value]="screenplays[0]['totalNumberEpisodes']"
+                  [(ngModel)]="screenplay[0].totalNumberEpisodes"
                   name ='totalNumberEpisodes'
-                  [(ngModel)]="model.totalNumberEpisodes"
+                 
                   min=1 mask='9999' 
                   enableRtl='true' 
                   floatLabelType="Auto"
                   id='totalNumberEpisodesId' 
-                  formControlName="totalNumberEpisodes" 
+                  
                   [placeholder]='textTotalNumberEpisodes'>
             </ejs-numerictextbox>
           </div>
@@ -128,15 +129,15 @@
           <div class="form-group" style="margin-top: 4px;">
             <!-- <label for="formatId" >قالب</label> -->
             <ejs-dropdownlist 
-                  [value]=9
+                  [(ngModel)]="screenplay[0].formatCodes[0]"
                   name ='format'
-                  [(ngModel)]="model.format"
+                 
                   enableRtl='true' 
                   floatLabelType="Auto" 
                   id='formatId' #samples 
                   [dataSource]='dataFormat'
                   [fields]='fieldsFormat' 
-                  formControlName="format" 
+                  
                   [placeholder]='textFormat' 
                   [allowFiltering]='true'
                   (filtering)='onFilteringFormat($event)'>a
@@ -149,15 +150,15 @@
           <div class="form-group">
             <!-- <label for="genreId">ژانر</label> -->
             <ejs-multiselect 
-                [value]=[1,2]
+                [(ngModel)]="screenplay[0].genreCodes"
                 name ='genre'
-                [(ngModel)]="model.genre"
+              
                 enableRtl='true' 
                 floatLabelType="Auto" 
                 id='genreId' #samples 
                 [dataSource]='dataGenre'
                 [fields]='fieldsGenre' 
-                formControlName="genre" 
+        
                 [placeholder]='textGenre' 
                 [allowFiltering]='true'
                 (filtering)='onFilteringGenre($event)'>a
@@ -172,16 +173,17 @@
         <div class="col">
           <div class="form-group">
             <!-- <label for="statusId" >وضعیت</label> -->
+
             <ejs-dropdownlist 
-                [value] = 1
+            [(ngModel)]="screenplay[0].statusCodes"
                 name ='status'
-                [(ngModel)]="model.status"
+               
                 enableRtl='true' 
                 floatLabelType="Auto" 
                 id='statusId' #samples 
                 [dataSource]='dataStatus'
                 [fields]='fieldsStatus' 
-                formControlName="statusId" 
+              
                 [placeholder]='textStatus' 
                 [allowFiltering]='true'
                 (filtering)='onFilteringStatus($event)'>a
@@ -191,12 +193,13 @@
         </div>
 
         <div class="col">
-
+{{screenplay[0].regDate}}
           <input id='exa2' 
-              [value]="screenplays[0]['regDate']"
+          [value]="screenplay[0].regDate"
               name ='regDate'
               [(ngModel)]="model.regDate"
-              formControlName="regDate" style="display: none;">
+             
+              style="display: none;">
 
         </div>
 
@@ -228,12 +231,13 @@
 
 
     <div class="form-group text-center">
-      <button class="btn btn-success regbtn" type="submit">Register</button>
-      <button class="btn btn-default" type="button" (click)='cancel()'>Cancel</button>
+      <button class="btn btn-success regbtn" type="submit">ثبت</button>
+      <button class="btn btn-default" type="button" (click)='cancel()'>انصراف</button>
     </div>
 
   </form>
 </div>
-<!-- 
+
 <p>From value: {{screenplayEditForm.value | json}}</p>
-<p>From status: {{screenplayEditForm.status | json}}</p>  -->
+<p>From status: {{screenplayEditForm.status | json}}</p>
+</ng-container>

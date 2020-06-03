@@ -14,7 +14,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  baseUrl = environment.apiUrl;
+  // baseUrl = environment.apiUrl;
+  baseUrl = 'http://localhost:5000/api/';
 
 constructor(private http: HttpClient) { }
 

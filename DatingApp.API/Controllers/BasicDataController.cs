@@ -62,5 +62,21 @@ namespace DatingApp.API.Controllers
             return Ok(genres);
         }
         
+        [AllowAnonymous]
+        [HttpGet("concepts")]
+        public async Task<IActionResult> GetConcepts()
+        {
+            var concepts = await _context.BasicDatas
+            .Where(concept => concept.Type == "3")
+            .Select(x => new{
+                Id = x.Id,
+                Name = x.Name,
+                Parent = x.Parent
+            } )
+            .ToListAsync();
+            
+            return Ok(concepts);
+        }
+        
     }
 }

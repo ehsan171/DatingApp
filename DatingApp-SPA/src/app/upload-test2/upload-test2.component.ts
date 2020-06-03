@@ -12,7 +12,8 @@ export class UploadTest2Component implements OnInit {
   @Output() uploadName = new EventEmitter();
   uploader: FileUploader;
   hasBaseDropZoneOver: false;
-  baseUrl = environment.apiUrl;
+  // baseUrl = environment.apiUrl;
+  baseUrl = 'http://localhost:5000/api/';
 
 
   constructor() {

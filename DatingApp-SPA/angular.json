@@ -26,7 +26,7 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "./node_modules/animate.css/animate.css",
+          
               "src/styles.css"
             ],
             "scripts": [
@@ -34,9 +34,9 @@
 
               "./src/assets/library/js/persian-date.min.js",
               "./src/assets/library/js/persian-datepicker.min.js",
-              "./node_modules/chart.js/dist/Chart.js",
-              "./node_modules/hammerjs/hammer.min.js",
-              "./node_modules/datatables.net/js/jquery.dataTables.js"
+              "./node_modules/chart.js/dist/Chart.js"
+              
+             
              
               
             ]
@@ -60,12 +60,12 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4.75mb",
+                  "maximumError": "5.2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
+                  "maximumWarning": "9kb",
                   "maximumError": "10kb"
                 }
               ]

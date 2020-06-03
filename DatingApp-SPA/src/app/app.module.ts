@@ -15,8 +15,8 @@ import { MemberListComponent } from './member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ListsComponent } from './lists/lists.component';
 import { appRoutes } from './routes';
-import {AuthGuard} from './_guards/auth.guard';
-import {UserService} from './_services/user.service';
+// import {AuthGuard} from './_guards/auth.guard';
+// import {UserService} from './_services/user.service';
 import { ScreenplayRegComponent } from './screenplay-reg/screenplay-reg.component';
 import { ScreenplayComponent } from './screenplay/screenplay.component';
 import { CheckBoxModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
@@ -40,7 +40,7 @@ import { ScreenplayEditComponent } from './screenplay-edit/screenplay-edit.compo
 import { UploadComponent } from './upload/upload.component';
 import { Test2Component } from './test2/test2.component';
 import { AgTableModule } from 'ag-table';
-import { FancyGridModule } from 'fancy-grid-angular';
+
 // import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { EposidesComponent } from './eposides/eposides.component';
 import { Test3Component } from './test3/test3.component';
@@ -49,9 +49,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+// import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataTablesModule } from 'angular-datatables';
+// import { DataTablesModule } from 'angular-datatables';
 import { EpisodeComponent } from './episode/episode.component';
 import { EpisodeAllComponent } from './episode-all/episode-all.component';
 import { EpisodeRegComponent } from './episode-reg/episode-reg.component';
@@ -62,13 +62,9 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { EpisodeDownloadComponent } from './episode-download/episode-download.component';
 import { EpisodeEditComponent } from './episode-edit/episode-edit.component';
 import { UploadTest2Component } from './upload-test2/upload-test2.component';
-import { AccumulationChartModule, ChartModule, CategoryService, DateTimeService,
-         ScrollBarService, ChartAnnotationService, RangeColumnSeriesService,
-         StackingColumnSeriesService, LineSeriesService, LegendService,
-         ColumnSeriesService, TooltipService} from '@syncfusion/ej2-angular-charts';
-import { ChartFormatAllComponent } from './chart-format-all/chart-format-all.component';
-import { PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationAnnotationService,
-   AccumulationDataLabelService } from '@syncfusion/ej2-angular-charts';
+import { AccumulationChartModule, ChartModule} from '@syncfusion/ej2-angular-charts';
+// import { PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationAnnotationService,
+//    AccumulationDataLabelService } from '@syncfusion/ej2-angular-charts';
 import { ChartFormatAll2Component } from './chart-format-all2/chart-format-all2.component';
 import { ChartsModule } from 'ng2-charts';
 import { ChartStatusAllComponent } from './chart-status-all/chart-status-all.component';
@@ -109,7 +105,6 @@ enableRipple(true);
       EpisodeEditComponent,
       ScreenplayEditComponent,
       UploadTest2Component,
-      ChartFormatAllComponent,
       ChartFormatAll2Component,
       ChartStatusAllComponent,
       
@@ -139,7 +134,7 @@ enableRipple(true);
       TreeViewModule,
       UploaderModule,
       AgTableModule,
-      FancyGridModule,
+
       //BackButtonDisableModule.forRoot(),
       MatTableModule,
       MatFormFieldModule,
@@ -148,9 +143,9 @@ enableRipple(true);
       MatPaginatorModule,
       MatSortModule,
       MatInputModule,
-      MDBBootstrapModule.forRoot(),
+      // MDBBootstrapModule.forRoot(),
       NgbModule,
-      DataTablesModule,
+      // DataTablesModule,
       MaskedTextBoxModule,
       NumericTextBoxModule,
       // PdfViewerModule,

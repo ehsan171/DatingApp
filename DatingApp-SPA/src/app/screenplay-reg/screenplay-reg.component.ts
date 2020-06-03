@@ -223,7 +223,7 @@ public onFilteringGenre: EmitType<any> =  (e: FilteringEventArgs) => {
 
 
 public focusIn(target: HTMLElement): void {
-  
+
   target.parentElement.classList.add('e-input-focus');
 }
 
@@ -334,7 +334,7 @@ ngOnInit() {
   }
 
   register(){
-    
+
     const el = document.querySelector('table tr td');
     // alert((document.getElementById('exa2') as HTMLInputElement).value);
     const regDate = (document.getElementById('exa') as HTMLInputElement).value;

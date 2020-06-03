@@ -21,7 +21,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ScreenplayService {
-  baseUrl = environment.apiUrl;
+  // baseUrl = environment.apiUrl;
+  baseUrl = 'http://localhost:5000/api/';
 
 constructor(
   private http: HttpClient,
@@ -44,6 +45,9 @@ getPersons(): Observable<Person[]> {
 }
 getFormats(): Observable<BasicData[]> {
   return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/formats', httpOptions);
+}
+getConcepts(): Observable<BasicData[]> {
+  return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/concepts', httpOptions);
 }
 getFormatNumbers(): Observable<ScreenplayFormat[]> {
   return this.http.get<ScreenplayFormat[]>(this.baseUrl + 'screenplay/formatReport', httpOptions);

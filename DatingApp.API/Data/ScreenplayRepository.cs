@@ -72,16 +72,15 @@ namespace DatingApp.API.Data
         public async Task<Screenplay> RegisterScreenplay (Screenplay screenplay, Dictionary<string, object> otherData )
         {
         
-        screenplay.OrgStructureId = 2;
-        
-        
             await _context.Screenplays.AddAsync(screenplay);
             await _context.SaveChangesAsync();
 
             int formats = (int) otherData["Formats"];
             List<int> genres = (List<int>) otherData["Genres"];
             List<int> producers = (List<int>) otherData["Producers"];
-            
+            List<int> orgStructures = (List<int>) otherData["OrgStructures"];
+        
+    
 // var names = new List<string>() { "John", "Tom", "Peter" };
             foreach (int genre in genres)
             {
@@ -90,7 +89,7 @@ namespace DatingApp.API.Data
                     BasicDataId = genre,
                     ScreenplayId = screenplay.Id,
                 };
-
+     
                 await _context.ScreenplayGenres.AddAsync(scGeToCreate);
                 await _context.SaveChangesAsync();
             }
@@ -119,6 +118,19 @@ namespace DatingApp.API.Data
                 
             }
        
+        foreach (int org in orgStructures)
+            {
+              
+                var screenOrgToCreate = new ScreenplayOrgStructure
+                {
+                    OrgStructureId = org,
+                    ScreenplayId = screenplay.Id,
+                    
+                };
+
+                await _context.ScreenplayOrgStructures.AddAsync(screenOrgToCreate);
+                await _context.SaveChangesAsync();
+            }
 
             var scForToCreate = new ScreenplayFormat
                 {

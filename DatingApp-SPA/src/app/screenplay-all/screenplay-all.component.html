@@ -30,6 +30,7 @@
       <td mat-cell *matCellDef="let element" class="tar font-td"> {{element.title}} </td>
       
     </ng-container>
+    
  
     <ng-container matColumnDef="baravordNo">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="title" style="width:10%"> شماره برآورد </th>
@@ -55,6 +56,14 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="title" style="padding-left: 15px;"> ژانر </th>
       <td mat-cell *matCellDef="let element"  class="tar font-td" style="padding-left: 15px;"> {{element.genre}} </td>
     </ng-container>
+    
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="title" >جزئیات </th>
+      <td mat-cell *matCellDef="let element"  class="tar font-td"> 
+        <!-- <app-episode-download [valuesFromEpisodeAll]="element.concept"></app-episode-download> </td> -->
+    
+        <a href="/screenplay/{{element.id}}"><i class="fa fa-plus-square fa-1x "></i></a>
+      </ng-container>
     
     
    

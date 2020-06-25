@@ -15,6 +15,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Status } from '../_models/status';
 import { data } from '../test_data/datasource';
 import { Router } from '@angular/router';
+import { OrgStructure } from '../_models/orgStructure';
 
 declare var $: any;
 
@@ -40,6 +41,7 @@ export class ScreenplayRegComponent implements OnInit {
   users: User[];
   persons: Person[];
   formats: BasicData[];
+  orgs: OrgStructure[];
   statuses: Status[];
   genres: BasicData[];
   screenplays: Screenplay[];
@@ -244,7 +246,35 @@ public onMouseUp(target: HTMLElement): void {
 }
 
 
+public data: { [key: string]: any }[] = [];
 
+
+public orgFields: any = [];
+
+// defining fieldMapping
+gettingDataOrgs() {
+
+  this.screenplayService.getOrgs().subscribe((orgs: OrgStructure[]) => {
+    this.orgs = orgs;
+    for (let index = 0; index < orgs.length; index++) {
+      this.data.push({ id: '', pid: '', name: '', hasChild: true, expanded: true });
+      this.data[index].id = orgs[index].id;
+      this.data[index].name = orgs[index].name;
+      this.data[index].pid = orgs[index].parentId;
+      this.data[index].isinner = orgs[index].isInner;
+      this.data[index].orgId = orgs[index].orgId;
+      this.data[index].hasChild = true;
+      this.data[index].expanded = false;
+    }
+    this.orgFields = { dataSource: this.data, value: 'id', text: 'name', parentValue: 'pid', hasChildren: 'hasChild' };
+
+    console.log(this.data);
+  }, error => {
+    this.alertify.error('This is from format');
+  }
+  );
+
+}
 ngOnInit() {
 
   $(document).ready(function() {
@@ -304,10 +334,6 @@ ngOnInit() {
       format: new FormControl(),
       statusId: new FormControl(),
       genre: new FormControl(),
-      username: new FormControl(),
-      password: new FormControl(),
-      conformPassword: new FormControl(),
-      photoUrl: new FormControl(),
       regDate: new FormControl(),
 
   });
@@ -317,6 +343,10 @@ ngOnInit() {
   this.gettingDataFormats();
   this.gettingDataGeners();
   this.gettingDataStatuses();
+  this.gettingDataOrgs();
+  this.screenplayRegForm.patchValue({
+    orgStructure: []
+  });
   }
 
   register2(){
@@ -353,7 +383,8 @@ ngOnInit() {
         // this.myDate = new Date();
 
         // this.model.regDate =  '5/21/2020';
-
+        // this.model.orgStructure = [1];
+        console.log(this.model);
         this.screenplayService.register(this.model).subscribe(res => {
 
           this.modelProcess.UserId = this.authService.decodedToken?.nameid;

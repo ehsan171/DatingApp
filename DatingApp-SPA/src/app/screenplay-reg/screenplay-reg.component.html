@@ -24,17 +24,27 @@
       </div>
     
      
-    </div>
+    </div> 
     <div class="row">
 
       <div class="col">
         <div class="form-group">
           <!-- <label for="orgStructureId">ساختار سازمانی</label> -->
-          <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='orgStructureId' 
+          <!-- <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='orgStructureId' 
           #samples [dataSource]='dataPerson' 
           [fields]='' formControlName="orgStructure" 
           [placeholder]='textOrgStructure' [allowFiltering]='true' 
-          (filtering)='onFilteringPerson($event)'>a</ejs-dropdownlist>
+          (filtering)='onFilteringPerson($event)'>a</ejs-dropdownlist> -->
+
+          
+          <ejs-dropdowntree 
+              enableRtl='true' 
+              id='conceptId' 
+              [fields]='orgFields' 
+              formControlName="orgStructure"
+              [placeholder]='textOrgStructure' 
+              [showCheckBox]='true'></ejs-dropdowntree>
+
 
         </div>
       </div>

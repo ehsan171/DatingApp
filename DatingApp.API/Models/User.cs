@@ -10,8 +10,9 @@ namespace DatingApp.API.Models
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string photoUrl { get; set; }
+        public int? OrgId { get; set; }
         public DateTime Created { get; set; }
-        public DateTime LastActive { get; set; }
+        public DateTime? LastActive { get; set; }
         public ICollection <Photo> Photos { get; set; }
     }
 }

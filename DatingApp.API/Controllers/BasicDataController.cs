@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
 
 namespace DatingApp.API.Controllers
 {
@@ -66,6 +67,7 @@ namespace DatingApp.API.Controllers
         [HttpGet("concepts")]
         public async Task<IActionResult> GetConcepts()
         {
+            
             var concepts = await _context.BasicDatas
             .Where(concept => concept.Type == "3")
             .Select(x => new{
@@ -76,6 +78,25 @@ namespace DatingApp.API.Controllers
             .ToListAsync();
             
             return Ok(concepts);
+        }
+        
+        [AllowAnonymous]
+        [HttpGet("orgs")]
+        public async Task<IActionResult> GetOrgs()
+        {
+            
+            var orgs = await _context.OrgStructures
+           
+            .Select(x => new{
+                Id = x.Id,
+                Name = x.Name,
+                ParentId = x.ParentId,
+                IsInner = x.IsInner,
+                OrgId = x.OrgId
+            } )
+            .ToListAsync();
+            
+            return Ok(orgs);
         }
         
     }

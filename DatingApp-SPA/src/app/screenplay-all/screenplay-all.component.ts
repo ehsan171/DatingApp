@@ -18,7 +18,7 @@ import { ViewEncapsulation } from '@angular/core';
 
 
 const ELEMENT_DATA2: PeriodicElement2[] = [
-  {row: 1, id: 1, title: '', format: '', genre: '', baravordNo: '', producer: '', writer: ''},
+  {row: 1, id: 1, title: '', format: '', genre: '', baravordNo: '', producer: '', writer: '', url: ''},
 ];
 export interface PeriodicElement2 {
 
@@ -30,6 +30,7 @@ export interface PeriodicElement2 {
   producer: any;
   format: string;
   genre: string;
+  url: string;
 }
 @Component({
   selector: 'app-screenplay-all',
@@ -40,7 +41,7 @@ export interface PeriodicElement2 {
 export class ScreenplayAllComponent implements OnInit {
   dataSource2: MatTableDataSource<PeriodicElement2>;
 
-  displayedColumns: string[] = ['row', 'id', 'title', 'baravordNo', 'writer', 'producer', 'format', 'genre'];
+  displayedColumns: string[] = ['row', 'id', 'title', 'baravordNo', 'writer', 'producer', 'format', 'genre', 'url'];
 
   public dataScreenplay2: PeriodicElement2[] = [];
   screenplays2: any[];
@@ -56,7 +57,7 @@ export class ScreenplayAllComponent implements OnInit {
     this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
       this.screenplays2 = screenplays;
       for (let index = 0; index < screenplays.length; index++) {
-        this.dataScreenplay2.push( {row: 0, id: 0, title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '' });
+        this.dataScreenplay2.push( {row: 0, id: 0, title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '', url: '' });
         this.dataScreenplay2[index].row = index + 1;
         this.dataScreenplay2[index].id = screenplays[index].id;
         this.dataScreenplay2[index].title = screenplays[index].title;
@@ -67,6 +68,7 @@ export class ScreenplayAllComponent implements OnInit {
         this.dataScreenplay2[index].producer = screenplays[index].producers;
         this.dataScreenplay2[index].format = screenplays[index].format;
         this.dataScreenplay2[index].genre = screenplays[index].genre;
+        
       }
       this.dataSource2 = new MatTableDataSource<PeriodicElement2>(this.dataScreenplay2);
       this.dataSource2.paginator = this.paginator;

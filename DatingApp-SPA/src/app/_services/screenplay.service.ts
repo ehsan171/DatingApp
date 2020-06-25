@@ -9,10 +9,12 @@ import { BasicData } from '../_models/basicData';
 import { Episode } from '../_models/episode';
 import { ScreenplayFormat } from '../_models/screenplayFormat';
 import { ScreenplayStatus } from '../_models/screenplayStatus';
+import { OrgStructure } from '../_models/orgStructure';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    Authorization: 'Bearer' + localStorage.getItem('token')
+   
+    Authorization: 'Bearer ' + localStorage.getItem('token')
   })
 
 };
@@ -30,9 +32,11 @@ constructor(
   ) { }
 
 getScreenplays(): Observable<Screenplay[]> {
-  return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay', httpOptions);
+ 
+  return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/test', httpOptions);
 }
 getScreenplay(id): Observable<Screenplay[]> {
+
   return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/' + id, httpOptions);
 }
 
@@ -48,6 +52,9 @@ getFormats(): Observable<BasicData[]> {
 }
 getConcepts(): Observable<BasicData[]> {
   return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/concepts', httpOptions);
+}
+getOrgs(): Observable<OrgStructure[]> {
+  return this.http.get<OrgStructure[]>(this.baseUrl + 'Basicdata/orgs', httpOptions);
 }
 getFormatNumbers(): Observable<ScreenplayFormat[]> {
   return this.http.get<ScreenplayFormat[]>(this.baseUrl + 'screenplay/formatReport', httpOptions);

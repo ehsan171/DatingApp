@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,7 @@ namespace DatingApp.API.Data
 
         public async Task<User> Register (User user, string password)
         {
+                  Console.WriteLine("auuuuuuuua");
         //    student.Name="dfdff";
            byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);

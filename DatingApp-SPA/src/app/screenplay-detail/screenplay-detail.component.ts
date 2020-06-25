@@ -299,10 +299,12 @@ loadScreenplay() {
   this.screenplayService.getScreenplay(+this.route.snapshot.params.id).subscribe((screenplay: Screenplay[]) => {
     this.screenplay = screenplay;
     for (let index = 0; index < screenplay.length; index++) {
-      this.dataScreenplay.push( {row: 0, id: 0, title: '', baravordNo: '', writer: '', producer: '', format: '', genre: '' });
+      this.dataScreenplay.push( {row: 0, id: 0, title: '', baravordNo: '',
+      orgStructure: '', writer: '', producer: '', format: '', genre: '' });
       this.dataScreenplay[index].row = index + 1;
       this.dataScreenplay[index].id = screenplay[index].id;
       this.dataScreenplay[index].title = screenplay[index].title;
+      this.dataScreenplay[index].orgStructure = screenplay[index].orgStructure;
       this.dataScreenplay[index].baravordNo = screenplay[index].baravordNo;
       this.dataScreenplay[index].writer = screenplay[index].writers;
       const merged = [].concat.apply([], this.dataScreenplay[index].writer);

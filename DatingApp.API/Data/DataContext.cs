@@ -11,7 +11,7 @@ namespace DatingApp.API.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-Q2C2TQL;Database=datingapp2;Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-Q2C2TQL;Database=screenplaydb2;Trusted_Connection=True");
         }
 
 
@@ -21,6 +21,7 @@ namespace DatingApp.API.Data
             modelBuilder.Entity<StudentCourse>().HasKey(sc => new { sc.StudentId, sc.CourseId });
             modelBuilder.Entity<EmployeeProject>().HasKey(sc => new { sc.EmployeeId, sc.ProjectId });
             modelBuilder.Entity<EpisodeConcept>().HasKey(sc => new { sc.EpisodeId, sc.BasicDataId });
+            modelBuilder.Entity<ScreenplayOrgStructure>().HasKey(sc => new { sc.ScreenplayId, sc.OrgStructureId });
             modelBuilder.Entity<EpisodeWriter>().HasKey(sc => new { sc.EpisodeId, sc.PersonId });
             modelBuilder.Entity<ScreenplayProducer>().HasKey(sc => new { sc.ScreenplayId, sc.PersonId });
             modelBuilder.Entity<ScreenplayFormat>().HasKey(sc => new { sc.ScreenplayId, sc.BasicDataId });
@@ -44,6 +45,7 @@ namespace DatingApp.API.Data
         public DbSet<EpisodeConcept> EpisodeConcepts { get; set; }
         public DbSet<EpisodeWriter> EpisodeWriters { get; set; }
         public DbSet<OrgStructure> OrgStructures { get; set; }
+        public DbSet<ScreenplayOrgStructure> ScreenplayOrgStructures { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Screenplay> Screenplays { get; set; }
         public DbSet<ScreenplayFormat> ScreenplayFormats { get; set; }
@@ -54,7 +56,7 @@ namespace DatingApp.API.Data
         public DbSet<BasicData> BasicDatas { get; set; }
 
         public DbSet<UserTest> UserTests { get; set; }
-        // public DbSet<ProcessData> ProcessDatas { get; set; }
+     
         public DbSet<ProcessDataReg> ProcessDataRegs { get; set; }
 
 

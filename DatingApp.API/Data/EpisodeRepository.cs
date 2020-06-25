@@ -28,9 +28,7 @@ namespace DatingApp.API.Data
             Console.WriteLine("22222");
             await _context.Episodes.AddAsync(episode);
             await _context.SaveChangesAsync();
-Console.WriteLine("777777777777777777777777777777777777777777");
-Console.WriteLine(episode.Id);
-Console.WriteLine(otherData["Writers"]);
+
                       List<int> writers = (List<int>) otherData["Writers"];
 
           
@@ -60,7 +58,7 @@ foreach (int writer in writers)
 
             foreach (int concept in concepts)
             {
-                Console.WriteLine(concept);
+              
                 var epGeToCreate = new EpisodeConcept
                 {
                     BasicDataId = concept,

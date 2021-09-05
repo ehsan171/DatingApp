@@ -10,7 +10,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "build": {
+        "build": {h
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/DatingApp-SPA",

@@ -2,8 +2,8 @@
 {
     public class ProgramNetwork
     {
-        public virtual Resource Resource { get; set; }
-        public int ResourceId { get; set; }
+        public virtual Program Program { get; set; }
+        public int ProgramId { get; set; }
         public virtual BasicData BasicData { get; set; }
         public int BasicDataId { get; set; }
     }

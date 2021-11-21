@@ -49,7 +49,9 @@ export class FinalRegistrationTwoComponent implements OnInit {
   totalOfColumn: any = [];
   remainResourceOfColumn: any = [];
   header: any = [];
+  header2: any = [];
   RowsData: any = [];
+  RowsExtraData: any = [];
   IsCellClick: any = [ ]  
   test: any = {};
   test2: any = {};
@@ -175,12 +177,15 @@ this.random  = Math.floor((Math.random() * 9) + 1);
 this.color   = Math.floor((Math.random() * this.colors.length - 1) + 1);
 
       this.RowsData = [ ]
+      this.RowsExtraData = [ ]
       this.totalOfColumn = []  
       this.IsCellClick = [ ]  
       
           this.header=["hour"]
+          this.header2=["hour"]
           
-          
+
+           this.header2.push("تاریخ ثبت")
           for (let i = 1; i <= 24;i++){
             this.header.push(i)
             this.totalOfColumn[i]= 0;
@@ -209,13 +214,20 @@ this.color   = Math.floor((Math.random() * this.colors.length - 1) + 1);
                     {  
                       "hour" :this.allocation[3][index2][0]['title']
                     }
+          let test3 =   
+                    {  
+                      "hour" :this.allocation[3][index2][0]['title'],
+                      "producer" :this.allocation[3][index2][0]['producers']
+                    }
                   
           this.test2 =   
                     {  
                       "hour" : index
                     }
-                  
+                  console.log("this.allocation[3][index2][0]['producers'][0]  ",this.allocation[3][index2][0]['producers'][0])
                   this.RowsData.push(this.test);
+                 
+                  this.RowsExtraData.push(test3);
                   this.IsCellClick.push(this.test2);
                  
                 

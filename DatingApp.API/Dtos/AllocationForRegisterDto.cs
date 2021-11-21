@@ -1,21 +1,21 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DatingApp.API.Dtos
 {
-    public class UserForRegisterDto
+    public class AllocationForRegisterDto
     {
-        [Required]
-        public string Username { get; set; }
+        public int Day { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        public int Hour { get; set; }
+        public int UsedUnit { get; set; }
+        public int ResourceId { get; set; }
+        public int BarnameId { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public Boolean IsDeleted { get; set; }
 
-        [Required]
-        [StringLength(8, MinimumLength = 4, ErrorMessage = "You must speci...")]
-        public string Password { get; set; }
-         public string photoUrl { get; set; }
-         public int? OrgId { get; set; }
-#nullable enable
-         public string? Firstname { get; set; }
-#nullable enable
-         public string? Lastname { get; set; }
+
 
     }
 }

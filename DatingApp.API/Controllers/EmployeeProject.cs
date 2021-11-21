@@ -62,12 +62,6 @@ namespace DatingApp.API.Controllers
             
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetValues(int id)
-        {
-            var student = await _context.Students.FirstOrDefaultAsync(x => x.StudentId == id);
-            return Ok(student);
-        }
+       
     }
 }

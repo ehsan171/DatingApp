@@ -25,6 +25,7 @@ namespace DatingApp.API
 {
     public class Startup
     {
+    
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,7 +35,7 @@ namespace DatingApp.API
 
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite
+            services.AddDbContext<DataContext>(x => x.UseSqlServer
             (Configuration.GetConnectionString("DefaultConnection")));
 
             ConfigureServices(services);
@@ -50,22 +51,25 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-         
+     
             services.AddCors(options => 
             {
                 options.AddPolicy("CorsPolicy",
                 builder => builder.AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                );
             });
+            services.AddMvc();
             
-          
+         
 
             services.Configure<FormOptions>(o => 
             {
                 o.ValueLengthLimit = int.MaxValue;
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
+                
             });
 
               services.AddControllers().AddNewtonsoftJson(opt =>
@@ -76,6 +80,7 @@ namespace DatingApp.API
 
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IScreenplayRepository, ScreenplayRepository>();
+            services.AddScoped<IAllocationRepository, AllocationRepository>();
             services.AddScoped<IEpisodeRepository, EpisodeRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -108,8 +113,11 @@ namespace DatingApp.API
             app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            // app.UseCors(CorsPolicy);
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            //app.UseCors(CorsPolicy);
+            app.UseDefaultFiles();
             app.UseStaticFiles();
+            
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
@@ -118,6 +126,7 @@ namespace DatingApp.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

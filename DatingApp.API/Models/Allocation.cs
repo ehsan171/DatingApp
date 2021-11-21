@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,6 +14,9 @@ namespace DatingApp.API.Models
         public int Month { get; set; }
         public int Day { get; set; }
         public int Hour { get; set; }
+        
+        [Display(Name = "Is Accept")]
+        public bool? FinalAcceptance { get; set; }
 
         public int? UsedUnit { get; set; }
         

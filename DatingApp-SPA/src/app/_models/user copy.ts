@@ -7,4 +7,6 @@ export interface User {
     lastActive: Date;
     photoUrl: string;
     photos?: Photo[];
+    firstname?: string;
+    lastname?: string;
 }

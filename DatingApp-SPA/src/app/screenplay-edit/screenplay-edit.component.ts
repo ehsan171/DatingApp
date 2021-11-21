@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, HostListener } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { DataManager, Query, ODataV4Adaptor } from '@syncfusion/ej2-data';
@@ -11,10 +11,10 @@ import { ScreenplayService } from '../_services/screenplay.service';
 import { Screenplay } from '../_models/screenplay';
 import { Person } from '../_models/person';
 import { BasicData } from '../_models/basicData';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Status } from '../_models/status';
 import { data } from '../test_data/datasource';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -23,13 +23,19 @@ declare var $: any;
   styleUrls: ['./screenplay-edit.component.css']
 })
 export class ScreenplayEditComponent implements OnInit {
+@ViewChild('editForm', { static: true}) editForm: NgForm;
 
-
+@HostListener('window:beforeunload', ['$event'])
+unloadNotification($event: any) {
+  if (this.editForm.dirty) {
+    $event.returnValue = true;
+  }
+}
   constructor(private screenplayService: ScreenplayService,
               private userService: UserService,
               private authService: AuthService,
               private alertify: AlertifyService,
-              private router: Router) { }
+              private route: ActivatedRoute,) { }
 
   @Input() valuesFromDetail;
   @Output() cancelRegister = new EventEmitter();
@@ -58,7 +64,7 @@ id: any;
 public sportsData: string[] = [];
 public titleData: string[] = [];
 public text = 'عنوان فیلمنامه';
-
+public dataScreenplay: { [key: string]: any }[] = [];
 // AutoComplete End
 
 // Producer Start ---- Producer Start ---- Producer Start ---- Producer Start ---- Producer Start ---- Producer Start ----
@@ -242,11 +248,32 @@ public onMouseUp(target: HTMLElement): void {
           500);
 }
 
+onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
 
 loadScreenplay() {
-  this.screenplayService.getScreenplay(this.valuesFromDetail).subscribe((screenplay: Screenplay[]) => {
-    this.screenplay = screenplay;
 
+
+ this.screenplayService.getScreenplay(+this.route.snapshot.params.id).subscribe((screenplay: Screenplay[]) => {
+    this.screenplay = screenplay;
+    for (let index = 0; index < screenplay.length; index++) {
+      this.dataScreenplay.push( {row: 0, id: 0, title: '', baravordNo: '',
+      orgStructure: '', writer: '', producer: '', format: '', genre: '' });
+      this.dataScreenplay[index].row = index + 1;
+      this.dataScreenplay[index].id = screenplay[index].id;
+   
+      this.dataScreenplay[index].title = screenplay[index].title;
+      this.dataScreenplay[index].orgStructure = screenplay[index].orgStructure;
+      this.dataScreenplay[index].baravordNo = screenplay[index].baravordNo;
+      this.dataScreenplay[index].writer = screenplay[index].writers;
+      const merged = [].concat.apply([], this.dataScreenplay[index].writer);
+      this.dataScreenplay[index].writer = merged.filter( this.onlyUnique );
+      this.dataScreenplay[index].producer = screenplay[index].producers;
+      this.dataScreenplay[index].format = screenplay[index].format;
+      this.dataScreenplay[index].genre = screenplay[index].genre;
+    }
+    
   }, error => {
     this.alertify.error(error);
   });
@@ -270,7 +297,15 @@ ngOnInit() {
 
   });
 
+//   $(document).ready(function(){
+//    $( ".table-days" ).click(function() {
+//   $('#exa2').val(this.dataset.unix);
+//   // alert(this.dataset.unix)
+// });
+//     });
 
+
+  // tslint:disable-next-line: only-arrow-functions
   $('.awsome_input').focusin(function() {
     $('#tool-tip').show();
 }).change(function()
@@ -291,7 +326,7 @@ ngOnInit() {
   this.gettingDataFormats();
   this.gettingDataGeners();
   this.gettingDataStatuses();
-  // this.loadScreenplay();
+  this.loadScreenplay();
   }
 
   register2(){
@@ -311,7 +346,7 @@ ngOnInit() {
   register(){
     
     const el = document.querySelector('table tr td');
-    // alert((document.getElementById('exa2') as HTMLInputElement).value);
+
     const regDate = (document.getElementById('exa') as HTMLInputElement).value;
     const regDate2 = (document.getElementById('exa') as HTMLInputElement).dataset[0];
     const unixTimestamp = 1590020379  ;
@@ -324,7 +359,7 @@ ngOnInit() {
     if (this.screenplayRegForm.valid){
         this.model = Object.assign({}, this.screenplayRegForm.value);
         this.model.regDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-        // alert(regDate)
+    
         // this.myDate = new Date();
 
         // this.model.regDate =  '5/21/2020';
@@ -341,9 +376,9 @@ ngOnInit() {
           );
 
           this.alertify.success('فیلمنامه «' + this.model.Title + '» باموفقیت ثبت شد.');
-          this.router.navigate(['/screenplay/' + res['data'].id]);
+          // this.router.navigate(['/screenplay/' + res['data'].id]);
         }, error => {
-          this.alertify.error('This is error from register sssssstest');
+          this.alertify.error('This is error from register sssssstest3');
         }
         );
       }
@@ -357,5 +392,11 @@ ngOnInit() {
   cancel(){
     this.cancelRegister.emit(false);
     this.alertify.message('cancel...');
+  }
+
+  updateScreenplay(){
+    console.log(this.screenplay);
+    this.alertify.success('فیلمنامه با موفقیت به روز رسانی شد.')
+    this.editForm.resetForm(this.screenplay);
   }
 }

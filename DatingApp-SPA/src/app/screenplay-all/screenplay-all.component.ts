@@ -76,7 +76,7 @@ export class ScreenplayAllComponent implements OnInit {
 
 
     }, error => {
-      this.alertify.error('getting Data Title');
+      this.alertify.error('خطا در ارسال داده');
     }
     );
 

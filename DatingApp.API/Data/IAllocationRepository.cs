@@ -6,8 +6,9 @@ namespace DatingApp.API.Data
 {
     public interface IAllocationRepository
     {
-        Task<Screenplay> RegisterScreenplay(Screenplay student,  Dictionary<string, object> otherData);
+        // Task<Allocation> RegisterAllocation(Allocation allocation,  Dictionary<string, object> otherData);
+        Task<Allocation> RegisterAllocation(Allocation allocation);
        
-        Task<Screenplay> GetScreenplay(int id);
+   
     }
 }

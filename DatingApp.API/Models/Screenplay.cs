@@ -7,12 +7,12 @@ namespace DatingApp.API.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public int TotalNumberEpisodes { get; set; }
+        public int? TotalNumberEpisodes { get; set; }
         public string BaravordNo { get; set; }
         // public virtual OrgStructure OrgStructure { get; set; }
        
         public virtual Status Status { get; set; }
-        public int StatusId { get; set; }
+        public int? StatusId { get; set; }
         public string Description { get; set; }
         public DateTime RegDate { get; set; }
         public DateTime Created { get; set; }

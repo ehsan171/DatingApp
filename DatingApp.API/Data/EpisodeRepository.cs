@@ -8,7 +8,7 @@ namespace DatingApp.API.Data
 {
     public class EpisodeRepository : IEpisodeRepository
     {
-        Student student;
+        
         private readonly DataContext _context;
         public EpisodeRepository(DataContext context)
         {
@@ -20,12 +20,7 @@ namespace DatingApp.API.Data
      
         public async Task<Episode> RegisterEpisode(Episode episode, Dictionary<string, object> otherData )
         {
-               Console.WriteLine("6666666666666666666666666666666666666666");
-            Console.WriteLine(episode.EpisodeTitle);
-            Console.WriteLine(episode.EpisodeNumber);
-            Console.WriteLine(episode.Url);
-            Console.WriteLine(episode.ScreenplayId);
-            Console.WriteLine("22222");
+               
             await _context.Episodes.AddAsync(episode);
             await _context.SaveChangesAsync();
 
@@ -61,7 +56,7 @@ foreach (int writer in writers)
               
                 var epGeToCreate = new EpisodeConcept
                 {
-                    BasicDataId = concept,
+                    PMDSPSItemItemID = concept,
                     EpisodeId = episode.Id,
                     
                 };

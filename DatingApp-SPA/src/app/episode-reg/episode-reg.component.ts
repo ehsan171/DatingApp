@@ -18,6 +18,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Status } from '../_models/status';
 import { Episode } from '../_models/episode';
 import { HttpEventType, HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -37,7 +38,8 @@ export class EpisodeRegComponent implements OnInit {
   constructor(private screenplayService: ScreenplayService,
               private authService: AuthService,
               private alertify: AlertifyService,
-              private http: HttpClient) { }
+              private http: HttpClient,
+              private router: Router) { }
 
 
 
@@ -215,7 +217,7 @@ export class EpisodeRegComponent implements OnInit {
     // }
     // this.model.name = this.skillForm.screenplayTitle[0];
     this.authService.register(this.model).subscribe(() => {
-      this.alertify.success('register succ...');
+      this.alertify.success('ثبت قسمت با موفقست انجام شئ.');
     }, error => {
       this.alertify.error('This is error from register2');
     }
@@ -233,6 +235,7 @@ export class EpisodeRegComponent implements OnInit {
 
     }
     this.model = Object.assign({}, this.episodeRegForm.value);
+    console.log(this.model)
     this.model.url = this.response;
     //  this.model = Object.assign({}, this.episodeRegForm.value);
     this.screenplayService.episodeRegister(this.model, this.valuesFromDetail).subscribe(() => {
@@ -247,9 +250,11 @@ export class EpisodeRegComponent implements OnInit {
         this.alertify.error('This is error from register Process');
       }
       );
-      this.alertify.success('register succ...');
+      this.alertify.success('ثبت قسمت با موفقیت انجام شد');
+      this.router.navigate(['/screenplay/' + this.valuesFromDetail] );
+      
     }, error => {
-      this.alertify.error('This is error from register EPISODE');
+      this.alertify.error('پر کردن تمامی قسمت ها الزامیست.');
     }
     );
 

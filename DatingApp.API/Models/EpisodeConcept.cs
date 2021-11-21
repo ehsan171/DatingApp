@@ -5,8 +5,8 @@ namespace DatingApp.API.Models
         // public int Id { get; set; }
         public virtual Episode Episode { get; set; }
         public int EpisodeId { get; set; }
-        public virtual BasicData BasicData { get; set; }
-        public int BasicDataId { get; set; }
+        public virtual PMDSPSItem PMDSPSItem { get; set; }
+        public int PMDSPSItemItemID { get; set; }
 
 
 

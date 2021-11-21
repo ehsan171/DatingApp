@@ -11,14 +11,15 @@ namespace DatingApp.API.Dtos
 
         // [Required]
         // [StringLength(8, MinimumLength = 4, ErrorMessage = "You must speci...")]
-         public List<int> OrgStructure { get; set; }
-
+         public List<int> OrgStructure { get; set; }    
+        
+              
          public List<int> Genre { get; set; }
          public List<int> Producer { get; set; }
          public string BaravordNo { get; set; }
-         public int TotalNumberEpisodes { get; set; }
+         public int? TotalNumberEpisodes { get; set; }
          public int Format { get; set; }
-         public int StatusId { get; set; }
+         public int? StatusId { get; set; }
          public string Description { get; set; }
          public DateTime RegDate { get; set; }
          public DateTime Created { get; set; }

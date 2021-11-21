@@ -1,0 +1,313 @@
+
+
+<ng-container *ngIf="screenplay">
+  
+  <div class="col-sm-10" style="width: 100%; margin-left: auto; margin-right: auto;">
+    <div *ngIf="editForm.dirty" class="alert alert-info">
+      <span style="font-weight: bold;font-size: large; ">توجه: </span>شما تغییراتی در اطلاعات فیلمنامه ایجاد کرده اید. برای اعمال تغییرات لازم است بر روی دکمه ثبت کلیک نمایید.
+    </div>
+  </div>
+    <div class="container mt-5">
+      <form  #editForm="ngForm" id="editForm" [formGroup]='screenplayRegForm'  (ngSubmit)='register()'>
+      
+        <div class="container  text-right">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <!-- <label for="screenplayTitleId" >عنوان فیلمنامه</label> -->
+              
+              <!-- <input type="text" class="form-control" id="screenplayTitleId" placeholder="عنوان فیلمنامه"> -->
+              
+             
+             <input type='hidden' 
+           
+              id='Id' 
+              formControlName="Id"  
+             
+              
+              [(ngModel)]="screenplay[0].id">
+              
+            
+              
+<div class="fieldClass">
+  {{copyOfScreenplay[0].title}}
+</div>
+
+              <ejs-autocomplete 
+              
+              class="" 
+              enableRtl='true' floatLabelType="Auto" 
+              id='screenplayTitleId' formControlName="Title" 
+              loatLabelType="Auto" [dataSource]='titleData' [placeholder]='text'
+              [ngClass]="{'is-invalid':screenplayRegForm.get('Title').errors &&
+              screenplayRegForm.get('Title').touched}"
+              [(ngModel)]="screenplay[0].title">
+            </ejs-autocomplete> 
+            
+                <div  class="invalid-feedback">پرکردن این قسمت ضروری است.</div>
+              
+    <!-- {{screenplay[0].format}} -->
+            </div>
+          </div>
+        
+        
+        </div> 
+        <div class="row">
+
+          <div class="col">
+            <div class="form-group">
+              <!-- <label for="orgStructureId">ساختار سازمانی</label> -->
+              <!-- <ejs-dropdownlist enableRtl='true' floatLabelType="Auto" id='orgStructureId' 
+              #samples [dataSource]='dataPerson' 
+              [fields]='' formControlName="orgStructure" 
+              [placeholder]='textOrgStructure' [allowFiltering]='true' 
+              (filtering)='onFilteringPerson($event)'>a</ejs-dropdownlist> -->
+
+              <div class="fieldClass">
+                {{screenplay[0].orgStructure}}
+              </div>
+              <div style="margin-top: 21px;">
+                  <ejs-dropdowntree 
+                  enableRtl='true' 
+                  id='orgStructureId' 
+                  [fields]='orgFields' 
+                  formControlName="orgStructure"
+                  [placeholder]='textOrgStructure' 
+                  [showCheckBox]='true'
+                  
+                  ></ejs-dropdowntree>
+              </div>
+            
+
+
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              
+              <div class="fieldClass">
+                {{screenplay[0].producers}}
+              </div>
+              <div style="margin-top: 0px;">
+                 <!-- <label for="producer">تهیه کننده</label> -->
+              <ejs-multiselect 
+                  enableRtl='true' 
+                  floatLabelType="Auto" 
+                  id='ddlelement' #samples 
+                  [dataSource]='dataPerson' 
+                  [fields]='fieldsPerson' 
+                  formControlName="producer" 
+                  [placeholder]='textProducer' 
+                  [allowFiltering]='true' 
+                  (filtering)='onFilteringPerson($event)'
+                  >a</ejs-multiselect>
+              </div>
+             
+
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="form-group">
+
+              <div class="fieldClass">
+                {{screenplay[0].baravordNo}}
+              </div>
+              <div style="margin-top: 5px;">
+                   <!-- <label for="baravordId" >شماره برآورد</label> -->
+              <ejs-maskedtextbox 
+              mask='999999' 
+              enableRtl='true' 
+              floatLabelType="Auto" 
+              id='baravordId' 
+              formControlName="baravordNo"  
+              placeholder='شماره برآورد: ###### (ex: 986543)'
+              [ngClass]="{'is-invalid':screenplayRegForm.get('baravordNo').errors &&
+              screenplayRegForm.get('baravordNo').touched}"
+              [(ngModel)]="screenplay[0].baravordNo">
+              >
+            </ejs-maskedtextbox>
+              </div>
+           
+              
+            <div  class="invalid-feedback"
+              *ngIf="screenplayRegForm.get('baravordNo').hasError('required') &&
+              screenplayRegForm.get('baravordNo').touched">پرکردن این قسمت ضروری است.
+            </div>
+              
+            <div  class="invalid-feedback"
+              *ngIf="  screenplayRegForm.get('baravordNo').hasError('pattern') && 
+              screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+            </div>
+              
+            <div  class="invalid-feedback"
+              *ngIf="  screenplayRegForm.get('baravordNo').hasError('minlength') &&
+              screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+            </div>
+              
+            <div  class="invalid-feedback"
+              *ngIf="  screenplayRegForm.get('baravordNo').hasError('maxlength') &&
+              screenplayRegForm.get('baravordNo').touched">شماره برآورد می بایست یک عدد 6 رقمی باشد.
+            </div>
+              
+            </div>
+          </div>
+
+        </div>
+    <div class="">
+      
+    </div>
+
+        <div class="row">
+
+          <div class="col">
+            <div class="form-group" style="margin-top: 4px;">
+              
+              <div class="fieldClass">
+                {{screenplay[0].totalNumberEpisodes}}
+              </div>
+              
+              <!-- <label for="totalNumberEpisodesId">تعداد قسمت</label> -->
+              <ejs-numerictextbox   
+                format='n0' 
+                min=1   
+                mask='9999' 
+                enableRtl='true' 
+                floatLabelType="Auto" 
+                id='totalNumberEpisodesId' 
+                formControlName="totalNumberEpisodes" 
+                [placeholder]='textTotalNumberEpisodes'
+                [(ngModel)]="screenplay[0].totalNumberEpisodes"></ejs-numerictextbox >
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group" style="margin-top: 4px;">
+              
+              <div class="fieldClass">
+                {{screenplay[0].format}}
+              </div>
+              
+              <!-- <label for="formatId" >قالب</label> -->
+              <ejs-dropdownlist 
+                    enableRtl='true' 
+                    floatLabelType="Auto" 
+                    id='formatId' #samples 
+                    [dataSource]='dataFormat' 
+                    [fields]='fieldsFormat' 
+                    formControlName="format" 
+                    [placeholder]='textFormat' 
+                    [allowFiltering]='true' 
+                    (filtering)='onFilteringFormat($event)'
+                    >a</ejs-dropdownlist>
+
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              
+              <div class="fieldClass">
+                {{screenplay[0].genre}}
+              </div>
+              
+              <!-- <label for="genreId">ژانر</label> -->
+              <ejs-multiselect 
+                  enableRtl='true' 
+                  floatLabelType="Auto" 
+                  id='genreId' #samples 
+                  [dataSource]='dataGenre' 
+                  [fields]='fieldsGenre' 
+                  formControlName="genre" 
+                  [placeholder]='textGenre' 
+                  [allowFiltering]='true' 
+                  (filtering)='onFilteringGenre($event)'
+                  
+                  >a</ejs-multiselect>
+
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              
+              <div class="fieldClass">
+                {{screenplay[0].status}}
+              </div>
+              
+              <!-- <label for="statusId" >وضعیت</label> -->
+              <ejs-dropdownlist 
+                  enableRtl='true' 
+                  floatLabelType="Auto" 
+                  id='statusId' #samples 
+                  [dataSource]='dataStatus' 
+                  [fields]='fieldsStatus' 
+                  formControlName="statusId" 
+                  [placeholder]='textStatus' 
+                  [allowFiltering]='true' 
+                  (filtering)='onFilteringStatus($event)'
+                  >a</ejs-dropdownlist>
+
+            </div>
+          </div>
+
+          <div class="col">
+          
+    <input 
+          id='exa2' 
+          formControlName="regDate" 
+          style="display: none;"
+          [(ngModel)]="screenplay[0].regDate"> 
+            
+          </div >
+
+        
+
+          <div class="col">
+          
+            <div class="fieldClass">
+              {{farsiDate}}
+            </div>        
+            
+            <div class="e-input-group" style="margin-top: 18px;">
+
+                    <input id="exa" class="e-input example1"
+                    type="text" (focus)="focusIn($event.target)"
+                    placeholder = "تاریخ ثبت" (blur)="focusOut($event.target)"
+                    autocomplete="off"/>
+                    <span class="e-input-group-icon e-input-popup-date" (mouseup)="onMouseUp($event.target)" (mousedown)="onMouseDown($event.target)"></span>
+                    </div>
+                  </div>
+
+                  <!-- <ejs-textbox class="example1" enableRtl='true' floatLabelType="Auto" id='totalNumberEpisodesId' formControlName="totalNumberEpisodes" [placeholder]='textTotalNumberEpisodes'></ejs-textbox> -->
+
+            
+          </div>
+          
+        </div>
+
+      
+      
+
+
+
+
+
+      <div class="form-group text-center">
+        <!-- <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block" (ngSubmit)="updateScreenplay()">ذخیره</button> -->
+        <button class="btn btn-success regbtn" type="submit">ثبت</button>
+        <button class="btn btn-default" type="button" (click)='cancel()'>انصراف</button>
+      </div>
+      
+    </form>
+    </div>
+
+    <!-- 
+    <p>From value: {{screenplayRegForm.value | json}}</p>
+    <p>From status: {{screenplayRegForm.status | json}}</p> -->
+</ng-container>

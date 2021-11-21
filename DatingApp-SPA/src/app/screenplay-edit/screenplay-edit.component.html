@@ -1,3 +1,4 @@
+<!-- {{screenplay[0].format}} -->
 <ng-container *ngIf="screenplay">
 <div class="col-sm-10">
   <div *ngIf="editForm.dirty" class="alert alert-info">
@@ -7,7 +8,7 @@
 
 <div class="container mt-5">
 
-  <form #editForm="ngForm" >
+  <form #editForm="ngForm" id="editForm" (ngSubmit)="updateScreenplay()" >
     <div class="container  text-right">
 
 
@@ -22,7 +23,7 @@
       
           <!-- <ejs-textbox [multiline]='false' [value]="screenplays[0]['title']">{{screenplays[0]['title']}}vcbcvbcvbc</ejs-textbox> -->
      
-          <textarea name="title" rows="1" class="form-control"></textarea>
+          <textarea name="title" rows="1" class="form-control" [(ngModel)]="screenplay[0].title"></textarea>
             <ejs-autocomplete 
           
                   enableRtl='true' 
@@ -32,6 +33,7 @@
                   loatLabelType="Auto" 
                   [dataSource]='titleData' 
                   [placeholder]='text'
+                  [(ngModel)]="screenplay[0].title"
             >
             </ejs-autocomplete>
 
@@ -93,8 +95,10 @@
                 enableRtl='true' 
                 floatLabelType="Auto" 
                 id='baravordId'
-               
-                placeholder='شماره برآورد ###### (ex: 986543)'>
+                placeholder='شماره برآورد ###### (ex: 986543)'
+                [(ngModel)]="screenplay[0].baravordNo">
+              
+                
             </ejs-maskedtextbox>
 
                      </div>
@@ -118,9 +122,9 @@
                   min=1 mask='9999' 
                   enableRtl='true' 
                   floatLabelType="Auto"
-                  id='totalNumberEpisodesId' 
-                  
-                  [placeholder]='textTotalNumberEpisodes'>
+                  id='totalNumberEpisodesId'                   
+                  [placeholder]='textTotalNumberEpisodes'
+                  [(ngModel)]="screenplay[0].totalNumberEpisodes">
             </ejs-numerictextbox>
           </div>
         </div>
@@ -140,7 +144,8 @@
                   
                   [placeholder]='textFormat' 
                   [allowFiltering]='true'
-                  (filtering)='onFilteringFormat($event)'>a
+                  (filtering)='onFilteringFormat($event)'
+                  >a
             </ejs-dropdownlist>
 
           </div>
@@ -231,6 +236,7 @@
 
 
     <div class="form-group text-center">
+      <!-- <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block" (ngSubmit)="updateScreenplay(editForm)">ذخیره</button> -->
       <button class="btn btn-success regbtn" type="submit">ثبت</button>
       <button class="btn btn-default" type="button" (click)='cancel()'>انصراف</button>
     </div>

@@ -7,8 +7,11 @@ namespace DatingApp.API.Data
     public interface IScreenplayRepository
     {
         Task<Screenplay> RegisterScreenplay(Screenplay student,  Dictionary<string, object> otherData);
-        Task<bool> ScreenplayExists(string title);
-         Task<IEnumerable<Screenplay>> GetScreenplays();
-         Task<Screenplay> GetScreenplay(int id);
+        Task<Screenplay> UpdateScreenplay(Screenplay student,  Dictionary<string, object> otherData);
+        Task<bool> ScreenplayTitleExists(string title);
+        Task<bool> BaravordExists(string baravordNo);
+        Task<bool> ScreenplayRecordExists(int id);
+        Task<IEnumerable<Screenplay>> GetScreenplays();
+        Task<Screenplay> GetScreenplay(int id);
     }
 }

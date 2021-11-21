@@ -96,7 +96,6 @@ public textOrgStructure = 'ساختار سازمانی';
 
 // Total Number Episodes Start ---- Total Number Episodes Start ---- Total Number Episodes Start ---- Total Number Episodes Start ----
 public textTotalNumberEpisodes = 'تعداد قسمت ';
-// Total Number Episods End ---- Total Number Episods End ---- Total Number Episods End ----
 
 // Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start --- Baravord Start ---
 public textBaravord = 'شماره برآورد';
@@ -105,11 +104,13 @@ public textBaravord = 'شماره برآورد';
 
 
 gettingDataTitle(){
-  this.screenplayService.getScreenplays().subscribe((screenplays: Screenplay[]) => {
+  this.screenplayService.getAllScreenplays().subscribe((screenplays: Screenplay[]) => {
     this.screenplays = screenplays;
+    console.log(screenplays.length);
     for (let index = 0; index < screenplays.length; index++) {
       this.titleData[index] = screenplays[index].title;
     }
+
   }, error => {
     this.alertify.error('gettingDataTitle 106');
   }
@@ -270,7 +271,7 @@ gettingDataOrgs() {
 
     console.log(this.data);
   }, error => {
-    this.alertify.error('This is from format');
+    this.alertify.error('This is from orgField');
   }
   );
 
@@ -322,8 +323,12 @@ ngOnInit() {
         Validators.required
       ]),
 
-      orgStructure: new FormControl(),
-      producer: new FormControl(),
+      orgStructure: new FormControl('', [
+        Validators.required
+      ]),
+      producer: new FormControl('', [
+        Validators.required
+      ]),
       baravordNo: new FormControl('', [
         Validators.required,
         Validators.pattern( '^[0-9]*$'),
@@ -331,9 +336,15 @@ ngOnInit() {
         Validators.maxLength(6)
       ]),
       totalNumberEpisodes: new FormControl(),
-      format: new FormControl(),
-      statusId: new FormControl(),
-      genre: new FormControl(),
+      format: new FormControl('', [
+        Validators.required
+      ]),
+      statusId: new FormControl('', [
+        Validators.required
+      ]),
+      genre: new FormControl('', [
+        Validators.required
+      ]),
       regDate: new FormControl(),
 
   });
@@ -357,6 +368,7 @@ ngOnInit() {
     this.authService.register(this.model).subscribe(() => {
       this.alertify.success('register succ...');
     }, error => {
+      console.log(error[0]);
       this.alertify.error('This is error from register2');
     }
     );
@@ -375,7 +387,7 @@ ngOnInit() {
 
     const date = new Date(this.model.regDate * 1);
 
-
+   
     if (this.screenplayRegForm.valid){
         this.model = Object.assign({}, this.screenplayRegForm.value);
         this.model.regDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
@@ -396,10 +408,12 @@ ngOnInit() {
           }
           );
 
-          this.alertify.success('فیلمنامه «' + this.model.Title + '» باموفقیت ثبت شد.');
+          this.alertify.success('فیلمنامه «' + this.model.Title + '» با موفقیت ثبت شد.');
           this.router.navigate(['/screenplay/' + res['data'].id]);
         }, error => {
-          this.alertify.error('This is error from register sssssstest');
+          console.log(error);
+  
+          this.alertify.error(error.error);
         }
         );
       }

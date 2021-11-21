@@ -1,0 +1,167 @@
+<div style="margin-left: 1%; margin-right: 1%;" 
+(mousedown)="mouseClickDown($event)"
+(mouseup)="mouseClickUp($event)">
+    <form [formGroup]="resourceForm" >
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+          
+            <ejs-dropdownlist 
+            [(ngModel)]="selectedOption"
+            enableRtl='true' 
+            floatLabelType="Auto" 
+            id='ddlelement' 
+            #samples 
+            [dataSource]='dataResource' 
+            [fields]='fieldResource' 
+            formControlName="resourceId" 
+            [placeholder]='textResource' [allowFiltering]='true' 
+            (filtering)='onFilteringResource($event)'
+            (change)="onChangeResource($event.value)">a
+          </ejs-dropdownlist>
+        
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+          
+            <ejs-dropdownlist 
+            [(ngModel)]="selectedCapacity"
+            enableRtl='true' 
+            floatLabelType="Auto" 
+            id='requestResId' 
+            #samples 
+            [dataSource]='data' 
+            [fields]='capacityFields' 
+            formControlName="capacity"
+            [placeholder]='textCapacity' 
+            (change)="onChangeRequestRes($event.value)"
+            >
+            </ejs-dropdownlist>
+        
+          </div>
+        </div>
+
+        <div class="col" style="width: 50px;">
+          <div class="form-group" >
+            
+            <div class="" >
+              <span class="" style="color: rgb(160, 159, 159);"></span>
+                  <div style="height: 30px;;border-bottom:  1px solid rgb(160, 159, 159);  margin-top: 20px; text-align: right ;" >
+                     
+                
+                  {{resourceUnit}}
+                  
+                  </div>
+            
+              
+              
+          
+          </div>
+    
+    
+          </div>
+        </div>
+    
+     
+        <div class="col">
+          <div class="form-group">
+          
+            <ejs-dropdownlist 
+            enableRtl='true' 
+            floatLabelType="Auto" 
+            id='yearId' 
+            #samples 
+            [dataSource]='yearData' 
+            [fields]='yearFields' 
+           
+            formControlName="yearFormControl"
+            [placeholder]='textYear' 
+            (change)="onChangeYear($event.value)"
+            >
+            </ejs-dropdownlist>
+        
+          </div>
+        </div>
+     
+     
+        <div class="col">
+          <div class="form-group">
+          
+            <ejs-dropdownlist 
+            enableRtl='true' 
+            floatLabelType="Auto" 
+            id='monthId' 
+            #samples 
+            [dataSource]='monthData' 
+            [fields]='fieldMonth' 
+            formControlName="monthFormControl"
+            [placeholder]='textMonth' 
+            (change)="onChangeMonth($event.value)"
+            >
+            </ejs-dropdownlist>
+        
+          </div>
+        </div>
+     
+     
+      </div>
+
+    </form>
+    <button (click)="onSave()">test2</button>
+    <button (click)="register()">register</button>
+    <br>
+   
+
+    <div style="height: 1000px; width: 100%;" class="test">
+      <table class='table table-sm' aria-labelledby="tableLabel" style="border:1px solid;  user-select: none; ">  
+        <thead style="background-color: #d7bde2;">  
+          <tr>  
+            <th scope="col" *ngFor="let column of header">  
+              {{column}}  
+            </th>  
+          </tr>  
+        </thead>  
+        <tbody>  
+          <tr *ngFor="let row of RowsData| slice:1;let indexOfElement=index;">  
+              <td  
+              class="details"
+              (mouseover)="onCellClick( indexOfElement, column )" 
+              (mousedown)="onCellClickSingleClick( indexOfElement, column,$event )" 
+              ondragstart="return false;" ondrop="return false;"
+              *ngFor="let column of header"
+            
+              [style.background]="
+              (column != 'hour' && row[column])? colors[indexOfElement]
+              :(column != 'hour' && row[column] >= requestVolume )? 'rgba(221,204,102,0.5)'
+              : (column == 'hour')? '#d7bde2': 'rgba(255,255,255,0.5)'"  >  
+            {{row[column]}}
+          
+            </td>  
+          </tr>  
+          <tr>
+            <td  *ngFor="let column of header"
+            [style.background]="
+            ( totalOfColumn[column]<=remainResourceOfColumn[column]-90)?  '#0ffe87'
+            : (column == 'hour')? '#f4c430': '#eb003f'">
+                {{totalOfColumn[column]}}
+            </td>
+          
+          </tr>
+          <tr>
+            <td  *ngFor="let column of header">
+                {{remainResourceOfColumn[column]}}
+            </td>
+          
+          </tr>
+
+ 
+        </tbody>  
+    </table> 
+  </div>
+
+</div>
+
+

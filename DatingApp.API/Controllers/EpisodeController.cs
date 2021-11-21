@@ -21,7 +21,7 @@ namespace DatingApp.API.Controllers
     {
          private readonly DataContext _context;
            private readonly IEpisodeRepository _repo;
-        private readonly IConfiguration _config;
+        // private readonly IConfiguration _config;
 
         public object ViewBag { get; private set; }
 

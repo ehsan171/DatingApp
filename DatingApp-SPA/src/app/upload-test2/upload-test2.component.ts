@@ -33,7 +33,7 @@ export class UploadTest2Component implements OnInit {
       authToken: 'Bearer' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['pdf'],
-      removeAfterUpload: true,
+      removeAfterUpload: false,
       autoUpload: false,
     });
 

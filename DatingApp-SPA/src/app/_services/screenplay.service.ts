@@ -13,7 +13,7 @@ import { OrgStructure } from '../_models/orgStructure';
 
 const httpOptions = {
   headers: new HttpHeaders({
-   
+
     Authorization: 'Bearer ' + localStorage.getItem('token')
   })
 
@@ -24,69 +24,94 @@ const httpOptions = {
 })
 export class ScreenplayService {
   // baseUrl = environment.apiUrl;
-  baseUrl = 'http://localhost:5000/api/';
+  baseUrl = environment.apiUrl;
 
-constructor(
-  private http: HttpClient,
-  private httpClient: HttpClient
+  constructor(
+    private http: HttpClient,
+    private httpClient: HttpClient
   ) { }
 
-getScreenplays(): Observable<Screenplay[]> {
- 
-  return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/test', httpOptions);
-}
-getScreenplay(id): Observable<Screenplay[]> {
+  getScreenplays(): Observable<Screenplay[]> {
+    console.log(this.baseUrl + 'screenplay/test');
 
-  return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/' + id, httpOptions);
-}
 
-getEpisode(screenplayId): Observable<Episode[]> {
-  return this.http.get<Episode[]>(this.baseUrl + 'screenplay/episode/' + screenplayId, httpOptions);
-}
+    return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/test', httpOptions);
+  }
+  getScreenplay(id): Observable<Screenplay[]> {
 
-getPersons(): Observable<Person[]> {
-  return this.http.get<Person[]>(this.baseUrl + 'Person', httpOptions);
-}
-getFormats(): Observable<BasicData[]> {
-  return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/formats', httpOptions);
-}
-getConcepts(): Observable<BasicData[]> {
-  return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/concepts', httpOptions);
-}
-getOrgs(): Observable<OrgStructure[]> {
-  return this.http.get<OrgStructure[]>(this.baseUrl + 'Basicdata/orgs', httpOptions);
-}
-getFormatNumbers(): Observable<ScreenplayFormat[]> {
-  return this.http.get<ScreenplayFormat[]>(this.baseUrl + 'screenplay/formatReport', httpOptions);
-}
-getStatusNumbers(): Observable<ScreenplayStatus[]> {
-  return this.http.get<ScreenplayStatus[]>(this.baseUrl + 'screenplay/statusReport', httpOptions);
-}
-getStatuses(): Observable<BasicData[]> {
-  return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/statuses', httpOptions);
-}
-getGenres(): Observable<BasicData[]> {
-  return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/genres', httpOptions);
-}
+    return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/' + id, httpOptions);
+  }
 
-register(model: any){
-  return this.http.post(this.baseUrl + 'screenplay/register', model);
-}
+  getAllScreenplays(): Observable<Screenplay[]> {
+    console.log(this.baseUrl + 'screenplay/getAllScreenplays')
+    return this.http.get<Screenplay[]>(this.baseUrl + 'screenplay/getAllScreenplays', httpOptions);
 
-episodeRegister(model: any, screenplayId){
-  return this.http.post(this.baseUrl + 'screenplay/' + screenplayId + '/Episode/register', model);
-}
+  }
 
-public downloadFile(file: string): Observable<HttpEvent<Blob>> {
-  return this.httpClient.request(new HttpRequest(
-    'GET',
-    `${'http://localhost:5000/api/episode/upload/download2'}?file=${file}`,
-    null,
-    {
-      reportProgress: true,
-      responseType: 'blob'
-    }));
-}
+  getEpisode(screenplayId): Observable<Episode[]> {
+    return this.http.get<Episode[]>(this.baseUrl + 'screenplay/episode/' + screenplayId, httpOptions);
+  }
+
+  getPersons(): Observable<Person[]> {
+    return this.http.get<Person[]>(this.baseUrl + 'Person', httpOptions);
+  }
+  getFormats(): Observable<BasicData[]> {
+    return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/formats', httpOptions);
+  }
+  getGroups(parentId: any): Observable<BasicData[]> {
+  
+    console.log(this.baseUrl + 'Basicdata/groups/'+parentId)
+    return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/groups/'+parentId, httpOptions);
+  }
+  getConcepts(): Observable<BasicData[]> {
+    console.log(this.baseUrl + 'Basicdata/concepts');
+    return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/concepts', httpOptions);
+  }
+  getOrgs(): Observable<OrgStructure[]> {
+    console.log(this.baseUrl + 'Basicdata/orgs');
+    return this.http.get<OrgStructure[]>(this.baseUrl + 'Basicdata/orgs', httpOptions);
+
+
+  }
+  getFormatNumbers(): Observable<ScreenplayFormat[]> {
+    return this.http.get<ScreenplayFormat[]>(this.baseUrl + 'screenplay/formatReport', httpOptions);
+  }
+  getStatusNumbers(): Observable<ScreenplayStatus[]> {
+    return this.http.get<ScreenplayStatus[]>(this.baseUrl + 'screenplay/statusReport', httpOptions);
+  }
+  getStatuses(): Observable<BasicData[]> {
+    return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/statuses', httpOptions);
+  }
+  getGenres(): Observable<BasicData[]> {
+    return this.http.get<BasicData[]>(this.baseUrl + 'Basicdata/genres', httpOptions);
+  }
+
+  register(model: any) {
+    console.log("nnnnnnnnnnnnnnnnnnn");
+    console.log(model)
+    return this.http.post(this.baseUrl + 'screenplay/register', model);
+  }
+
+  screenplayUpdate(model: any) {
+
+    console.log('service model ', model)
+    return this.http.post(this.baseUrl + 'screenplay/update', model);
+  }
+
+  episodeRegister(model: any, screenplayId) {
+    return this.http.post(this.baseUrl + 'screenplay/' + screenplayId + '/Episode/register', model);
+  }
+
+  public downloadFile(file: string): Observable<HttpEvent<Blob>> {
+    return this.httpClient.request(new HttpRequest(
+      'GET',
+      `${'http://localhost:5000/api/episode/upload/download2'}?file=${file}`,
+      null,
+      {
+        reportProgress: true,
+        responseType: 'blob'
+      }));
+  }
 
 
 

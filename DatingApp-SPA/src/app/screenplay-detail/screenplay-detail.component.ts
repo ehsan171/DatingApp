@@ -280,7 +280,7 @@ this.model = Object.assign({}, this.screenplayRegForm.value);
 this.screenplayService.register(this.model).subscribe(() => {
 this.alertify.success('register succ...');
 }, error => {
-this.alertify.error('This is error from register sssssstest');
+this.alertify.error('This is error from register sssssstest2');
 }
 );
 

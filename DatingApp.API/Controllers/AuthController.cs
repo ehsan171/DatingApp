@@ -28,27 +28,29 @@ namespace DatingApp.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
+            Console.WriteLine("aaaaaaaaaaaaaaaaasssssssssssssssss");
+            Console.WriteLine(userForRegisterDto.Firstname);
             // validate request
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
             if (await _repo.UserExists(userForRegisterDto.Username))
-                return BadRequest("Username already ex...");
+                return BadRequest("کاربری با این نام قبلا ثبت نام کرده است.");
 
             
             var userToCreate = new User
             {
                 Username = userForRegisterDto.Username,
                 photoUrl = userForRegisterDto.photoUrl,
+                OrgId = userForRegisterDto.OrgId,
+                Firstname = userForRegisterDto.Firstname,
+                Lastname = userForRegisterDto.Lastname,
 
             };
 
-            var studentToCreate = new Student
-            {
-                Name =userForRegisterDto.name
-            };
+          
             
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
-            var createdStudent = await _repo.RegisterStudent(studentToCreate);
+            
             return StatusCode(201);
         }
         [HttpPost("processReg")]
@@ -90,6 +92,8 @@ namespace DatingApp.API.Controllers
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Username),
                 new Claim("OrgId", userFromRepo.OrgId.ToString()),
+                new Claim("Firstname", userFromRepo.Firstname.ToString()),
+                new Claim("Lastname", userFromRepo.Lastname.ToString()),
 
 
             };

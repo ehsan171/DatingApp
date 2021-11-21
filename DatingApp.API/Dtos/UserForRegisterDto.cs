@@ -11,7 +11,11 @@ namespace DatingApp.API.Dtos
         [StringLength(8, MinimumLength = 4, ErrorMessage = "You must speci...")]
         public string Password { get; set; }
          public string photoUrl { get; set; }
-         public string name { get; set; }
+         public int? OrgId { get; set; }
+#nullable enable
+         public string? Firstname { get; set; }
+#nullable enable
+         public string? Lastname { get; set; }
 
     }
 }

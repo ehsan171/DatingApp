@@ -1,3 +1,4 @@
+using System.IO.Pipelines;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,7 @@ namespace DatingApp.API.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-Q2C2TQL;Database=screenplaydb2;Trusted_Connection=True");
+            optionsBuilder.UseSqlServer("Server=ASGARI-PC\\EHSAN3;Database=ResourceAll4;Trusted_Connection=True");
         }
 
 
@@ -20,12 +21,19 @@ namespace DatingApp.API.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<StudentCourse>().HasKey(sc => new { sc.StudentId, sc.CourseId });
             modelBuilder.Entity<EmployeeProject>().HasKey(sc => new { sc.EmployeeId, sc.ProjectId });
-            modelBuilder.Entity<EpisodeConcept>().HasKey(sc => new { sc.EpisodeId, sc.BasicDataId });
-            modelBuilder.Entity<ScreenplayOrgStructure>().HasKey(sc => new { sc.ScreenplayId, sc.OrgStructureId });
+            modelBuilder.Entity<EpisodeConcept>().HasKey(sc => new { sc.EpisodeId, sc.PMDSPSItemItemID });
+            modelBuilder.Entity<ScreenplayOrgStructure>().HasKey(sc => new { sc.ScreenplayId, sc.PMDSPSItemItemID });
             modelBuilder.Entity<EpisodeWriter>().HasKey(sc => new { sc.EpisodeId, sc.PersonId });
             modelBuilder.Entity<ScreenplayProducer>().HasKey(sc => new { sc.ScreenplayId, sc.PersonId });
-            modelBuilder.Entity<ScreenplayFormat>().HasKey(sc => new { sc.ScreenplayId, sc.BasicDataId });
-            modelBuilder.Entity<ScreenplayGenre>().HasKey(sc => new { sc.ScreenplayId, sc.BasicDataId });
+            modelBuilder.Entity<ScreenplayFormat>().HasKey(sc => new { sc.ScreenplayId, sc.PMDSPSItemItemID });
+            modelBuilder.Entity<ScreenplayGenre>().HasKey(sc => new { sc.ScreenplayId, sc.PMDSPSItemItemID });
+            modelBuilder.Entity<BarnameGroup>().HasKey(sc => new { sc.BarnameId, sc.BasicDataId });
+            modelBuilder.Entity<BarnameNetwork>().HasKey(sc => new { sc.BarnameId, sc.BasicDataId });
+            modelBuilder.Entity<BarnameProducer>().HasKey(sc => new { sc.BarnameId, sc.PersonId });
+            modelBuilder.Entity<ResourceOccasion>().HasKey(sc => new { sc.ResourceId, sc.OccasionId });
+            modelBuilder.Entity<RRequestResource>().HasKey(sc => new { sc.ResourceId, sc.RRequestId });
+            modelBuilder.Entity<Allocation>().HasKey(sc => new { sc.Id });
+            
 
 
             base.OnModelCreating(modelBuilder);
@@ -58,8 +66,36 @@ namespace DatingApp.API.Data
         public DbSet<UserTest> UserTests { get; set; }
      
         public DbSet<ProcessDataReg> ProcessDataRegs { get; set; }
+        public DbSet<PMDSPSItem> PMDSPSItem { get; set; }
 
+        public DbSet<Group> Groups { get; set; }
 
+        public DbSet<Occasion> Occasions { get; set; }
+
+        public DbSet<Resource> Resources { get; set; }
+
+        public DbSet<RecordType> RecordTypes { get; set; }
+
+        public DbSet<ResourceOccasion> ResourceOccasions { get; set; }
+
+        public DbSet<RRequest> RRequests { get; set; }
+
+        public DbSet<RRequestResource> RRequestResources { get; set; }
+
+        public DbSet<Barname> Barname { get; set; }
+
+        public DbSet<BarnameGroup> BarnameGroups { get; set; }
+
+        public DbSet<BarnameNetwork> BarnameNetworks { get; set; }
+
+        public DbSet<BarnameProducer> BarnameProducers { get; set; }
+
+        public DbSet<Allocation> Allocations { get; set; }
+
+        public DbSet<TimeSection> TimeSections { get; set; }
+        
+        
+        
     }
 
 

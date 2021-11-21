@@ -7,7 +7,7 @@ namespace DatingApp.API.Data
 {
     public class AuthRepository : IAuthRepository
     {
-        Student student;
+        
         private readonly DataContext _context;
         public AuthRepository(DataContext context)
         {
@@ -43,7 +43,7 @@ namespace DatingApp.API.Data
 
         public async Task<User> Register (User user, string password)
         {
-                  Console.WriteLine("auuuuuuuua");
+                  Console.WriteLine(user.Firstname);
         //    student.Name="dfdff";
            byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);

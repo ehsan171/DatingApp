@@ -1,72 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace DatingApp.API.Data
 {
     public class ScreenplayRepository : IScreenplayRepository
     {
-        Student student;
+        
         private readonly DataContext _context;
         public ScreenplayRepository(DataContext context)
         {
             _context = context;
 
         }
-        // public async Task<User> Login(string username, string password)
-        // {
-           
-        //     var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
-        //     if (user == null)
-        //         return null;
-
-        //     if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-        //         return null;
-
-        //     return user;
-        // }
-
-        // private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        // {
-        //     using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
-        //     {
-        //         var ComputedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-        //         for (int i = 0; i < ComputedHash.Length; i++)
-        //         {
-        //             if (ComputedHash[i] != passwordHash[i])  return false;
-        //         }
-        //     }
-        //     return true;
-        // }
-
-        // public async Task<User> Register (User user, string password)
-        // {
-        // //    student.Name="dfdff";
-        //    byte[] passwordHash, passwordSalt;
-        //     CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            
-        //     user.PasswordHash = passwordHash;
-        //     user.PasswordSalt = passwordSalt;
-        //     await _context.Users.AddAsync(user);
-        //     await _context.SaveChangesAsync();
-
-        //     return user;
-        // }
-        
-        
-        // public async Task<Student> RegisterStudent (Student student)
-        // {
-        // //    student.Name="dfdff";
-           
-        
-        //     await _context.Students.AddAsync(student);
-        //     await _context.SaveChangesAsync();
-
-        //     return student;
-        // }
         
         
         public async Task<Screenplay> RegisterScreenplay (Screenplay screenplay, Dictionary<string, object> otherData )
@@ -74,24 +25,27 @@ namespace DatingApp.API.Data
         
             await _context.Screenplays.AddAsync(screenplay);
             await _context.SaveChangesAsync();
-
+            Console.WriteLine( otherData["Formats"]);
+            Console.WriteLine( "zzzzzRegisterScreenplayzzzzzzzz");
             int formats = (int) otherData["Formats"];
             List<int> genres = (List<int>) otherData["Genres"];
             List<int> producers = (List<int>) otherData["Producers"];
             List<int> orgStructures = (List<int>) otherData["OrgStructures"];
         
     
-// var names = new List<string>() { "John", "Tom", "Peter" };
+            // var names = new List<string>() { "John", "Tom", "Peter" };
             foreach (int genre in genres)
             {
+                Console.WriteLine("jkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+genre);   
                 var scGeToCreate = new ScreenplayGenre
                 {
-                    BasicDataId = genre,
+                    PMDSPSItemItemID = genre,
                     ScreenplayId = screenplay.Id,
                 };
      
                 await _context.ScreenplayGenres.AddAsync(scGeToCreate);
                 await _context.SaveChangesAsync();
+                 Console.WriteLine("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
             }
             foreach (int producer in producers)
             {
@@ -105,42 +59,134 @@ namespace DatingApp.API.Data
                 await _context.SaveChangesAsync();
 
                 
-                // var scWriToCreate = new EpisodeWriter
-                // {
-                //     PersonId = producer,
-                //     EpisodeId = 23,
-                // };
-
-                // await _context.EpisodeWriters.AddAsync(scWriToCreate);
-                // await _context.SaveChangesAsync();
-
-
+              
                 
             }
        
-        foreach (int org in orgStructures)
+            foreach (int org in orgStructures)
             {
-              
-                var screenOrgToCreate = new ScreenplayOrgStructure
-                {
-                    OrgStructureId = org,
-                    ScreenplayId = screenplay.Id,
-                    
-                };
+                
+                    var screenOrgToCreate = new ScreenplayOrgStructure
+                    {
+                        PMDSPSItemItemID = org,
+                        ScreenplayId = screenplay.Id,
+                        
+                    };
 
-                await _context.ScreenplayOrgStructures.AddAsync(screenOrgToCreate);
-                await _context.SaveChangesAsync();
+                    await _context.ScreenplayOrgStructures.AddAsync(screenOrgToCreate);
+                    await _context.SaveChangesAsync();
             }
 
             var scForToCreate = new ScreenplayFormat
                 {
-                    BasicDataId = formats,
+                    PMDSPSItemItemID = formats,
+                    ScreenplayId = screenplay.Id,
+                };
+
+            Console.WriteLine(scForToCreate.PMDSPSItem);
+                await _context.ScreenplayFormats.AddAsync(scForToCreate);
+                await _context.SaveChangesAsync();
+
+            return screenplay;
+        }
+        
+        public async Task<Screenplay> UpdateScreenplay (Screenplay screenplay, Dictionary<string, object> otherData )
+        {
+        
+            var ScreenplayFromDb = await _context.Screenplays.FindAsync(screenplay.Id);
+            ScreenplayFromDb.Title=screenplay.Title; 
+            ScreenplayFromDb.TotalNumberEpisodes = screenplay.TotalNumberEpisodes; 
+            ScreenplayFromDb.StatusId = screenplay.StatusId;
+            ScreenplayFromDb.RegDate = screenplay.RegDate;
+    
+            await _context.SaveChangesAsync();  
+
+            if (otherData["Formats"]!=null){
+              
+                _context.RemoveRange(_context.ScreenplayFormats.FirstOrDefault(a => a.ScreenplayId == screenplay.Id));
+                _context.SaveChanges();
+                
+                int formats = (int) otherData["Formats"];
+             
+                var scForToCreate = new ScreenplayFormat
+                {
+                    PMDSPSItemItemID = formats,
                     ScreenplayId = screenplay.Id,
                 };
 
                 await _context.ScreenplayFormats.AddAsync(scForToCreate);
                 await _context.SaveChangesAsync();
+            }
 
+            
+            if (otherData["Genres"]!=null){
+              
+                _context.RemoveRange(_context.ScreenplayProducers.Where(x => x.ScreenplayId == screenplay.Id));
+                _context.SaveChanges();
+                
+                List<int> genres = (List<int>) otherData["Genres"];
+             
+                foreach (int genre in genres)
+            {
+               
+                var scGeToCreate = new ScreenplayGenre
+                {
+                    PMDSPSItemItemID = genre,
+                    ScreenplayId = screenplay.Id,
+                };
+
+                    await _context.ScreenplayGenres.AddAsync(scGeToCreate);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            _context.SaveChanges();
+
+            if (otherData["Producers"] != null)
+            {
+
+                _context.RemoveRange(_context.ScreenplayProducers.Where(x => x.ScreenplayId == screenplay.Id));
+                _context.SaveChanges();
+
+                List<int> producers = (List<int>)otherData["Producers"];
+
+                foreach (int producer in producers)
+                {
+
+                    var scProToCreate = new ScreenplayProducer
+                    {
+                        PersonId = producer,
+                        ScreenplayId = screenplay.Id,
+                };
+
+                await _context.ScreenplayProducers.AddAsync(scProToCreate);
+                await _context.SaveChangesAsync();
+            }
+            }
+           
+            if (otherData["OrgStructures"]!=null){
+              
+               _context.RemoveRange(_context.ScreenplayOrgStructures.Where(x => x.ScreenplayId == screenplay.Id));
+                _context.SaveChanges();
+                
+                List<int> orgStructures = (List<int>) otherData["OrgStructures"];
+             
+               
+            foreach (int org in orgStructures)
+                {
+                
+                    var screenOrgToCreate = new ScreenplayOrgStructure
+                    {
+                        PMDSPSItemItemID = org,
+                        ScreenplayId = screenplay.Id,
+                        
+                    };
+
+                    await _context.ScreenplayOrgStructures.AddAsync(screenOrgToCreate);
+                    await _context.SaveChangesAsync();
+                }
+
+            }
             return screenplay;
         }
         
@@ -154,7 +200,7 @@ namespace DatingApp.API.Data
             }
         }
 
-        public async Task<bool> ScreenplayExists(string title)
+        public async Task<bool> ScreenplayTitleExists(string title)
         {
              
             if (await _context.Screenplays.AnyAsync(x => x.Title == title))
@@ -162,7 +208,25 @@ namespace DatingApp.API.Data
             
             return false;
         }
+
+
+        public async Task<bool> BaravordExists(string baravordNo)
+        {
+             
+            if (await _context.Screenplays.AnyAsync(x => x.BaravordNo == baravordNo))
+                return true;
+            
+            return false;
+        }
     
+        public async Task<bool> ScreenplayRecordExists(int id)
+        {
+             
+            if (await _context.Screenplays.AnyAsync(x => x.Id == id))
+                return true;
+            
+            return false;
+        }
     
         public async Task<Screenplay> GetScreenplay(int id)
         {

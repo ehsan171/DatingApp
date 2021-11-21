@@ -5,6 +5,9 @@ export interface User {
     username: string;
     created: Date;
     lastActive: Date;
-    photoUrl: string;
+    photoUrl?: string;
     photos?: Photo[];
+    orgId?: number;
+    firstname?: string;
+    lastname?: string;
 }

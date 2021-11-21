@@ -35,6 +35,38 @@ namespace DatingApp.API.Controllers
         }
         
         [AllowAnonymous]
+        [HttpGet("groups/{parentId}")]
+        public async Task<IActionResult> GetGroups(int parentId)
+        {
+            var groups = await _context.BasicDatas
+            .Where(group => group.Type == "1" && group.Parent==parentId)
+            .Select(x => new{
+                Id = x.Id,
+                Name = x.Name,
+            } )
+            .ToListAsync();
+            
+            return Ok(groups);
+        }
+        
+        [AllowAnonymous]
+        [HttpGet("orgIds")]
+        public async Task<IActionResult> GetOrgIds()
+        {
+            Console.WriteLine("2xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            var orgIds = await _context.BasicDatas
+            .Where(orgId => orgId.Type == "4" & orgId.Parent == null)
+            .Select(x => new{
+                Id = x.Id,
+                Name = x.Name,
+            } )
+            .ToListAsync();
+           Console.WriteLine("eweweweweeweweweweweee");
+
+            return Ok(orgIds);
+        }
+        
+        [AllowAnonymous]
         [HttpGet("statuses")]
         public async Task<IActionResult> GetStatuses()
         {
@@ -85,14 +117,14 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> GetOrgs()
         {
             
-            var orgs = await _context.OrgStructures
-           
+            var orgs = await _context.BasicDatas
+            .Where(concept => concept.Type == "4")
             .Select(x => new{
                 Id = x.Id,
                 Name = x.Name,
-                ParentId = x.ParentId,
-                IsInner = x.IsInner,
-                OrgId = x.OrgId
+                ParentId = x.Parent,
+                IsInner = 1,
+                //OrgId = x.ItemID
             } )
             .ToListAsync();
             

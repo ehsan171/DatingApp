@@ -115,7 +115,7 @@
     <br>
    
 
-    <div style="height: 1000px; width: 100%;" class="test">
+    <div style=" width: 100%;" class="test">
       <table class='table table-sm' aria-labelledby="tableLabel" style="border:1px solid;  user-select: none; ">  
         <thead style="background-color: #d7bde2;">  
           <tr>  
@@ -138,13 +138,14 @@
               :(column != 'hour' && row[column] >= requestVolume )? 'rgba(221,204,102,0.5)'
               : (column == 'hour')? '#d7bde2': 'rgba(255,255,255,0.5)'"  >  
             {{row[column]}}
+            
           
             </td>  
           </tr>  
           <tr>
             <td  *ngFor="let column of header"
             [style.background]="
-            ( totalOfColumn[column]<=remainResourceOfColumn[column]-90)?  '#0ffe87'
+            ( totalOfColumn[column]<=remainResourceOfColumn[column])?  '#0ffe87'
             : (column == 'hour')? '#f4c430': '#eb003f'">
                 {{totalOfColumn[column]}}
             </td>
@@ -158,15 +159,23 @@
           </tr>
 
  
+          <tr>
+            <td  *ngFor="let column of header">
+              {{shortageResourceOfColumn[column]}}
+            </td>
+          
+          </tr>
+
+ 
         </tbody>  
     </table> 
   </div>
 
-    <div style="height: 1000px; width: 100%;" class="test">
-      <table class='table table-sm' aria-labelledby="tableLabel" style="border:1px solid red;  user-select: none; ">  
+    <div style="width: 100%; margin-top: 60px;" class="test">
+      <table class='table table-sm' aria-labelledby="tableLabel" style="  user-select: none;">  
         <thead style="background-color: #d7bde2;">  
           <tr style="  border: 1px solid black;">  
-            <th scope="col" *ngFor="let column of header2">  
+            <th scope="col" *ngFor="let column of header2" >  
               {{column}}  
             </th>  
           </tr>  
@@ -188,11 +197,42 @@
               
               ondragstart="return false;" ondrop="return false;"
              
-            style="  border: 1px solid black;"
+            style="  border: 1px solid black; padding: 0;direction: rtl;"
                >  
-            {{row["producer"]}}
+            <span style="margin:0;">{{row["producer"]}}</span>
           
             </td>  
+              <td  
+              
+              
+              ondragstart="return false;" ondrop="return false;"
+             
+            style="  border: 1px solid black; padding: 0;direction: rtl;"
+               >  
+            <span style="margin:0;">{{row["RegDate"]}}</span>
+          
+            </td>  
+              <td  
+              
+              
+              ondragstart="return false;" ondrop="return false;"
+             
+            style="  border: 1px solid black; padding: 0;direction: rtl;"
+               >  
+            <span style="margin:0;">{{row["duration"]}}</span>
+          
+            </td>  
+              <td  
+              
+              
+              ondragstart="return false;" ondrop="return false;"
+             
+            style="  border: 1px solid black; padding: 0;direction: rtl;"
+               >  
+            <span style="margin:0;">{{(row["totalConflict"]/row["totalDay"])*100| number:'1.0-1'}}%</span>
+          
+            </td>  
+
           </tr>  
           <tr style="  border: 1px solid black;">
           

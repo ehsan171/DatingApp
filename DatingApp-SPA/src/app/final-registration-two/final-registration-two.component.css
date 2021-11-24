@@ -56,7 +56,15 @@ body {
 }
 
 td {
-  padding: 1rem;
+  /* padding: 1rem; */
   background: whitesmoke;
   border: 1px solid black;
+  text-align: center;
+  vertical-align: middle;
+}
+th{
+  /* padding: 1rem; */
+  border: 1px solid black;
+  text-align: center;
+  vertical-align: middle;
 }

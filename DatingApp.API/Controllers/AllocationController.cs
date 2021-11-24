@@ -179,6 +179,7 @@ namespace DatingApp.API.Controllers
                     x.Day,
                     x.Month,
                     x.Year,
+                    x.RegisterDate,
                     
                     x.Barname.Title,
                     network = x.Barname.BarnameNetworks.Select(n=>n.BasicData).Select(a => a.Name),

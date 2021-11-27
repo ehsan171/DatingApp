@@ -50,15 +50,11 @@
             <div class="" >
               <span class="" style="color: rgb(160, 159, 159);"></span>
                   <div style="height: 30px;;border-bottom:  1px solid rgb(160, 159, 159);  margin-top: 20px; text-align: right ;" >
-                     
                 
                   {{resourceUnit}}
                   
                   </div>
             
-              
-              
-          
           </div>
     
     
@@ -113,8 +109,13 @@
     <button (click)="onSave()">test2</button>
     <button (click)="register()">register</button>
     <br>
-   
 
+    <div *ngFor="let column of ArrayRowsDataset; let i = index">
+<ng-container *ngIf="ArrayRowsExtraDataset[i][0]">
+<div style="width: 100%; text-align: right; padding-bottom:5px ;margin-bottom: 10px;">
+  {{i}}<span style=" padding: 10px; margin-bottom: 10px ;border-radius: 5px;" [style.background-color]="colors[color]">روز&nbsp;{{ArrayRowsExtraDataset[i][0]['day']}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['month']}}</span>
+</div>
+</ng-container>
     <div style=" width: 100%;" class="test">
       <table class='table table-sm' aria-labelledby="tableLabel" style="border:1px solid;  user-select: none; ">  
         <thead style="background-color: #d7bde2;">  
@@ -125,7 +126,7 @@
           </tr>  
         </thead>  
         <tbody style="border: #0000;">  
-          <tr *ngFor="let row of RowsData| slice:1;let indexOfElement=index;">  
+          <tr *ngFor="let row of ArrayRowsDataset[i]| slice:1;let indexOfElement=index;">  
               <td  
               class="details"
               (mouseover)="onCellClick( indexOfElement, column )" 
@@ -181,7 +182,7 @@
           </tr>  
         </thead>  
         <tbody style="  border: 1px solid black;">  
-          <tr *ngFor="let row of RowsExtraData| slice:1;let indexOfElement=index;" style="  border: 1px solid black;">  
+          <tr *ngFor="let row of ArrayRowsExtraDataset[i]| slice:1;let indexOfElement=index;" style="  border: 1px solid black;">  
               <td  
               
               
@@ -255,6 +256,9 @@
         </tbody>  
     </table> 
   </div>
+  <br>
+    </div>
+
 
 </div>
 

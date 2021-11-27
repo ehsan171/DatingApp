@@ -44,6 +44,9 @@
     @Input() valuesFromDetail;
     @Output() cancelRegister = new EventEmitter();
     colors: any = [];
+    monthName:any = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند', ];
+
+
     random: number  ;
     color: number   ;
     totalOfColumn: any = [];
@@ -53,8 +56,11 @@
     header: any = [];
     header2: any = [];
     RowsData: any = [];
+    ArrayRowsDataset: any = [];
     RowsDataForWhichDay: any = [];
-    RowsExtraData: any = [];
+    ArrayRowsDatasetForWhichDay: any = [];
+    RowsExtraDataset: any = [];
+    ArrayRowsExtraDataset: any = [];
     IsCellClick: any = [ ]  
     test: any = {};
     test2: any = {};
@@ -177,9 +183,7 @@
           this.colors = [ '#358cff ', '	#ff6e4a', '#c3e3f5 ', '#76b3e8' ];
           this.random  = Math.floor((Math.random() * 9) + 1);
           this.color   = Math.floor((Math.random() * this.colors.length - 1) + 1);
-          this.RowsData = [ ]
-          this.RowsDataForWhichDay = [ ]
-          this.RowsExtraData = [ ]
+          
           this.totalOfColumn = []  
           this.IsCellClick = [ ]  
           this.header=["hour"]
@@ -199,27 +203,32 @@
                 }
 
             console.log("this.allocation",this.allocation[0])
-
-            for (let index = -1; index <this.allocation[0].length; index++) { 
+for(let numOfDay=0; numOfDay<2;numOfDay++){
+          this.RowsData = [ ]
+          this.RowsDataForWhichDay = [ ]
+          this.RowsExtraDataset = [ ]
+          for (let index = -1; index <this.allocation[numOfDay].length; index++) { 
 
               moment.locale('fa');
 
             let index2 =(index == -1 ? 0 : index);
             this.test =   
                       {  
-                        "hour" :this.allocation[0][index2][0]['title']
+                        "hour" :this.allocation[numOfDay][index2][0]['title']
                       }
             let test4 =   
                       {  
-                        "hour" :(this.allocation[0][index2][0]['title']>0)?1:0
+                        "hour" :(this.allocation[numOfDay][index2][0]['title']>0)?1:0
                       }
             let test3 =   
                       {  
-                        "hour" :this.allocation[0][index2][0]['title'],
-                        "producer" :this.allocation[0][index2][0]['producers'],
+                        "hour" :this.allocation[numOfDay][index2][0]['title'],
+                        "day": this.allocation[numOfDay][index2][0]['day'],
+                        "month": this.monthName[this.allocation[numOfDay][index2][0]['month']-1],
+                        "producer" :this.allocation[numOfDay][index2][0]['producers'],
                         // "RegDate" : this.allocation[3][index2][0]['registerDate']
-                        "duration" :  moment.from(this.allocation[0][index2][0]['registerDate'], 'en', 'YYYY-MM-DD').toNow(true),
-                        "RegDate" :  moment.from(this.allocation[0][index2][0]['registerDate'], 'en', 'YYYY-MM-DD').format('YYYY/MM/DD'),
+                        "duration" :  moment.from(this.allocation[numOfDay][index2][0]['registerDate'], 'en', 'YYYY-MM-DD').toNow(true),
+                        "RegDate" :  moment.from(this.allocation[numOfDay][index2][0]['registerDate'], 'en', 'YYYY-MM-DD').format('YYYY/MM/DD'),
                         "totalDay":0,
                         "totalConflict":0
                       }
@@ -232,7 +241,8 @@
                   
 
                   
-                    this.RowsExtraData.push(test3);
+                    this.RowsExtraDataset.push(test3);
+               
                     this.IsCellClick.push(this.test2);
                   
                   
@@ -247,21 +257,28 @@
 
             for (let index = 1; index < this.RowsData.length; index++) { 
               
-                    for(let j = 0 ; j < this.allocation[0][index-1].length; j++){
-                      (this.RowsData[index][this.allocation[0][index-1][j]['hour']]) =0 ;
+                    for(let j = 0 ; j < this.allocation[numOfDay][index-1].length; j++){
+                      (this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']]) =0 ;
                     }
                       
-                    for(let j = 0 ; j < (this.allocation[0][index-1].length); j++){
+                    for(let j = 0 ; j < (this.allocation[numOfDay][index-1].length); j++){
                             
-                      (this.RowsData[index][this.allocation[0][index-1][j]['hour']]) += (this.allocation[0][index-1][j]['usedUnit']) ;
-                      (this.RowsDataForWhichDay[index][this.allocation[0][index-1][j]['hour']]) = ((this.RowsData[index][this.allocation[0][index-1][j]['hour']])>0)?1:0 ;
-                      this.totalOfColumn[this.allocation[0][index-1][j]['hour']] += this.allocation[0][index-1][j]['usedUnit'];
+                      (this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']]) += (this.allocation[0][index-1][j]['usedUnit']) ;
+                      (this.RowsDataForWhichDay[index][this.allocation[numOfDay][index-1][j]['hour']]) = ((this.RowsData[index][this.allocation[0][index-1][j]['hour']])>0)?1:0 ;
+                      this.totalOfColumn[this.allocation[numOfDay][index-1][j]['hour']] += this.allocation[0][index-1][j]['usedUnit'];
                       delete this.RowsDataForWhichDay[index].hour;
                     }
                     this.remainResourceOfColumn['hour'] = "منبع آزاد"
                 
             }
             console.log("hhhhhh",this.allocation)
+            this.ArrayRowsDataset.push(this.RowsData)
+            this.ArrayRowsDatasetForWhichDay.push(this.RowsDataForWhichDay)
+            this.ArrayRowsExtraDataset.push(this.RowsExtraDataset)
+            console.log("10002 RowsData",this.RowsData)
+            console.log("10002 ArrayRowsDataset",this.ArrayRowsDataset)
+}
+    
 
             this.resourceService.getFreeResourcePerHour(resourceId,year,month,this.allocation[0][0][0]['day']).subscribe((allocation: Allocation[]) => {
 
@@ -282,17 +299,16 @@
                   this.shortageResourceOfColumn[index] =  (dif<0)?1:0;
                
               }          
-              console.log("10003",this.allocation)
-              console.log("10000",this.RowsDataForWhichDay[0])
-              console.log("10001",this.shortageResourceOfColumn) 
-              console.log("10002",this.RowsExtraData) 
+
+              console.log("10002 RowsExtraDataset",this.RowsExtraDataset) 
+              console.log("10002 ArrayRowsExtraDataset",this.ArrayRowsExtraDataset) 
 
       
-       for(let i=0; i<this.RowsExtraData.length;i++) {
+       for(let i=0; i<this.ArrayRowsExtraDataset[0].length;i++) {
          for (let key in this.RowsDataForWhichDay[i]){
-          this.RowsExtraData[i].totalDay += 1
+          this.ArrayRowsExtraDataset[0][i].totalDay += 1
             if(this.shortageResourceOfColumn[key]==1){
-              this.RowsExtraData[i].totalConflict += 1
+              this.ArrayRowsExtraDataset[0][i].totalConflict += 1
             }
               console.log(key)
               console.log(this.shortageResourceOfColumn[key])
@@ -300,7 +316,7 @@
           
         }
        }    
-       console.log(this.RowsExtraData)
+       console.log("10002 RowExtraData2",this.RowsExtraDataset)
               //this.RowsData.shift()
 
             }, () => {
@@ -325,8 +341,6 @@
 
     gettingWaitingAllocation(resourceId, year, month) {
       
-      let monthName = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند', ]
-
       var numberOfDays: number[] = [31,62,93,124,155,186,216,246,276,306,336,365];
         this.RowsData = [ ]  
         this.IsCellClick = [ ]  
@@ -351,7 +365,7 @@
               });
             this.test =   
                       {  
-                        "hour" :1+(index33 <= 0 ? index : index-numberOfDays[index33-1] )+"  "+ monthName[index33]
+                        "hour" :1+(index33 <= 0 ? index : index-numberOfDays[index33-1] )+"  "+ this.monthName[index33]
                       }
                     
             this.test2 =   

@@ -14,6 +14,7 @@
   import { fromEvent } from 'rxjs';
   import { skipUntil, takeUntil } from 'rxjs/operators';
   import { event } from 'jquery';
+  
   declare var $: any;
 
   @Component({
@@ -24,6 +25,11 @@
   export class FinalRegistrationTwoComponent implements OnInit {
 
     
+    showDiv = {
+
+    
+    }
+
     name = 'Angular 5';
     mouseX: number;
     mouseY: number;
@@ -46,7 +52,7 @@
     colors: any = [];
     monthName:any = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند', ];
 
-
+    nameFarsi: any = ['روز'];
     random: number  ;
     color: number   ;
     totalOfColumn: any = [];
@@ -106,7 +112,14 @@
     public textCapacity = 'ظرفیت مورد نیاز';
     public textYear = 'سال';
     public textMonth = 'ماه';
+    div:  boolean[] = [];
 
+   
+
+    divFunction(i) {
+       this.div[i] = !this.div[i];
+
+    }
     resourceForm = new FormGroup({
       capacity: new FormControl(),
       yearFormControl: new FormControl(),
@@ -180,7 +193,10 @@
 
 
     gettingWaitingForAcceptAllocation(resourceId, year, month) {
-          this.colors = [ '#358cff ', '	#ff6e4a', '#c3e3f5 ', '#76b3e8' ];
+
+
+
+          this.colors = [ 'rgb(136,212,194) ', '	#ff6e4a', '#c3e3f5 ', '#76b3e8' ];
           this.random  = Math.floor((Math.random() * 9) + 1);
           this.color   = Math.floor((Math.random() * this.colors.length - 1) + 1);
           
@@ -189,6 +205,9 @@
           this.header=["hour"]
           this.header2=["نام برنامه","تهیه کننده", "تاریخ ثبت","زمان سپری شده","درصد تداخل"]
  
+          this.ArrayRowsDataset = []
+            this.ArrayRowsDatasetForWhichDay = []
+            this.ArrayRowsExtraDataset = []
           
           for (let i = 1; i <= 24;i++){
             this.header.push(i)
@@ -203,6 +222,7 @@
                 }
 
             console.log("this.allocation",this.allocation[0])
+
 for(let numOfDay=0; numOfDay<2;numOfDay++){
           this.RowsData = [ ]
           this.RowsDataForWhichDay = [ ]
@@ -431,7 +451,7 @@ console.log("1004",requestResValue)
       this.gettingWaitingForAcceptAllocation(this.resourceId,this.year, this.month);
 
       this.gettingDataCapacity( this.resourceId);
-
+      console.log('10006',this.ArrayRowsDataset);
   }
     onChangeYear(value) {
     
@@ -585,8 +605,17 @@ console.log("1004",requestResValue)
 
 
     ngOnInit() {
+      for(let i=0;i<=31;i++){
+this.div[i]=true;
+      }
 
       $(document).ready(function () {
+
+        $('.day_btn').on('click', function() {
+          alert()
+          $(this).next().toggle('fast');
+         
+        })
 
         $('.example1').pDatepicker({
           observer: true,

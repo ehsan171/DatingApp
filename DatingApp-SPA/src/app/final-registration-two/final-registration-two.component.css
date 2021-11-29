@@ -68,3 +68,20 @@ th{
   text-align: center;
   vertical-align: middle;
 }
+
+.day_btn{
+  /* padding: 10px;  */
+  /* margin-bottom: 10px; */
+  border-radius: 5px;
+  cursor: pointer;
+  width: 80px;
+  height: 40px;
+}
+
+.drop-down-main{
+  display: none;
+}
+
+.divContainer{
+  /* display: none; */
+}

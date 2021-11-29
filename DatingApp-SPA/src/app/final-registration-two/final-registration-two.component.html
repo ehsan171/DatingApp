@@ -1,4 +1,6 @@
-<div style="margin-left: 1%; margin-right: 1%;" 
+
+
+<div style="margin-left: 1%; margin-right: 1%; text-align: right;" 
 (mousedown)="mouseClickDown($event)"
 (mouseup)="mouseClickUp($event)">
     <form [formGroup]="resourceForm" >
@@ -109,153 +111,163 @@
     <button (click)="onSave()">test2</button>
     <button (click)="register()">register</button>
     <br>
-
+   
     <div *ngFor="let column of ArrayRowsDataset; let i = index">
 <ng-container *ngIf="ArrayRowsExtraDataset[i][0]">
 <div style="width: 100%; text-align: right; padding-bottom:5px ;margin-bottom: 10px;">
-  {{i}}<span style=" padding: 10px; margin-bottom: 10px ;border-radius: 5px;" [style.background-color]="colors[color]">روز&nbsp;{{ArrayRowsExtraDataset[i][0]['day']}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['month']}}</span>
+ 
 </div>
 </ng-container>
-    <div style=" width: 100%;" class="test">
-      <table class='table table-sm' aria-labelledby="tableLabel" style="border:1px solid;  user-select: none; ">  
-        <thead style="background-color: #d7bde2;">  
-          <tr>  
-            <th scope="col" *ngFor="let column of header">  
-              {{column}}  
-            </th>  
-          </tr>  
-        </thead>  
-        <tbody style="border: #0000;">  
-          <tr *ngFor="let row of ArrayRowsDataset[i]| slice:1;let indexOfElement=index;">  
-              <td  
-              class="details"
-              (mouseover)="onCellClick( indexOfElement, column )" 
-              (mousedown)="onCellClickSingleClick( indexOfElement, column,$event )" 
-              ondragstart="return false;" ondrop="return false;"
-              *ngFor="let column of header"
+
+
+<button class=""
+[style.background-color]="colors[i]"
+(click)="divFunction(i)">
+{{nameFarsi[0]}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['day']}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['month']}}
+</button>
+<div class="divContainer" *ngIf="div[i]">
+      <div style=" width: 100%;" class="test" >
+        <table class='table table-sm' aria-labelledby="tableLabel" style="border:1px solid;  user-select: none; ">  
+          <thead style="background-color: #d7bde2;">  
+            <tr>  
+              <th scope="col" *ngFor="let column of header">  
+                {{column}}  
+              </th>  
+            </tr>  
+          </thead>  
+          <tbody style="border: #0000;">  
+            <tr *ngFor="let row of ArrayRowsDataset[i]| slice:1;let indexOfElement=index;">  
+                <td  
+                class="details"
+                (mouseover)="onCellClick( indexOfElement, column )" 
+                (mousedown)="onCellClickSingleClick( indexOfElement, column,$event )" 
+                ondragstart="return false;" ondrop="return false;"
+                *ngFor="let column of header"
+              
+                [style.background]="
+                (column != 'hour' && row[column])? colors[indexOfElement]
+                :(column != 'hour' && row[column] >= requestVolume )? 'rgba(221,204,102,0.5)'
+                : (column == 'hour')? '#d7bde2': 'rgba(255,255,255,0.5)'"  >  
+              {{row[column]}}
+              
             
+              </td>  
+            </tr>  
+            <tr>
+              <td  *ngFor="let column of header"
               [style.background]="
-              (column != 'hour' && row[column])? colors[indexOfElement]
-              :(column != 'hour' && row[column] >= requestVolume )? 'rgba(221,204,102,0.5)'
-              : (column == 'hour')? '#d7bde2': 'rgba(255,255,255,0.5)'"  >  
-            {{row[column]}}
+              ( totalOfColumn[column]<=remainResourceOfColumn[column])?  '#0ffe87'
+              : (column == 'hour')? '#f4c430': '#eb003f'">
+                  {{totalOfColumn[column]}}
+              </td>
             
-          
-            </td>  
-          </tr>  
-          <tr>
-            <td  *ngFor="let column of header"
-            [style.background]="
-            ( totalOfColumn[column]<=remainResourceOfColumn[column])?  '#0ffe87'
-            : (column == 'hour')? '#f4c430': '#eb003f'">
-                {{totalOfColumn[column]}}
-            </td>
-          
-          </tr>
-          <tr>
-            <td  *ngFor="let column of header">
-                {{remainResourceOfColumn[column]}}
-            </td>
-          
-          </tr>
-
- 
-          <tr>
-            <td  *ngFor="let column of header">
-              {{shortageResourceOfColumn[column]}}
-            </td>
-          
-          </tr>
-
- 
-        </tbody>  
-    </table> 
-  </div>
-
-    <div style="width: 100%; margin-top: 60px;" class="test">
-      <table class='table table-sm' aria-labelledby="tableLabel" style="  user-select: none;">  
-        <thead style="background-color: #d7bde2;">  
-          <tr style="  border: 1px solid black;">  
-            <th scope="col" *ngFor="let column of header2" >  
-              {{column}}  
-            </th>  
-          </tr>  
-        </thead>  
-        <tbody style="  border: 1px solid black;">  
-          <tr *ngFor="let row of ArrayRowsExtraDataset[i]| slice:1;let indexOfElement=index;" style="  border: 1px solid black;">  
-              <td  
-              
-              
-              ondragstart="return false;" ondrop="return false;"
-             style="  border: 1px solid black;"
+            </tr>
+            <tr>
+              <td  *ngFor="let column of header">
+                  {{remainResourceOfColumn[column]}}
+              </td>
             
-               >  
-            {{row["hour"]}}
-          
-            </td>  
-              <td  
-              
-              
-              ondragstart="return false;" ondrop="return false;"
-             
-            style="  border: 1px solid black; padding: 0;direction: rtl;"
-               >  
-            <span style="margin:0;">{{row["producer"]}}</span>
-          
-            </td>  
-              <td  
-              
-              
-              ondragstart="return false;" ondrop="return false;"
-             
-            style="  border: 1px solid black; padding: 0;direction: rtl;"
-               >  
-            <span style="margin:0;">{{row["RegDate"]}}</span>
-          
-            </td>  
-              <td  
-              
-              
-              ondragstart="return false;" ondrop="return false;"
-             
-            style="  border: 1px solid black; padding: 0;direction: rtl;"
-               >  
-            <span style="margin:0;">{{row["duration"]}}</span>
-          
-            </td>  
-              <td  
-              
-              
-              ondragstart="return false;" ondrop="return false;"
-             
-            style="  border: 1px solid black; padding: 0;direction: rtl;"
-               >  
-            <span style="margin:0;">{{(row["totalConflict"]/row["totalDay"])*100| number:'1.0-1'}}%</span>
-          
-            </td>  
+            </tr>
 
-          </tr>  
-          <tr style="  border: 1px solid black;">
-          
-            <td  *ngFor="let column of header"
-            [style.background]="
-            ( totalOfColumn[column]<=remainResourceOfColumn[column]-90)?  '#0ffe87'
-            : (column == 'hour')? '#f4c430': '#eb003f'" style="  border: 1px solid black;">
-                {{totalOfColumn[column]}}
-            </td>
-          
-          </tr>
-          <tr style="  border: 1px solid black;">
-            <td  *ngFor="let column of header" style="  border: 1px solid black;">
-                {{remainResourceOfColumn[column]}}
-            </td>
-          
-          </tr>
+  
+            <tr>
+              <td  *ngFor="let column of header">
+                {{shortageResourceOfColumn[column]}}
+              </td>
+            
+            </tr>
 
- 
-        </tbody>  
-    </table> 
-  </div>
+  
+          </tbody>  
+      </table> 
+    </div>
+
+      <div style="width: 100%; margin-top: 60px;" class="test">
+        <table class='table table-sm' aria-labelledby="tableLabel" style="  user-select: none;">  
+          <thead style="background-color: #d7bde2;">  
+            <tr style="  border: 1px solid black;">  
+              <th scope="col" *ngFor="let column of header2" >  
+                {{column}}  
+              </th>  
+            </tr>  
+          </thead>  
+          <tbody style="  border: 1px solid black;">  
+            <tr *ngFor="let row of ArrayRowsExtraDataset[i]| slice:1;let indexOfElement=index;" style="  border: 1px solid black;">  
+                <td  
+                
+                
+                ondragstart="return false;" ondrop="return false;"
+              style="  border: 1px solid black;"
+              
+                >  
+              {{row["hour"]}}
+            
+              </td>  
+                <td  
+                
+                
+                ondragstart="return false;" ondrop="return false;"
+              
+              style="  border: 1px solid black; padding: 0;direction: rtl;"
+                >  
+              <span style="margin:0;">{{row["producer"]}}</span>
+            
+              </td>  
+                <td  
+                
+                
+                ondragstart="return false;" ondrop="return false;"
+              
+              style="  border: 1px solid black; padding: 0;direction: rtl;"
+                >  
+              <span style="margin:0;">{{row["RegDate"]}}</span>
+            
+              </td>  
+                <td  
+                
+                
+                ondragstart="return false;" ondrop="return false;"
+              
+              style="  border: 1px solid black; padding: 0;direction: rtl;"
+                >  
+              <span style="margin:0;">{{row["duration"]}}</span>
+            
+              </td>  
+                <td  
+                
+                
+                ondragstart="return false;" ondrop="return false;"
+              
+              style="  border: 1px solid black; padding: 0;direction: rtl;"
+                >  
+              <span style="margin:0;">{{(row["totalConflict"]/row["totalDay"])*100| number:'1.0-1'}}%</span>
+            
+              </td>  
+
+            </tr>  
+            <tr style="  border: 1px solid black;">
+            
+              <td  *ngFor="let column of header"
+              [style.background]="
+              ( totalOfColumn[column]<=remainResourceOfColumn[column]-90)?  '#0ffe87'
+              : (column == 'hour')? '#f4c430': '#eb003f'" style="  border: 1px solid black;">
+                  {{totalOfColumn[column]}}
+              </td>
+            
+            </tr>
+            <tr style="  border: 1px solid black;">
+              <td  *ngFor="let column of header" style="  border: 1px solid black;">
+                  {{remainResourceOfColumn[column]}}
+              </td>
+            
+            </tr>
+
+  
+          </tbody>  
+      </table> 
+    </div>
+
+</div>
   <br>
     </div>
 

@@ -73,8 +73,11 @@ th{
   /* padding: 10px;  */
   /* margin-bottom: 10px; */
   border-radius: 5px;
+  border-top-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  box-shadow: 4px 4px 2px grey;
   cursor: pointer;
-  width: 80px;
+  width: 120px;
   height: 40px;
 }
 

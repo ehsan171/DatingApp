@@ -51,7 +51,7 @@
             
             <div class="" >
               <span class="" style="color: rgb(160, 159, 159);"></span>
-                  <div style="height: 30px;;border-bottom:  1px solid rgb(160, 159, 159);  margin-top: 20px; text-align: right ;" >
+                  <div style="height: 30px;border-bottom:  1px solid rgb(160, 159, 159);  margin-top: 20px; text-align: right ;" >
                 
                   {{resourceUnit}}
                   
@@ -120,12 +120,13 @@
 </ng-container>
 
 
-<button class=""
+<button class="day_btn"
 [style.background-color]="colors[i]"
+[style.color]="'#1e2761'"
 (click)="divFunction(i)">
 {{nameFarsi[0]}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['day']}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['month']}}
 </button>
-<div class="divContainer" *ngIf="div[i]">
+<div  [@openClose]="div[i] ? 'open' : 'closed'">
       <div style=" width: 100%;" class="test" >
         <table class='table table-sm' aria-labelledby="tableLabel" style="border:1px solid;  user-select: none; ">  
           <thead style="background-color: #d7bde2;">  
@@ -139,15 +140,21 @@
             <tr *ngFor="let row of ArrayRowsDataset[i]| slice:1;let indexOfElement=index;">  
                 <td  
                 class="details"
+                
                 (mouseover)="onCellClick( indexOfElement, column )" 
                 (mousedown)="onCellClickSingleClick( indexOfElement, column,$event )" 
                 ondragstart="return false;" ondrop="return false;"
                 *ngFor="let column of header"
               
                 [style.background]="
-                (column != 'hour' && row[column])? colors[indexOfElement]
+                (column != 'hour' && row[column])? colors2[indexOfElement]
                 :(column != 'hour' && row[column] >= requestVolume )? 'rgba(221,204,102,0.5)'
-                : (column == 'hour')? '#d7bde2': 'rgba(255,255,255,0.5)'"  >  
+                : (column == 'hour')? '#d7bde2': 'rgba(255,255,255,0.5)'" 
+                [style.color]="
+                (column != 'hour' && row[column])? 'white'
+                
+                : (column == 'hour')? '#26495c': '#c4a35a'" 
+                 >  
               {{row[column]}}
               
             
@@ -268,7 +275,8 @@
     </div>
 
 </div>
-  <br>
+<hr>
+
     </div>
 
 

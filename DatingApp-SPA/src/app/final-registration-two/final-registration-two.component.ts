@@ -1,4 +1,4 @@
-  import { Component, OnInit, Output, EventEmitter, Input, Renderer2 } from '@angular/core';
+  import { Component, OnInit, Output, EventEmitter, Input, Renderer2, NgModule } from '@angular/core';
   import { AlertifyService } from '../_services/alertify.service';
   import { Query } from '@syncfusion/ej2-data';
   import { FilteringEventArgs } from '@syncfusion/ej2-angular-dropdowns';
@@ -14,16 +14,54 @@
   import { fromEvent } from 'rxjs';
   import { skipUntil, takeUntil } from 'rxjs/operators';
   import { event } from 'jquery';
+  import { HostBinding } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
   
   declare var $: any;
 
   @Component({
     selector: 'app-final-registration-two',
     templateUrl: './final-registration-two.component.html',
-    styleUrls: ['./final-registration-two.component.css']
+    styleUrls: ['./final-registration-two.component.css'],
+    animations: [
+      trigger('openClose', [
+        // ...
+        state('open', style({
+          // height: '200px',
+          
+          opacity: 1,
+          display: '',
+          // backgroundColor: 'yellow'
+        })),
+        state('closed', style({
+          opacity: 0,
+          height: '000px',
+          display: 'none' ,
+          
+          // backgroundColor: 'blue'
+        })),
+        transition('open => closed', [
+          animate('1s')
+        ]),
+        transition('closed => open', [
+          animate('.1s')
+        ]),
+      ]),
+    ],
   })
   export class FinalRegistrationTwoComponent implements OnInit {
+    isOpen = true;
 
+    toggle() {
+      this.isOpen = !this.isOpen;
+    }
     
     showDiv = {
 
@@ -50,6 +88,7 @@
     @Input() valuesFromDetail;
     @Output() cancelRegister = new EventEmitter();
     colors: any = [];
+    colors2: any = [];
     monthName:any = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند', ];
 
     nameFarsi: any = ['روز'];
@@ -71,7 +110,7 @@
     test: any = {};
     test2: any = {};
     requestVolume: number;
-    resourceId: number = 7;
+    resourceId: number = 12;
     totalDay: number;
     totalHour: number = 24;
     year: number = 1400;
@@ -196,7 +235,8 @@
 
 
 
-          this.colors = [ 'rgb(136,212,194) ', '	#ff6e4a', '#c3e3f5 ', '#76b3e8' ];
+          this.colors = [  '#ee4035', ' #f37736', '#fdf498', '#7bc043',' #0392cf', 'rgb(136,212,194) ', '	#ff6e4a', '#c3e3f5 ', '#76b3e8',  '#ee4035', ' #f37736', '#fdf498', '#7bc043',' #0392cf', 'rgb(136,212,194) ', '	#ff6e4a', '#c3e3f5 ', '#76b3e8' ];
+          this.colors2 = [  '#2a4d69' , '#4b86b4' , '#adcbe3' , '#e7eff6' , '#63ace5','#e3c9c9' , '#f4e7e7' , '#eedbdb' , '#cecbcb' , '#cbdadb' ];
           this.random  = Math.floor((Math.random() * 9) + 1);
           this.color   = Math.floor((Math.random() * this.colors.length - 1) + 1);
           
@@ -221,16 +261,20 @@
                   this.remainResourceOfColumn[i]= this.resourceInfo[0]['resourceCapacity'];
                 }
 
-            console.log("this.allocation",this.allocation[0])
+      
 
-for(let numOfDay=0; numOfDay<2;numOfDay++){
+
+
+for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
+
           this.RowsData = [ ]
           this.RowsDataForWhichDay = [ ]
           this.RowsExtraDataset = [ ]
+        
           for (let index = -1; index <this.allocation[numOfDay].length; index++) { 
-
+           
               moment.locale('fa');
-
+              
             let index2 =(index == -1 ? 0 : index);
             this.test =   
                       {  
@@ -265,7 +309,7 @@ for(let numOfDay=0; numOfDay<2;numOfDay++){
                
                     this.IsCellClick.push(this.test2);
                   
-                  
+                   
             }
            
             this.test =   
@@ -274,29 +318,38 @@ for(let numOfDay=0; numOfDay<2;numOfDay++){
             }
             this.totalOfColumn.push(this.test);
             this.totalOfColumn['hour'] = "مجموع"
-
+   
             for (let index = 1; index < this.RowsData.length; index++) { 
               
                     for(let j = 0 ; j < this.allocation[numOfDay][index-1].length; j++){
-                      (this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']]) =0 ;
-                    }
                       
+                      (this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']]) =0 ;
+                     
+                    }
+                    
                     for(let j = 0 ; j < (this.allocation[numOfDay][index-1].length); j++){
-                            
-                      (this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']]) += (this.allocation[0][index-1][j]['usedUnit']) ;
-                      (this.RowsDataForWhichDay[index][this.allocation[numOfDay][index-1][j]['hour']]) = ((this.RowsData[index][this.allocation[0][index-1][j]['hour']])>0)?1:0 ;
-                      this.totalOfColumn[this.allocation[numOfDay][index-1][j]['hour']] += this.allocation[0][index-1][j]['usedUnit'];
+                     
+                          
+                          console.log("numOfDayx",numOfDay);
+                          console.log("numOfDayxj",j);
+                          console.log("numOfDayxIndex",index);
+                          console.log("numOfDayxIndex",index);
+                          console.log("numOfDayxthis.allocation[numOfDay][index-1][j]",this.allocation[0][0]);
+                          console.log("numOfDayxRowsData[index]222",this.RowsData);
+                      (this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']]) += (this.allocation[numOfDay][index-1][j]['usedUnit']) ;
+                      (this.RowsDataForWhichDay[index][this.allocation[numOfDay][index-1][j]['hour']]) = ((this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']])>0)?1:0 ;
+                      this.totalOfColumn[this.allocation[numOfDay][index-1][j]['hour']] += this.allocation[numOfDay][index-1][j]['usedUnit'];
+                 
                       delete this.RowsDataForWhichDay[index].hour;
                     }
                     this.remainResourceOfColumn['hour'] = "منبع آزاد"
-                
+                   
             }
-            console.log("hhhhhh",this.allocation)
+
             this.ArrayRowsDataset.push(this.RowsData)
             this.ArrayRowsDatasetForWhichDay.push(this.RowsDataForWhichDay)
             this.ArrayRowsExtraDataset.push(this.RowsExtraDataset)
-            console.log("10002 RowsData",this.RowsData)
-            console.log("10002 ArrayRowsDataset",this.ArrayRowsDataset)
+
 }
     
 
@@ -305,8 +358,6 @@ for(let numOfDay=0; numOfDay<2;numOfDay++){
               this.allocation = allocation['allocations'];
               this.resourceInfo = allocation['test'];
           
-               console.log("this.allocation[index]['hour']",this.allocation)
-    
 
               for (let index = 0; index <this.allocation.length; index++) { 
                 
@@ -320,9 +371,6 @@ for(let numOfDay=0; numOfDay<2;numOfDay++){
                
               }          
 
-              console.log("10002 RowsExtraDataset",this.RowsExtraDataset) 
-              console.log("10002 ArrayRowsExtraDataset",this.ArrayRowsExtraDataset) 
-
       
        for(let i=0; i<this.ArrayRowsExtraDataset[0].length;i++) {
          for (let key in this.RowsDataForWhichDay[i]){
@@ -330,13 +378,10 @@ for(let numOfDay=0; numOfDay<2;numOfDay++){
             if(this.shortageResourceOfColumn[key]==1){
               this.ArrayRowsExtraDataset[0][i].totalConflict += 1
             }
-              console.log(key)
-              console.log(this.shortageResourceOfColumn[key])
-        
+              
           
         }
        }    
-       console.log("10002 RowExtraData2",this.RowsExtraDataset)
               //this.RowsData.shift()
 
             }, () => {
@@ -378,7 +423,6 @@ for(let numOfDay=0; numOfDay<2;numOfDay++){
           
             this.allocation = allocation['allocations'];
             this.resourceInfo = allocation['test'];
-                 console.log("allocation",this.allocation) 
             for (let index = -1; index <365; index++) { 
               var index33=numberOfDays.findIndex(function(number) {
                 return number > index;
@@ -437,7 +481,6 @@ for(let numOfDay=0; numOfDay<2;numOfDay++){
 
     onChangeRequestRes(requestResValue) {
       this.requestVolume = requestResValue;
-console.log("1004",requestResValue)
       this.gettingWaitingForAcceptAllocation(this.resourceId,this.year, this.month);
 
 
@@ -451,7 +494,6 @@ console.log("1004",requestResValue)
       this.gettingWaitingForAcceptAllocation(this.resourceId,this.year, this.month);
 
       this.gettingDataCapacity( this.resourceId);
-      console.log('10006',this.ArrayRowsDataset);
   }
     onChangeYear(value) {
     
@@ -606,16 +648,12 @@ console.log("1004",requestResValue)
 
     ngOnInit() {
       for(let i=0;i<=31;i++){
-this.div[i]=true;
+this.div[i]=false;
       }
 
       $(document).ready(function () {
 
-        $('.day_btn').on('click', function() {
-          alert()
-          $(this).next().toggle('fast');
-         
-        })
+       
 
         $('.example1').pDatepicker({
           observer: true,

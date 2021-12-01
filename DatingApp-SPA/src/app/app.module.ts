@@ -124,7 +124,7 @@ enableRipple(true);
       RequestRegComponent,
       BarnameInfoComponent,
       FinalRegistrationComponent,
-      FinalRegistrationTwoComponent
+      FinalRegistrationTwoComponent,
   
    ],
    imports: [

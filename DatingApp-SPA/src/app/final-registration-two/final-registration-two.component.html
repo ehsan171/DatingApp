@@ -163,15 +163,15 @@
             <tr>
               <td  *ngFor="let column of header"
               [style.background]="
-              ( totalOfColumn[column]<=remainResourceOfColumn[column])?  '#0ffe87'
+              ( totalOfColumn[i][column]<=remainResourceOfColumn[i][column]-1)?  '#0ffe87'
               : (column == 'hour')? '#f4c430': '#eb003f'">
-                  {{totalOfColumn[column]}}
+                  {{totalOfColumn[i][column]}}
               </td>
             
             </tr>
             <tr>
               <td  *ngFor="let column of header">
-                  {{remainResourceOfColumn[column]}}
+                  {{remainResourceOfColumn[i][column]}}
               </td>
             
             </tr>
@@ -179,7 +179,7 @@
   
             <tr>
               <td  *ngFor="let column of header">
-                {{shortageResourceOfColumn[column]}}
+                {{shortageResourceOfColumn[i][column]}}
               </td>
             
             </tr>
@@ -256,7 +256,7 @@
             
               <td  *ngFor="let column of header"
               [style.background]="
-              ( totalOfColumn[column]<=remainResourceOfColumn[column]-90)?  '#0ffe87'
+              ( totalOfColumn[column]<=remainResourceOfColumn[column])?  '#0ffe87'
               : (column == 'hour')? '#f4c430': '#eb003f'" style="  border: 1px solid black;">
                   {{totalOfColumn[column]}}
               </td>

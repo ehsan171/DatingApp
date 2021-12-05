@@ -45,7 +45,9 @@ import { event } from 'jquery';
         @Output() cancelRegister = new EventEmitter();
         header: any = [];
         RowsData: any = [];
+        RowsDataForColor: any = [];
         IsCellClick: any = [ ]  
+        IsCellClickForColor: any = [ ]  
         test: any = {};
         test2: any = {};
         requestVolume: number;
@@ -62,8 +64,10 @@ import { event } from 'jquery';
         users: User[];
         resources: Resource[];
         resourceInfo: any;
+        resourceInfoForColor: any;
         resourceUnit: string;
         allocation: Allocation[];
+        allocationForColor: Allocation[];
         allocationRegister: AllocationRegister[];
         id: any;
         
@@ -108,7 +112,7 @@ mouseClickUp(event){
     this.clickDown = false;
     
   }
-    console.log("mouse:   "+this.clickDown+ " from up")
+
 }
 
         gettingDataCapacity(resourceId) {
@@ -220,6 +224,60 @@ console.log(this.RowsData)
             this.alertify.error('This is from orgField');
           }
           );
+          
+          
+          this.resourceService.getWaitingAllocationsForColor(resourceId,year,month).subscribe((allocation: Allocation[]) => {
+            this.header=["hour"]
+          
+            for (let i = 1; i <= 24;i++){
+              this.header.push(i)
+            }
+            this.RowsDataForColor = [ ]  
+            this.IsCellClickForColor = [ ]  
+          
+            this.allocationForColor = allocation['allocations'];
+            this.resourceInfoForColor = allocation['test'];
+
+      for (let index = 0; index <=monthNumber ; index++) { 
+          
+      this.test =   
+                {  
+                  "hour" : index
+                }
+              
+      this.test2 =   
+                {  
+                  "hour" : index
+                }
+              
+              this.RowsDataForColor.push(this.test);
+              this.IsCellClickForColor.push(this.test2);
+            
+              
+            
+            }
+
+            for (let index = 0; index <= monthNumber; index++) { 
+          
+              for (let index2 = 1; index2 <= 24; index2++) {
+                  this.RowsDataForColor[index][index2] = this.resourceInfoForColor[0]['resourceCapacity'];
+                  this.IsCellClickForColor [index][index2] = false;
+              }
+          
+                   
+            }
+
+            for (let index = 0; index < this.allocationForColor.length; index++) {
+
+              this.RowsDataForColor[this.allocationForColor[index].day][this.allocationForColor[index].hour]-=this.allocationForColor[index].usedUnit;
+
+            }
+            //this.RowsData.shift()
+
+          }, () => {
+            this.alertify.error('This is from orgField');
+          }
+          );
 
 
         }
@@ -301,12 +359,14 @@ console.log(todayJalali)
       }
 
       onCellClick(rowIndex,columnIndex){
-
+        rowIndex +=1;
         if(this.clickDown){
-           console.log(this.requestVolume);
+          console.log("21",this.RowsData[rowIndex][columnIndex]);
+          console.log("22",rowIndex);
             if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
             {
-               this.IsCellClick[rowIndex][columnIndex] = (this.IsCellClick[rowIndex][columnIndex]) ? false : true;
+              console.log("23",rowIndex);
+               this.IsCellClick[rowIndex-1][columnIndex] = (this.IsCellClick[rowIndex-1][columnIndex]) ? false : true;
               
             }
             const listOfObjecs = [
@@ -316,7 +376,7 @@ console.log(todayJalali)
             listOfObjecs.push( { id: rowIndex,  score: columnIndex })
 
              
-            console.log(listOfObjecs)
+            console.log("21",listOfObjecs)
         }
        
 
@@ -324,10 +384,11 @@ console.log(todayJalali)
       onCellClickSingleClick(rowIndex,columnIndex,event){
 
         if(event.which==1){
-           console.log(this.requestVolume);
+      
             if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
             {
-               this.IsCellClick[rowIndex][columnIndex] = (this.IsCellClick[rowIndex][columnIndex]) ? false : true;
+            
+               this.IsCellClick[rowIndex-1][columnIndex] = (this.IsCellClick[rowIndex-1][columnIndex]) ? false : true;
               
             }
             const listOfObjecs = [
@@ -456,7 +517,7 @@ console.log(todayJalali)
 
           });
 
-          this.gettingAllocation(1,1400,7);
+          this.gettingAllocation(7,1400,4);
           // this.gettingDataCapacity(4);
           this.gettingResources();
           this.gettingDataResource();

@@ -72,6 +72,54 @@ namespace DatingApp.API.Controllers
             var allocations = await _context.Allocations
             
                 .Where(allocation => 
+                        allocation.ResourceId == resourceId  
+                   && allocation.Year == year 
+                    && allocation.Month == month 
+                   && allocation.FinalAcceptance == true
+                    )
+                .Select(x => new { 
+                    x.Hour,
+                    x.Day,
+                    x.Month,
+                    x.Year,
+                    x.Barname.Title,
+                    x.Barname.Id,
+                    network = x.Barname.BarnameNetworks.Select(n=>n.BasicData).Select(a => a.Name),
+                    x.UsedUnit,
+                    Producers = x.Barname.BarnameProducers.Select(s => s.Producer)
+                        .Select(g => g.FirstName + ' ' + g.LastName ),
+                    Group = x.Barname.BarnameGroups.Select(s => s.BasicData).Select(g => g.Name)
+                })
+     
+                .ToListAsync();
+          
+            var resource = await _context.Resources
+                .Where(x=>x.ResourceId==resourceId)
+                .Select(x => new
+            {
+                ResourceName = x.Title,
+                x.ResourceId,
+                ResourceCapacity = x.Capacity,
+            })
+                .ToListAsync();
+            Dictionary<string, object> result =
+                new Dictionary<string, object> {{"allocations", allocations}, {"test", resource}};
+
+            return Ok(result);
+        }
+         
+        
+        [AllowAnonymous]
+        [HttpGet("GetAllWaitingAllocationsByResourceYearMonthForColor/{resourceId:int}/{year:int}/{month:int}")]
+
+        public async Task<IActionResult> GetAllWaitingAllocationsByResourceYearMonthForColor(int resourceId, int year, int month)
+        {
+           
+            var identity = (ClaimsIdentity)User.Identity;
+            Console.WriteLine(identity.IsAuthenticated); 
+            var allocations = await _context.Allocations
+            
+                .Where(allocation => 
                     allocation.ResourceId == resourceId && 
                     allocation.Year == year &&
                     allocation.Month == month)

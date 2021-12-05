@@ -110,7 +110,7 @@ import {
     test: any = {};
     test2: any = {};
     requestVolume: number;
-    resourceId: number = 12;
+    resourceId: number = 7;
     totalDay: number;
     totalHour: number = 24;
     year: number = 1400;
@@ -251,15 +251,13 @@ import {
           
           for (let i = 1; i <= 24;i++){
             this.header.push(i)
-            this.totalOfColumn[i]= 0;
+       
           }
           this.resourceService.getWaitingRequestAllocations(resourceId,year,month).subscribe((allocation: Allocation[]) => {
               
             this.allocation = allocation['allocations'];
             this.resourceInfo = allocation['test'];
-            for (let i = 1; i <= 24;i++){
-                  this.remainResourceOfColumn[i]= this.resourceInfo[0]['resourceCapacity'];
-                }
+            
 
       
 
@@ -270,7 +268,9 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
           this.RowsData = [ ]
           this.RowsDataForWhichDay = [ ]
           this.RowsExtraDataset = [ ]
-        
+
+         
+      
           for (let index = -1; index <this.allocation[numOfDay].length; index++) { 
            
               moment.locale('fa');
@@ -314,11 +314,29 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
            
             this.test =   
             {  
-              "hour" :"مجموع"
+              "hour" :""
             }
+            let test2={
+              "hour" :""
+            }
+             let test3={
+               "hour" : ""
+             }
             this.totalOfColumn.push(this.test);
-            this.totalOfColumn['hour'] = "مجموع"
-   
+            this.remainResourceOfColumn.push(test2);
+            this.shortageResourceOfColumn.push(test3);
+            console.log("50001",this.totalOfColumn)
+            console.log("50002",this.remainResourceOfColumn)
+            for (let i = 1; i <= 24;i++){
+        
+              this.totalOfColumn[numOfDay][i]= 0;
+              this.shortageResourceOfColumn[numOfDay][i]= 0;
+              this.remainResourceOfColumn[numOfDay][i]= this.resourceInfo[0]['resourceCapacity'];
+            }
+            this.remainResourceOfColumn[numOfDay]['hour'] = "منبع آزاد"
+            this.totalOfColumn[numOfDay]['hour'] = "مجموع"
+            this.shortageResourceOfColumn[numOfDay]['hour'] = "کمبود؟"
+           
             for (let index = 1; index < this.RowsData.length; index++) { 
               
                     for(let j = 0 ; j < this.allocation[numOfDay][index-1].length; j++){
@@ -330,47 +348,45 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
                     for(let j = 0 ; j < (this.allocation[numOfDay][index-1].length); j++){
                      
                           
-                          console.log("numOfDayx",numOfDay);
-                          console.log("numOfDayxj",j);
-                          console.log("numOfDayxIndex",index);
-                          console.log("numOfDayxIndex",index);
-                          console.log("numOfDayxthis.allocation[numOfDay][index-1][j]",this.allocation[0][0]);
-                          console.log("numOfDayxRowsData[index]222",this.RowsData);
+           
                       (this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']]) += (this.allocation[numOfDay][index-1][j]['usedUnit']) ;
                       (this.RowsDataForWhichDay[index][this.allocation[numOfDay][index-1][j]['hour']]) = ((this.RowsData[index][this.allocation[numOfDay][index-1][j]['hour']])>0)?1:0 ;
-                      this.totalOfColumn[this.allocation[numOfDay][index-1][j]['hour']] += this.allocation[numOfDay][index-1][j]['usedUnit'];
+                      this.totalOfColumn[numOfDay][this.allocation[numOfDay][index-1][j]['hour']] += this.allocation[numOfDay][index-1][j]['usedUnit'];
                  
                       delete this.RowsDataForWhichDay[index].hour;
                     }
-                    this.remainResourceOfColumn['hour'] = "منبع آزاد"
+                  
                    
             }
 
             this.ArrayRowsDataset.push(this.RowsData)
             this.ArrayRowsDatasetForWhichDay.push(this.RowsDataForWhichDay)
             this.ArrayRowsExtraDataset.push(this.RowsExtraDataset)
+ 
 
-}
-    
-
-            this.resourceService.getFreeResourcePerHour(resourceId,year,month,this.allocation[0][0][0]['day']).subscribe((allocation: Allocation[]) => {
-
-              this.allocation = allocation['allocations'];
+            this.resourceService.getFreeResourcePerHour(resourceId,year,month,this.allocation[numOfDay][0][0].day).subscribe((allocation: Allocation[]) => {
+           
+              let allocation2 = allocation['allocations'];
               this.resourceInfo = allocation['test'];
           
-
-              for (let index = 0; index <this.allocation.length; index++) { 
+             console.log("50000",this.allocation[numOfDay][0][0].day)
+             console.log("50000",allocation2 )
+              
+              
+              for(let numOfHour=0; numOfHour<this.allocation.length;numOfHour++){
+                for (let index = 0; index <this.allocation.length; index++) { 
                 
-                  this.remainResourceOfColumn[this.allocation[index]['hour']] -= this.allocation[index]['usedResource']
+                  this.remainResourceOfColumn[numOfDay][this.allocation[index]['hour']] -= this.allocation[index]['usedResource']
                       
               }
-              
-              for(let index = 0; index <this.remainResourceOfColumn.length; index++){
-                  let dif = this.remainResourceOfColumn[index]-this.totalOfColumn[index];
-                  this.shortageResourceOfColumn[index] =  (dif<0)?1:0;
-               
-              }          
 
+              console.log("50004",this.remainResourceOfColumn[numOfDay])
+              for(let index = 0; index <this.remainResourceOfColumn[numOfDay].length; index++){
+                  let dif = this.remainResourceOfColumn[numOfDay][index]-this.totalOfColumn[numOfDay][index];
+                  this.shortageResourceOfColumn[numOfDay][index] =  dif;
+               console.log("50003",dif)
+              }          
+            }
       
        for(let i=0; i<this.ArrayRowsExtraDataset[0].length;i++) {
          for (let key in this.RowsDataForWhichDay[i]){
@@ -388,6 +404,10 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
               this.alertify.error('This is from orgField');
             }
             );
+}
+    
+
+           
               
             //this.RowsData.shift()
 

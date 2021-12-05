@@ -131,13 +131,13 @@
                     <td  
             
                     (mouseover)="onCellClick( indexOfElement, column )" 
-                    (mousedown)="onCellClickSingleClick( indexOfElement, column,$event )" 
+                    (mousedown)="onCellClickSingleClick( indexOfElement+1, column,$event )" 
                     ondragstart="return false;" ondrop="return false;"
                     *ngFor="let column of header"
                   
                     [style.background]="
                     (column != 'hour' && IsCellClick[indexOfElement][column])? 'yellow'
-                    :(column != 'hour' && row[column] >= requestVolume )? 'rgba(51,204,102,0.5)'
+                    :(column != 'hour' && RowsDataForColor[indexOfElement+1][column] >= requestVolume )? 'rgba(51,204,102,0.5)'
                     : (column == 'hour')? '#d7bde2': 'rgba(245,55,93,0.5)'"  >  
                   {{row[column]}} 
                   </td>  

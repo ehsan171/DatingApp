@@ -137,9 +137,10 @@
                   
                     [style.background]="
                     (column != 'hour' && IsCellClick[indexOfElement][column])? 'yellow'
+                    :(column != 'hour' && RowsData[indexOfElement+1][column] < requestVolume )? 'black'
                     :(column != 'hour' && RowsDataForColor[indexOfElement+1][column] >= requestVolume )? 'rgba(51,204,102,0.5)'
-                    : (column == 'hour')? '#d7bde2': 'rgba(245,55,93,0.5)'"  >  
-                  {{row[column]}} 
+                    : (column == 'hour')? '#d7bde2': 'rgba(204,51,77,'+((requestVolume-RowsDataForColor[indexOfElement+1][column])/100)+')'"  >  
+                   {{row[column]}}
                   </td>  
                 </tr>  
               </tbody>  

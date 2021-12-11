@@ -108,6 +108,29 @@ namespace DatingApp.API.Controllers
             return Ok(result);
         }
          
+         
+       [AllowAnonymous]
+        [HttpGet("AcceptRequest/{resourceId:int}/{year:int}/{month:int}/{day:int}/{barnameId:int}")]
+
+        public async Task<IActionResult> AcceptRequest(int resourceId, int year, int month, int day, int barnameId)
+        {
+           
+            var identity = (ClaimsIdentity)User.Identity;
+            Console.WriteLine(identity.IsAuthenticated);
+            
+            (from allocation in  _context.Allocations
+                    where 
+                        allocation.ResourceId == resourceId
+                        && allocation.Year == year
+                        && allocation.Month == month
+                        && allocation.Day == day
+                        && allocation.BarnameId == barnameId select allocation).ToList()
+                .ForEach(x => x.FinalAcceptance = true);
+            await _context.SaveChangesAsync();
+            return StatusCode(201);
+
+        }
+         
         
         [AllowAnonymous]
         [HttpGet("GetAllWaitingAllocationsByResourceYearMonthForColor/{resourceId:int}/{year:int}/{month:int}")]

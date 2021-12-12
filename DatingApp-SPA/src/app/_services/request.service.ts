@@ -31,31 +31,18 @@ export class RequestService {
     private httpClient: HttpClient
     ) { }
   getRequests(): Observable<Request[]> {
-    console.log(this.baseUrl + 'rrequest/getAllRRequests');
-   
-    
      return this.http.get<Request[]>(this.baseUrl + 'rrequest/getAllRRequests', httpOptions);
    }
   getRequestsByGroup(groupId: any): Observable<Request[]> {
-    console.log(this.baseUrl + 'rrequest/getAllRRequestsByGroup/'+groupId);
-   
-    
      return this.http.get<Request[]>(this.baseUrl + 'rrequest/getAllRRequestsByGroup/'+groupId, httpOptions);
    }
   getBarnameByGroup(groupId: any): Observable<Request[]> {
-    
-    console.log(this.baseUrl + 'barname/getAllBarnamesByGroup/'+groupId);
-   
     
      return this.http.get<Request[]>(this.baseUrl + 'barname/getAllBarnamesByGroup/'+groupId, httpOptions);
    }
   getBarnameInfoById(id: any): Observable<Request[]> {
     
-    console.log(this.baseUrl + 'barname/getBarnameById/'+id);
-   
-    
      return this.http.get<Request[]>(this.baseUrl + 'barname/getBarnameById/'+id, httpOptions);
    }
-
    
 }

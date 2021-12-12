@@ -281,7 +281,6 @@ gettingDataOrgs() {
     }
     this.orgFields = { dataSource: this.data, value: 'id', text: 'name', parentValue: 'pid', hasChildren: 'hasChild' };
 
-    console.log(this.data);
   }, error => {
     this.alertify.error('This is from orgField');
   }
@@ -304,13 +303,9 @@ loadScreenplay() {
     const year: number  = +date.slice(0, 4);
     const month: number  = +date.slice(5, 7);
     const day: number  = +date.slice(8, 10);
-    console.log('year  ', year);
-    console.log('month  ', month);
-    console.log('day  ', day);
+
     this.farsiDate = new Date(year, month, day).toLocaleDateString('fa-Ir');
  
-    console.log(new Date(year, month, day).toLocaleDateString('fa-Ir'));
-  
     for (let index = 0; index < screenplay.length; index++) {
       this.dataScreenplay.push( {row: 0, id: 0, title: '', baravordNo: '',
       orgStructure: '', writer: '', producer: '', format: '', genre: '' });
@@ -344,13 +339,9 @@ loadScreenplay2() {
      const year: number  = +date.slice(0, 4);
      const month: number  = +date.slice(5, 7);
      const day: number  = +date.slice(8, 10);
-     console.log('year  ', year);
-     console.log('month  ', month);
-     console.log('day  ', day);
+
      this.farsiDate = new Date(year, month, day).toLocaleDateString('fa-Ir');
   
-     console.log(new Date(year, month, day).toLocaleDateString('fa-Ir'));
-   
      for (let index = 0; index < screenplay.length; index++) {
        this.dataScreenplay.push( {row: 0, id: 0, title: '', baravordNo: '',
        orgStructure: '', writer: '', producer: '', format: '', genre: '' });
@@ -466,7 +457,6 @@ ngOnInit() {
   }
 
   register(){
-console.log("zzzzzzzzzzzzzzzzzzzzz");
 const el = document.querySelector('table tr td');
     // alert((document.getElementById('exa2') as HTMLInputElement).value);
 const regDate = (document.getElementById('exa') as HTMLInputElement).value;
@@ -486,9 +476,7 @@ if (this.screenplayRegForm.valid){
           const year: number  = +date.slice(0, 4);
           const month: number  = +date.slice(5, 7);
           const day: number  = +date.slice(8, 10);
-          console.log('year  ', year);
-          console.log('month  ', month);
-          console.log('day  ', day);
+
           this.model.regDate = year + '/' + month + '/' + day;
         }
         
@@ -498,7 +486,6 @@ if (this.screenplayRegForm.valid){
 
         // this.model.regDate =  '5/21/2020';
         // this.model.orgStructure = [1];
-        console.log('model ', this.model);
         this.screenplayService.screenplayUpdate(this.model).subscribe(res => {
 
           this.modelProcess.UserId = this.authService.decodedToken?.nameid;
@@ -533,7 +520,6 @@ if (this.screenplayRegForm.valid){
 
   
   updateScreenplay(){
-    console.log(this.screenplay);
     this.alertify.success('فیلمنامه با موفقیت به روز رسانی شد.')
     this.editForm.resetForm(this.screenplay);
   }

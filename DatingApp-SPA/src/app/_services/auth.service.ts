@@ -32,7 +32,6 @@ login(model: any){
 }
 
 register(model: any){
- console.log("ssssssssssssssdddddddddddddddddddddddd");
   return this.http.post(this.baseUrl + 'register', model);
 }
 processReg(model: any){
@@ -40,7 +39,6 @@ processReg(model: any){
 }
 
 getOrgIds(): Observable<BasicData[]> {
-  console.log(this.baseUrl2 + 'Basicdata/orgIds')
   return this.http.get<BasicData[]>(this.baseUrl2 + 'Basicdata/orgIds');
 }
 

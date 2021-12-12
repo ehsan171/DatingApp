@@ -72,7 +72,6 @@ export class BarnameInfoComponent implements OnInit {
 
 
   onSave(){
-    console.log(this.item)
   }
 
   
@@ -153,7 +152,6 @@ export class BarnameInfoComponent implements OnInit {
       }
       this.orgFields = { dataSource: this.data, value: 'id', text: 'name', parentValue: 'pid', hasChildren: 'hasChild' };
 
-      console.log(this.data);
     }, error => {
       this.alertify.error('This is from orgField');
     }
@@ -239,7 +237,6 @@ export class BarnameInfoComponent implements OnInit {
       this.model = Object.assign({}, this.screenplayRegForm.value);
       this.model.regDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
 
-      console.log(this.model);
       this.screenplayService.register(this.model).subscribe(res => {
 
         this.modelProcess.UserId = this.authService.decodedToken?.nameid;

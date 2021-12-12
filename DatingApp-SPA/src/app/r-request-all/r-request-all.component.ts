@@ -68,12 +68,7 @@ export class RRequestAllComponent implements OnInit {
         this.dataRequest2[index].producer = requests[index].producers;
         this.dataRequest2[index].group = requests[index].group;
         this.dataRequest2[index].regDate = requests[index].regDate;
-        console.log("cccccccccccccccccccccccccccccccccc");
 
-        console.log(this.dataRequest2);
-        console.log(requests);
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        
       }
       this.dataSource2 = new MatTableDataSource<PeriodicElement2>(this.dataRequest2);
       this.dataSource2.paginator = this.paginator;

@@ -27,8 +27,6 @@ export class ResourceService {
   ) { }
 
   getResources(): Observable<Resource[]> {
-    console.log(this.baseUrl + 'resource/getAllResources');
-   
     
      return this.http.get<Resource[]>(this.baseUrl + 'resource/getAllResources', httpOptions);
    }
@@ -62,7 +60,6 @@ export class ResourceService {
    }
   
    getFreeResourcePerHour(resourceId, year, month, day): Observable<Allocation[]> {
-   console.log(this.baseUrl  + 'allocation/GetFreeResourceByResourceYearMonthDay/'+resourceId + '/' + year + '/' + month + '/' + day, httpOptions)
      return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/GetFreeResourceByResourceYearMonthDay/'+resourceId + '/' + year + '/' + month + '/' + day, httpOptions);
    }
 

@@ -106,7 +106,6 @@ public textBaravord = 'شماره برآورد';
 gettingDataTitle(){
   this.screenplayService.getAllScreenplays().subscribe((screenplays: Screenplay[]) => {
     this.screenplays = screenplays;
-    console.log(screenplays.length);
     for (let index = 0; index < screenplays.length; index++) {
       this.titleData[index] = screenplays[index].title;
     }
@@ -269,7 +268,6 @@ gettingDataOrgs() {
     }
     this.orgFields = { dataSource: this.data, value: 'id', text: 'name', parentValue: 'pid', hasChildren: 'hasChild' };
 
-    console.log(this.data);
   }, error => {
     this.alertify.error('This is from orgField');
   }
@@ -396,7 +394,6 @@ ngOnInit() {
 
         // this.model.regDate =  '5/21/2020';
         // this.model.orgStructure = [1];
-        console.log(this.model);
         this.screenplayService.register(this.model).subscribe(res => {
 
           this.modelProcess.UserId = this.authService.decodedToken?.nameid;

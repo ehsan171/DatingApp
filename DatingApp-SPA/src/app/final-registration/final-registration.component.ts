@@ -226,7 +226,6 @@ this.clickDown = false;
        
 
           }
-          console.log("this.RowsData   "+this.RowsData[0][8])
           //this.RowsData.shift()
 
         }, () => {
@@ -304,7 +303,6 @@ this.clickDown = false;
        
 
           }
-          console.log("this.RowsData   "+this.RowsData[0][8])
           //this.RowsData.shift()
 
         }, () => {
@@ -436,7 +434,6 @@ onSave(){
   
   this.allocationRegister = [];
   for( let dayIndex = 0; dayIndex <= 365; dayIndex++){
-    console.log("dayIndex   "+dayIndex)
     for (let hourIndex = 0; hourIndex < this.totalHour; hourIndex++){
       if(this.IsCellClick[dayIndex][hourIndex]){
         this.allocationRegister.push({ barnameId:0, year:0, month:0, day:0, hour:0, usedUnit:0, resourceId:0, isDeleted:true });
@@ -454,7 +451,6 @@ onSave(){
       }
     }
   }
-console.log(this.allocationRegister)
 }
 
 

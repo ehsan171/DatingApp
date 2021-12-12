@@ -114,7 +114,6 @@ export class EpisodeRegComponent implements OnInit {
       }
       this.conceptFields = { dataSource: this.data, value: 'id', text: 'name', parentValue: 'pid', hasChildren: 'hasChild' };
 
-      console.log(this.data);
     }, error => {
       this.alertify.error('This is from format');
     }
@@ -185,7 +184,6 @@ export class EpisodeRegComponent implements OnInit {
   public uploadFinished = (event) => {
 
     this.response = event;
-    console.log(this.response);
   }
 
 
@@ -235,7 +233,6 @@ export class EpisodeRegComponent implements OnInit {
 
     }
     this.model = Object.assign({}, this.episodeRegForm.value);
-    console.log(this.model)
     this.model.url = this.response;
     //  this.model = Object.assign({}, this.episodeRegForm.value);
     this.screenplayService.episodeRegister(this.model, this.valuesFromDetail).subscribe(() => {

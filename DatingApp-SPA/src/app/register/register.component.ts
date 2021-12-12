@@ -91,12 +91,9 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    console.log('sdsds ',this.model)
     this.authService.register(this.model).subscribe(() => {
-      console.log('sdsds ',this.model)
       this.alertify.success('ثبت نام با موفقیت انجام شد.');
 
-      console.log(this.model)
     }, error => {
       this.alertify.error(error.error);
     }

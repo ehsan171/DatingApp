@@ -132,7 +132,6 @@ export class RequestRegComponent implements OnInit {
   gettingDataTitle() {
     this.screenplayService.getAllScreenplays().subscribe((screenplays: Screenplay[]) => {
       this.screenplays = screenplays;
-      console.log(screenplays.length);
       for (let index = 0; index < screenplays.length; index++) {
         this.titleData[index] = screenplays[index].title;
       }
@@ -376,7 +375,6 @@ export class RequestRegComponent implements OnInit {
       }
       this.orgFields = { dataSource: this.data, value: 'id', text: 'name', parentValue: 'pid', hasChildren: 'hasChild' };
 
-      console.log(this.data);
     }, error => {
       this.alertify.error('This is from orgField');
     }
@@ -389,11 +387,8 @@ export class RequestRegComponent implements OnInit {
     this.resourceService.getResources().subscribe((resources: Resource[]) => {
       this.resources = resources;
      
-      console.log(resources[0].id)
-      console.log(resources)
       for (let index = 0; index < resources.length; index++) {
         this.titleData[index] = resources[index].title;
-        console.log(this.resources[index].title)
        
       }
      
@@ -527,7 +522,6 @@ export class RequestRegComponent implements OnInit {
 
       // this.model.regDate =  '5/21/2020';
       // this.model.orgStructure = [1];
-      console.log(this.model);
       this.screenplayService.register(this.model).subscribe(res => {
 
         this.modelProcess.UserId = this.authService.decodedToken?.nameid;
@@ -543,7 +537,6 @@ export class RequestRegComponent implements OnInit {
         this.router.navigate(['/screenplay/' + res['data'].id]);
       }, error => {
         console.log(error);
-        console.log("asdasdasdasd");
         this.alertify.error(error.error);
       }
       );

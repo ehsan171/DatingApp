@@ -120,8 +120,6 @@ mouseClickUp(event){
           this.resourceService.getResource(resourceId).subscribe((resource: Resource[]) => {
             this.resourceInfo = resource;
 
-            console.log(this.resourceInfo[0].capacity)
-            console.log("this.resourceInfo[0].unit   "+this.resourceInfo[0].unit)
             this.data=[]
             for (let index = 0; index < this.resourceInfo[0].capacity; index++) {
               this.data.push({ value: 0,  name: '' });
@@ -211,7 +209,6 @@ mouseClickUp(event){
           
                    
             }
-console.log(this.RowsData)
             for (let index = 0; index < this.allocation.length; index++) {
 
               this.RowsData[this.allocation[index].day][this.allocation[index].hour]-=this.allocation[index].usedUnit;
@@ -295,7 +292,6 @@ console.log(this.RowsData)
         
         
           this.resourceId = deviceValue;
-          console.log("deviceValue "+this.resourceId)
           this.gettingAllocation(this.resourceId,this.year,this.month);
           this.gettingDataCapacity( this.resourceId);
 
@@ -304,8 +300,6 @@ console.log(this.RowsData)
         
           let todayJalali = moment().locale('fa').format('YYYY');
 
-console.log(todayJalali)
-        
           this.year = value;
 
           this.gettingAllocation(this.resourceId,this.year,this.month);
@@ -361,11 +355,8 @@ console.log(todayJalali)
       onCellClick(rowIndex,columnIndex){
         rowIndex +=1;
         if(this.clickDown){
-          console.log("21",this.RowsData[rowIndex][columnIndex]);
-          console.log("22",rowIndex);
             if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
             {
-              console.log("23",rowIndex);
                this.IsCellClick[rowIndex-1][columnIndex] = (this.IsCellClick[rowIndex-1][columnIndex]) ? false : true;
               
             }
@@ -376,7 +367,6 @@ console.log(todayJalali)
             listOfObjecs.push( { id: rowIndex,  score: columnIndex })
 
              
-            console.log("21",listOfObjecs)
         }
        
 
@@ -398,7 +388,6 @@ console.log(todayJalali)
             listOfObjecs.push( { id: rowIndex,  score: columnIndex })
 
              
-            console.log(listOfObjecs)
       
           }
 
@@ -410,11 +399,9 @@ console.log(todayJalali)
         for( let dayIndex = 0; dayIndex <= this.totalDay; dayIndex++){
           for (let hourIndex = 0; hourIndex < this.totalHour; hourIndex++){
             if(this.IsCellClick[dayIndex][hourIndex]){
-              console.log('hour '+hourIndex)
-              console.log('day '+dayIndex + 1)
+
               this.allocationRegister.push({ barnameId:0, year:0, month:0, day:0, hour:0, usedUnit:0, resourceId:0, isDeleted:true });
               let index =this.allocationRegister.length - 1;
-              console.log(this.month)
               this.allocationRegister[index].barnameId = this.barnameId;
               this.allocationRegister[index].year = this.year;
               this.allocationRegister[index].month = this.month;
@@ -429,16 +416,13 @@ console.log(todayJalali)
           }
         }
 
-        console.log(this.allocationRegister)
 
 
-        console.log(typeof(this.IsCellClick))
       }
 
       
   register(){
     this.allocationRegister
-    console.log('sdsds ',this.allocationRegister)
     this.resourceService.registerAllocation(this.allocationRegister).subscribe(() => {
 
       this.alertify.success('ثبت نام با موفقیت انجام شد.');
@@ -446,7 +430,6 @@ console.log(todayJalali)
         this.allocationRegister[0].resourceId,
         this.allocationRegister[0].year,
         this.allocationRegister[0].month);
-      console.log()
     }, error => {
       this.alertify.error(error.error);
     }

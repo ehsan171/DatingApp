@@ -44,7 +44,6 @@ export class ChartStatusAllComponent implements OnInit {
         this.dataScreenplayStatus[index] = (screenplayStatus[index].statusNumber);
 
       }
-      console.log(this.dataScreenplayStatus)
       this.pieChartData = this.dataScreenplayStatus;
     }, error => {
       this.alertify.error('This is from gettingDataGeners');

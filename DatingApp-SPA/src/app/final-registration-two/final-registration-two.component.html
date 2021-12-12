@@ -124,7 +124,7 @@
 [style.background-color]="colors[i]"
 [style.color]="'#1e2761'"
 (click)="divFunction(i)">
-{{nameFarsi[0]}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['day']}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['month']}}
+{{nameFarsi[0]}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['day']}}&nbsp;&nbsp;{{ArrayRowsExtraDataset[i][0]['monthName']}}
 </button>
 <div  [@openClose]="div[i] ? 'open' : 'closed'">
       
@@ -134,7 +134,8 @@
         <tr style="  border: 1px solid black;">  
           <th scope="col" *ngFor="let column of header2" >  
             {{column}}  
-          </th>  
+          </th> 
+          <th>تأیید&nbsp;/&nbsp;رد</th> 
         </tr>  
       </thead>  
       <tbody style="  border: 1px solid black;">  
@@ -189,6 +190,23 @@
           <span style="margin:0;">{{(row["totalConflict"]/row["totalDay"])*100| number:'1.0-1'}}%</span>
         
           </td>  
+
+          <td>
+            <button 
+            type="button" class="btn btn-dark acc_rej_btn"
+            (click)="acceptRequest(resourceId, row.year, row.month, row.day, row.barnameId)">
+            تأیید 
+          </button>
+          &nbsp;
+            <button 
+            type="button" class="btn btn-danger acc_rej_btn"
+            (click)="rejectRequest(resourceId, row.year, row.month, row.day, row.barnameId)">
+            رد 
+          </button>
+      
+    
+
+        </td>
 
         </tr>  
       

@@ -56,6 +56,11 @@ export class ResourceService {
      return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/acceptRequest/'+resourceId + '/' + year + '/'  + month+ '/' + day+ '/' + barnameId, httpOptions);
    }
   
+   rejectRequest(resourceId, year, month, day,  barnameId): Observable<Allocation[]> {
+   console.log(this.baseUrl  + 'allocation/rejectRequest/'+resourceId + '/' + year + '/' + month+ '/' + day+ '/' + barnameId, httpOptions)
+     return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/rejectRequest/'+resourceId + '/' + year + '/'  + month+ '/' + day+ '/' + barnameId, httpOptions);
+   }
+  
    getFreeResourcePerHour(resourceId, year, month, day): Observable<Allocation[]> {
    console.log(this.baseUrl  + 'allocation/GetFreeResourceByResourceYearMonthDay/'+resourceId + '/' + year + '/' + month + '/' + day, httpOptions)
      return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/GetFreeResourceByResourceYearMonthDay/'+resourceId + '/' + year + '/' + month + '/' + day, httpOptions);

@@ -16,6 +16,10 @@
   border: 1px solid #ddd;
 }
 
+.acc_rej_btn {
+  width: 40px;
+}
+
 th, td {
   text-align: left;
   padding: 16px;

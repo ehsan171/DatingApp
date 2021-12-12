@@ -15,6 +15,7 @@
   import { skipUntil, takeUntil } from 'rxjs/operators';
   import { event } from 'jquery';
   import { HostBinding } from '@angular/core';
+  
 import {
   trigger,
   state,
@@ -269,7 +270,7 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
           this.RowsDataForWhichDay = [ ]
           this.RowsExtraDataset = [ ]
 
-         
+         console.log("70001",this.allocation)
       
           for (let index = -1; index <this.allocation[numOfDay].length; index++) { 
            
@@ -288,8 +289,11 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
                       {  
                         "hour" :this.allocation[numOfDay][index2][0]['title'],
                         "day": this.allocation[numOfDay][index2][0]['day'],
-                        "month": this.monthName[this.allocation[numOfDay][index2][0]['month']-1],
+                        "year": this.allocation[numOfDay][index2][0]['year'],
+                        "month": this.allocation[numOfDay][index2][0]['month'],
+                        "monthName": this.monthName[this.allocation[numOfDay][index2][0]['month']-1],
                         "producer" :this.allocation[numOfDay][index2][0]['producers'],
+                        "barnameId" :this.allocation[numOfDay][index2][0]['id'],
                         // "RegDate" : this.allocation[3][index2][0]['registerDate']
                         "duration" :  moment.from(this.allocation[numOfDay][index2][0]['registerDate'], 'en', 'YYYY-MM-DD').toNow(true),
                         "RegDate" :  moment.from(this.allocation[numOfDay][index2][0]['registerDate'], 'en', 'YYYY-MM-DD').format('YYYY/MM/DD'),
@@ -430,10 +434,32 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
 
     }
 
+    acceptRequest(resourceId, year, month, day, barnameId) {
 
 
+          this.resourceService.acceptRequest(resourceId,year,month, day, barnameId).subscribe((allocation: Allocation[]) => {
+             
 
 
+          }, () => {
+            this.alertify.error('This is from orgField');
+          }
+          );
+
+    }
+
+    rejectRequest(resourceId, year, month, day, barnameId) {
+
+
+          this.resourceService.rejectRequest(resourceId,year,month, day, barnameId).subscribe((allocation: Allocation[]) => {
+
+
+          }, () => {
+            this.alertify.error('This is from orgField');
+          }
+          );
+
+    }
 
 
     gettingWaitingAllocation(resourceId, year, month) {

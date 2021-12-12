@@ -18,7 +18,7 @@
 @import '../node_modules/@syncfusion/ej2-angular-inputs/styles/material.css';
 @import '../src/assets/library/css/persian-datepicker.min.css';
 
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 /* @import '../node_modules/fancygrid/client/fancy.min.css'; */
 

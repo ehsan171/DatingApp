@@ -46,8 +46,10 @@ import { event } from 'jquery';
         header: any = [];
         RowsData: any = [];
         RowsDataForColor: any = [];
+        RowsDataForEachBarname: any = [];
         IsCellClick: any = [ ]  
         IsCellClickForColor: any = [ ]  
+        IsCellClickForEachBarname: any = [ ]  
         test: any = {};
         test2: any = {};
         requestVolume: number;
@@ -57,7 +59,7 @@ import { event } from 'jquery';
         year: number;
         //month: number  = +moment().locale('fa').format('mm');;
         month: number ;
-        barnameId: number ;
+        barnameId: number =2 ;
         model: any = {};
         modelProcess: any = {};
         screenplayRegForm: FormGroup;
@@ -65,9 +67,11 @@ import { event } from 'jquery';
         resources: Resource[];
         resourceInfo: any;
         resourceInfoForColor: any;
+        resourceInfoForEachBarname: any;
         resourceUnit: string;
         allocation: Allocation[];
         allocationForColor: Allocation[];
+        allocationForEachBarname: Allocation[];
         allocationRegister: AllocationRegister[];
         id: any;
         
@@ -100,20 +104,20 @@ import { event } from 'jquery';
           resourceId: new FormControl('20')
     }); 
 
-mouseClickDown(event){
-  if(event.which == 1){
-    this.clickDown = true;
-    
-  }
-  console.log("mouse:   "+this.clickDown +" from down  " + event.which)
-}
-mouseClickUp(event){
-  if(event.which == 1){
-    this.clickDown = false;
-    
-  }
+        mouseClickDown(event){
+          if(event.which == 1){
+            this.clickDown = true;
+            
+          }
+          console.log("mouse:   "+this.clickDown +" from down  " + event.which)
+        }
+        mouseClickUp(event){
+          if(event.which == 1){
+            this.clickDown = false;
+            
+          }
 
-}
+        }
 
         gettingDataCapacity(resourceId) {
 
@@ -230,6 +234,7 @@ mouseClickUp(event){
               this.header.push(i)
             }
             this.RowsDataForColor = [ ]  
+        
             this.IsCellClickForColor = [ ]  
           
             this.allocationForColor = allocation['allocations'];
@@ -248,6 +253,7 @@ mouseClickUp(event){
                 }
               
               this.RowsDataForColor.push(this.test);
+        
               this.IsCellClickForColor.push(this.test2);
             
               
@@ -276,6 +282,61 @@ mouseClickUp(event){
           }
           );
 
+          this.resourceService.getWaitingAllocationsForEachBarname(resourceId,year,month,this.barnameId).subscribe((allocation: Allocation[]) => {
+            this.header=["hour"]
+          
+            for (let i = 1; i <= 24;i++){
+              this.header.push(i)
+            }
+          
+            this.RowsDataForEachBarname = [ ]  
+            this.IsCellClickForEachBarname = [ ]  
+          
+            this.allocationForEachBarname = allocation['allocations'];
+            this.resourceInfoForEachBarname = allocation['test'];
+
+      for (let index = 0; index <=monthNumber ; index++) { 
+          
+      this.test =   
+                {  
+                  "hour" : index
+                }
+              
+      this.test2 =   
+                {  
+                  "hour" : index
+                }
+              
+        
+              this.RowsDataForEachBarname.push(this.test);
+              this.IsCellClickForEachBarname.push(this.test2);
+            
+              
+            
+            }
+
+            for (let index = 0; index <= monthNumber; index++) { 
+          
+              for (let index2 = 0; index2 < 24; index2++) {
+                 
+                  this.IsCellClickForEachBarname [index][index2] = false;
+              }
+          
+                   
+            }
+
+            for (let index = 0; index < this.allocationForEachBarname.length; index++) {
+console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.allocationForEachBarname[index].hour, "  id:", this.barnameId)
+              this.IsCellClickForEachBarname[this.allocationForEachBarname[index].day-1][this.allocationForEachBarname[index].hour]=true;
+
+            }
+            //this.RowsData.shift()
+
+          }, () => {
+            this.alertify.error('This is from orgField');
+          }
+          );
+
 
         }
 
@@ -285,7 +346,7 @@ mouseClickUp(event){
           this.gettingAllocation(this.resourceId,this.year,this.month);
 
 
-      }
+        }
 
         onChangeResource(deviceValue) {
 
@@ -295,7 +356,7 @@ mouseClickUp(event){
           this.gettingAllocation(this.resourceId,this.year,this.month);
           this.gettingDataCapacity( this.resourceId);
 
-      }
+        }
         onChangeYear(value) {
         
           let todayJalali = moment().locale('fa').format('YYYY');
@@ -304,7 +365,7 @@ mouseClickUp(event){
 
           this.gettingAllocation(this.resourceId,this.year,this.month);
 
-      }
+        }
         onChangeMonth(valueMonth) {
  
           this.month = valueMonth;
@@ -312,141 +373,141 @@ mouseClickUp(event){
 
           this.gettingAllocation(this.resourceId,this.year,this.month);
 
-      }
-
-      gettingDataResource(){
-        this.resourceService.getResources().subscribe((resources: Resource[]) => {
-          this.resources = resources;
-          for (let index = 0; index < resources.length; index++) {
-            this.dataResource.push({ id: '' });
-
-            this.dataResource[index].name = resources[index].title;
-            this.dataResource[index].id = resources[index].id;
-          }
-        }, () => {
-          this.alertify.error('This is from member');
         }
-        );
-      
-      }
-        
-      gettingResources() {
-        this.resourceService.getResources().subscribe((resources: Resource[]) => {
-          this.resources = resources;
-        
-          for (let index = 0; index < resources.length; index++) {
 
-            this.dataTitleResource.push({ value: 0,  name: '' });
-            this.dataTitleResource[index].value = resources[index].id;
-            this.dataTitleResource[index].name = resources[index].title;
-          
-          }
+        gettingDataResource(){
+          this.resourceService.getResources().subscribe((resources: Resource[]) => {
+            this.resources = resources;
+            for (let index = 0; index < resources.length; index++) {
+              this.dataResource.push({ id: '' });
 
-          this.resourceFields = { dataSource: this.dataTitleResource, value: 0, text: 'name'};
-
-          
-        }, () => {
-          this.alertify.error('gettingDataTitle 106');
-        }
-        );
-
-      }
-
-      onCellClick(rowIndex,columnIndex){
-        rowIndex +=1;
-        if(this.clickDown){
-            if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
-            {
-               this.IsCellClick[rowIndex-1][columnIndex] = (this.IsCellClick[rowIndex-1][columnIndex]) ? false : true;
-              
+              this.dataResource[index].name = resources[index].title;
+              this.dataResource[index].id = resources[index].id;
             }
-            const listOfObjecs = [
-              { id: 1,  score: 11 },
-
-            ];
-            listOfObjecs.push( { id: rowIndex,  score: columnIndex })
-
-             
+          }, () => {
+            this.alertify.error('This is from member');
+          }
+          );
+        
         }
-       
+        
+        gettingResources() {
+          this.resourceService.getResources().subscribe((resources: Resource[]) => {
+            this.resources = resources;
+          
+            for (let index = 0; index < resources.length; index++) {
 
-      }
-      onCellClickSingleClick(rowIndex,columnIndex,event){
-
-        if(event.which==1){
-      
-            if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
-            {
+              this.dataTitleResource.push({ value: 0,  name: '' });
+              this.dataTitleResource[index].value = resources[index].id;
+              this.dataTitleResource[index].name = resources[index].title;
             
-               this.IsCellClick[rowIndex-1][columnIndex] = (this.IsCellClick[rowIndex-1][columnIndex]) ? false : true;
-              
             }
-            const listOfObjecs = [
-              { id: 1,  score: 11 },
 
-            ];
-            listOfObjecs.push( { id: rowIndex,  score: columnIndex })
+            this.resourceFields = { dataSource: this.dataTitleResource, value: 0, text: 'name'};
 
-             
-      
+            
+          }, () => {
+            this.alertify.error('gettingDataTitle 106');
           }
+          );
 
-      }
-
-      onSave(){
-        
-        this.allocationRegister = [];
-        for( let dayIndex = 0; dayIndex <= this.totalDay; dayIndex++){
-          for (let hourIndex = 0; hourIndex < this.totalHour; hourIndex++){
-            if(this.IsCellClick[dayIndex][hourIndex]){
-
-              this.allocationRegister.push({ barnameId:0, year:0, month:0, day:0, hour:0, usedUnit:0, resourceId:0, isDeleted:true });
-              let index =this.allocationRegister.length - 1;
-              this.allocationRegister[index].barnameId = this.barnameId;
-              this.allocationRegister[index].year = this.year;
-              this.allocationRegister[index].month = this.month;
-              this.allocationRegister[index].day = dayIndex + 1 ;
-              this.allocationRegister[index].hour = hourIndex ;
-
-              this.allocationRegister[index].usedUnit = this.selectedCapacity;
-              this.allocationRegister[index].registerDate = new Date();
-              this.allocationRegister[index].isDeleted = false;
-              this.allocationRegister[index].resourceId = this.resourceId;
-            }
-          }
         }
 
+        onCellClick(rowIndex,columnIndex){
+          rowIndex +=1;
+          if(this.clickDown){
+              if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
+              {
+                this.IsCellClick[rowIndex-1][columnIndex] = (this.IsCellClick[rowIndex-1][columnIndex]) ? false : true;
+                
+              }
+              const listOfObjecs = [
+                { id: 1,  score: 11 },
+
+              ];
+              listOfObjecs.push( { id: rowIndex,  score: columnIndex })
+
+              
+          }
+        
+
+        }
+        onCellClickSingleClick(rowIndex,columnIndex,event){
+
+          if(event.which==1){
+        console.log("10003", this.IsCellClickForEachBarname[rowIndex][columnIndex],this.barnameId)
+              if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
+              {
+              
+                this.IsCellClick[rowIndex-1][columnIndex] = (this.IsCellClick[rowIndex-1][columnIndex]) ? false : true;
+                
+              }
+              const listOfObjecs = [
+                { id: 1,  score: 11 },
+
+              ];
+              listOfObjecs.push( { id: rowIndex,  score: columnIndex })
+
+              
+        
+            }
+
+        }
+
+        onSave(){
+          
+          this.allocationRegister = [];
+          for( let dayIndex = 0; dayIndex <= this.totalDay; dayIndex++){
+            for (let hourIndex = 0; hourIndex < this.totalHour; hourIndex++){
+              if(this.IsCellClick[dayIndex][hourIndex]){
+
+                this.allocationRegister.push({ barnameId:0, year:0, month:0, day:0, hour:0, usedUnit:0, resourceId:0, isDeleted:true });
+                let index =this.allocationRegister.length - 1;
+                this.allocationRegister[index].barnameId = this.barnameId;
+                this.allocationRegister[index].year = this.year;
+                this.allocationRegister[index].month = this.month;
+                this.allocationRegister[index].day = dayIndex + 1 ;
+                this.allocationRegister[index].hour = hourIndex ;
+
+                this.allocationRegister[index].usedUnit = this.selectedCapacity;
+                this.allocationRegister[index].registerDate = new Date();
+                this.allocationRegister[index].isDeleted = false;
+                this.allocationRegister[index].resourceId = this.resourceId;
+              }
+            }
+          }
 
 
-      }
+
+        }
 
       
-  register(){
-    this.allocationRegister
-    this.resourceService.registerAllocation(this.allocationRegister).subscribe(() => {
+        register(){
+          this.allocationRegister
+          this.resourceService.registerAllocation(this.allocationRegister).subscribe(() => {
 
-      this.alertify.success('ثبت نام با موفقیت انجام شد.');
-      this.gettingAllocation(
-        this.allocationRegister[0].resourceId,
-        this.allocationRegister[0].year,
-        this.allocationRegister[0].month);
-    }, error => {
-      this.alertify.error(error.error);
-    }
-    );
+            this.alertify.success('ثبت نام با موفقیت انجام شد.');
+            this.gettingAllocation(
+              this.allocationRegister[0].resourceId,
+              this.allocationRegister[0].year,
+              this.allocationRegister[0].month);
+          }, error => {
+            this.alertify.error(error.error);
+          }
+          );
 
-  }
-      cancelRegisterMode(event: number){
-        this.barnameId = event;
-      }
+        }
+        cancelRegisterMode(event: number){
+          this.barnameId = event;
+        }
 
-      public onFilteringResource: EmitType<any> =  (e: FilteringEventArgs) => {
-        let queryResource = new Query();
-        // frame the query based on search string with filter type.
-        queryResource = (e.text !== '') ? queryResource.where('name', 'contains', e.text, true) : queryResource;
-        // pass the filter data source, filter query to updateData method.
-        e.updateData(this.dataResource, queryResource);
-      }
+        public onFilteringResource: EmitType<any> =  (e: FilteringEventArgs) => {
+          let queryResource = new Query();
+          // frame the query based on search string with filter type.
+          queryResource = (e.text !== '') ? queryResource.where('name', 'contains', e.text, true) : queryResource;
+          // pass the filter data source, filter query to updateData method.
+          e.updateData(this.dataResource, queryResource);
+        }
 
 
       

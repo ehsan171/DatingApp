@@ -44,6 +44,10 @@ export class ResourceService {
     console.log(this.baseUrl  + 'allocation/GetAllWaitingAllocationsByResourceYearMonthForColor/'+resourceId + '/' + year + '/' + month, httpOptions)
      return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/GetAllWaitingAllocationsByResourceYearMonthForColor/'+resourceId + '/' + year + '/' + month, httpOptions);
    }
+  getWaitingAllocationsForEachBarname(resourceId: number, year: number, month: number, barnameId: number): Observable<Allocation[]> {
+    console.log(this.baseUrl  + 'allocation/GetAllWaitingAllocationsByResourceYearMonthForEachBarname/'+resourceId + '/' + year + '/' + month + '/' + barnameId, httpOptions)
+     return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/GetAllWaitingAllocationsByResourceYearMonthForEachBarname/'+resourceId + '/' + year + '/' + month+ '/' + barnameId, httpOptions);
+   }
   getWaitingRequestAllocations(resourceId, year, month): Observable<Allocation[]> {
    console.log(this.baseUrl  + 'allocation/GetAllWaitingRequestByResourceYearMonthForAccepting/'+resourceId + '/' + year + '/' + month, httpOptions)
      return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/GetAllWaitingRequestByResourceYearMonthForAccepting/'+resourceId + '/' + year + '/' + month, httpOptions);

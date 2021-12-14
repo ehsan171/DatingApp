@@ -200,6 +200,47 @@ namespace DatingApp.API.Controllers
         }
         
         [AllowAnonymous]
+        [HttpGet("GetAllWaitingAllocationsByResourceYearMonthForEachBarname/{resourceId:int}/{year:int}/{month:int}/{barnameId:int}")]
+
+        public async Task<IActionResult> GetAllWaitingAllocationsByResourceYearMonthForEachBarname(int resourceId, int year, int month, int barnameId)
+        {
+           
+            var identity = (ClaimsIdentity)User.Identity;
+            Console.WriteLine(identity.IsAuthenticated); 
+            var allocations = await _context.Allocations
+            
+                .Where(allocation => 
+                    allocation.ResourceId == resourceId && 
+                    allocation.Year == year &&
+                    allocation.Month == month &&
+                    allocation.BarnameId == barnameId)
+                .Select(x => new { 
+                    x.Hour,
+                    x.Day,
+                    x.Month,
+                    x.Year,
+                    x.Barname.Title,
+                    x.Barname.Id
+                })
+     
+                .ToListAsync();
+          
+            var resource = await _context.Resources
+                .Where(x=>x.ResourceId==resourceId)
+                .Select(x => new
+            {
+                ResourceName = x.Title,
+                x.ResourceId,
+                ResourceCapacity = x.Capacity,
+            })
+                .ToListAsync();
+            Dictionary<string, object> result =
+                new Dictionary<string, object> {{"allocations", allocations}, {"test", resource}};
+
+            return Ok(result);
+        }
+        
+        [AllowAnonymous]
         [HttpGet("GetAllAllocationsByResourceYearForAccepting/{resourceId}/{year}")]
 
         public async Task<IActionResult> GetAllAllocationsByResourceYearForAccepting(int resourceId, int year)

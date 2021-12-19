@@ -20,10 +20,11 @@ import { event } from 'jquery';
       @Component({
         selector: 'app-resource-reg',
         templateUrl: './resource-reg.component.html',
-        styleUrls: ['./resource-reg.component.css']
+        styleUrls: ['./resource-reg.component.css'],
+        
       })
       export class ResourceRegComponent implements OnInit {
-
+ math = Math;
         name = 'Angular 5';
         mouseX: number;
         mouseY: number;
@@ -52,8 +53,8 @@ import { event } from 'jquery';
         IsCellClickForEachBarname: any = [ ]  
         test: any = {};
         test2: any = {};
-        requestVolume: number;
-        resourceId: number = 1;
+        requestVolume: number = 90;
+        resourceId: number = 7;
         totalDay: number;
         totalHour: number = 24;
         year: number;
@@ -435,11 +436,14 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
         onCellClickSingleClick(rowIndex,columnIndex,event){
 
           if(event.which==1){
+        console.log("10004", rowIndex,columnIndex,this.barnameId)
+        console.log("10007", this.requestVolume)
+        console.log("10008", this.RowsData[rowIndex+1][columnIndex])
         console.log("10003", this.IsCellClickForEachBarname[rowIndex][columnIndex],this.barnameId)
-              if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
+              if(this.requestVolume <= this.RowsData[rowIndex+1][columnIndex])
               {
               
-                this.IsCellClick[rowIndex-1][columnIndex] = (this.IsCellClick[rowIndex-1][columnIndex]) ? false : true;
+                this.IsCellClick[rowIndex][columnIndex] = (this.IsCellClick[rowIndex][columnIndex]) ? false : true;
                 
               }
               const listOfObjecs = [
@@ -509,7 +513,30 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
           e.updateData(this.dataResource, queryResource);
         }
 
-
+        setMyStyle() {
+          let styles = {
+            'background':'#eb01a5',
+            // 'background-image': 'url("https://getsatisfaction.com/corp/img/product/five_obstacles.png"), linear-gradient(red, yellow)',
+            // 'background-repeat':'no-repeat'
+          };
+          return styles;
+      }
+        setMyStyle2() {
+          let styles = {
+            'background':'green',
+            // 'background-image': 'url("https://getsatisfaction.com/corp/img/product/five_obstacles.png"), linear-gradient(red, yellow)',
+            // 'background-repeat':'no-repeat'
+          };
+          return styles;
+      }
+        setMyStyle3() {
+          let styles = {
+            'background':'red',
+            // 'background-image': 'url("https://getsatisfaction.com/corp/img/product/five_obstacles.png"), linear-gradient(red, yellow)',
+            // 'background-repeat':'no-repeat'
+          };
+          return styles;
+      }
       
         ngOnInit() {
 

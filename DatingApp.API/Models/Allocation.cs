@@ -18,6 +18,8 @@ namespace DatingApp.API.Models
         [Display(Name = "Is Accept")]
         public bool? FinalAcceptance { get; set; }
 
+
+
         public int? UsedUnit { get; set; }
         
         public DateTime? RegisterDate {  

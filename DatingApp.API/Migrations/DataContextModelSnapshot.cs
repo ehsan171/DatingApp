@@ -38,6 +38,9 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("Hour")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Month")
                         .HasColumnType("int");
 

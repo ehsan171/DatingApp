@@ -458,6 +458,26 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
 
         }
 
+        
+    deleteRequest(resourceId, year, month, day, barnameId) {
+
+
+      
+
+      this.resourceService.deleteRequestByGroup(resourceId,year,month, day, barnameId).subscribe((allocation: Allocation[]) => {
+
+
+      }, () => {
+        this.alertify.error('امکان حذف وجود ندارد');
+      }
+      );
+
+}
+
+deleteRequestConform(resourceId, year, month, day, barnameId){
+  this.alertify.confirm('آیا مطمئن هستید؟ ',()=>{this. deleteRequest(resourceId, year, month, day, barnameId);});
+}
+
         onSave(){
           
           this.allocationRegister = [];

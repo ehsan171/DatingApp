@@ -171,7 +171,11 @@
                   
                    {{row[column]}}
                   </td> 
-                  <td>            <button style="background-color: transparent; border: transparent;" ><mat-icon color = "warn" class="delete_btn">delete</mat-icon></button>
+                  <td>            
+                    <button 
+                    style="background-color: transparent; border: transparent;"
+                    (click)="deleteRequestConform(resourceId, year, month, indexOfElement+1, barnameId)">
+                     <mat-icon color = "warn" class="delete_btn">delete</mat-icon></button>
                   </td>
 
                 </tr>  

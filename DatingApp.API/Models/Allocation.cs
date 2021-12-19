@@ -18,7 +18,8 @@ namespace DatingApp.API.Models
         [Display(Name = "Is Accept")]
         public bool? FinalAcceptance { get; set; }
 
-
+        [Display(Name = "Is Deleted by Group")]
+        public bool? IsDeleted { get; set; }
 
         public int? UsedUnit { get; set; }
         

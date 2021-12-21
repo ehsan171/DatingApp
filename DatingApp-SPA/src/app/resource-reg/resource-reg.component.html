@@ -146,6 +146,16 @@
                     {{column}}  
                   </th> 
                   <th>حذف</th> 
+                  <th> <mat-checkbox [aria-label]="" 
+                  name="checkedAll"
+                    value=""
+                    (click)="selectAll()"
+                    [(ngModel)]="selectAllDays">
+                   
+                  </mat-checkbox>
+           
+                    
+                    <button (click)="deleteAll(resourceId, year, month,  barnameId)">delete</button></th> 
                 </tr>  
               </thead>  
               <tbody>  
@@ -177,6 +187,13 @@
                     (click)="deleteRequestConform(resourceId, year, month, indexOfElement+1, barnameId)">
                      <mat-icon color = "warn" class="delete_btn">delete</mat-icon></button>
                   </td>
+                  <td>
+                    <mat-checkbox [aria-label]="" 
+                  
+                    value="{{selectedDaysForDeletion[indexOfElement].value}}"
+                    [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
+                    </mat-checkbox>
+                  </td>
 
                 </tr>  
               </tbody>  
@@ -185,3 +202,15 @@
   
 </div>
 
+<div class="form-group">
+    <label for="options">Options:</label>
+    <div *ngFor="let option of options">
+        <label>
+            <input type="checkbox"
+                   name="options"
+                   value="{{option.value}}"
+                   [(ngModel)]="option.checked"/>
+            {{option.name}}
+        </label>
+    </div>
+</div>

@@ -24,6 +24,30 @@ import { event } from 'jquery';
         
       })
       export class ResourceRegComponent implements OnInit {
+
+        options = [
+          {name:'OptionA', value:'1', checked:true},
+          {name:'OptionB', value:'2', checked:false},
+          {name:'OptionC', value:'3', checked:true}
+        ]
+        selectedDaysForDeletion = [
+          {name:1, value:1, checked:true},
+       
+        ]
+
+
+                  
+                
+                
+      
+        get selectedOptions() { // right now: ['1','3']
+          return this.options
+                    .filter(opt => opt.checked)
+                    .map(opt => opt.value)
+                    
+        }  
+
+
  math = Math;
         name = 'Angular 5';
         mouseX: number;
@@ -75,6 +99,8 @@ import { event } from 'jquery';
         allocationForEachBarname: Allocation[];
         allocationRegister: AllocationRegister[];
         id: any;
+        selectedDayForDelete: Array<number>=[];
+        selectAllDays: boolean = false;
         
    
   
@@ -170,7 +196,7 @@ import { event } from 'jquery';
            
         }
 
-        gettingAllocation(resourceId, year, month) {
+        gettingAllocation(resourceId: number, year: number, month: number) {
           var monthNumber = month < 7 ? 31 : (month < 12 ? 30:29);
           this.totalDay = monthNumber;
 
@@ -338,8 +364,17 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
           }
           );
 
-
+          this.selectedDaysForDeletion=[]
+          for (let index = 1; index <=monthNumber ; index++) { 
+            
+            let dayTest =   
+            {name:index, value:index, checked:false}
+   
+                    
+            this.selectedDaysForDeletion.push(dayTest);
         }
+
+      }
 
         onChangeRequestRes(requestResValue) {
           this.requestVolume = requestResValue;
@@ -436,11 +471,7 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
         onCellClickSingleClick(rowIndex,columnIndex,event){
 
           if(event.which==1){
-        console.log("10004", rowIndex,columnIndex,this.barnameId)
-        console.log("10007", this.requestVolume)
-        console.log("10008", this.RowsData[rowIndex+1][columnIndex])
-        console.log("10003", this.IsCellClickForEachBarname[rowIndex][columnIndex],this.barnameId)
-              if(this.requestVolume <= this.RowsData[rowIndex+1][columnIndex])
+           if(this.requestVolume <= this.RowsData[rowIndex+1][columnIndex])
               {
               
                 this.IsCellClick[rowIndex][columnIndex] = (this.IsCellClick[rowIndex][columnIndex]) ? false : true;
@@ -459,23 +490,64 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
         }
 
         
-    deleteRequest(resourceId, year, month, day, barnameId) {
 
 
-      
+deleteRequestConform(resourceId: any, year: any, month: any, day: any, barnameId: any){
+  this.alertify.confirm('آیا مطمئن هستید؟ ',()=>{
+    this.resourceService.deleteRequestByGroup(resourceId,year,month, day, barnameId).subscribe((allocation: Allocation[]) => {
+      this.gettingAllocation(
+        this.resourceId,
+        this.year,
+        this.month);
 
-      this.resourceService.deleteRequestByGroup(resourceId,year,month, day, barnameId).subscribe((allocation: Allocation[]) => {
+  }, () => {
+    this.alertify.error('امکان حذف وجود ندارد');
+  }
+  );});
+}
 
-
-      }, () => {
-        this.alertify.error('امکان حذف وجود ندارد');
-      }
-      );
+deleteAll(resourceId, year, month,  barnameId){
+  
+console.log("8007",barnameId)
+  this.alertify.confirm('آیا مطمئن هستید؟ ',()=>{
+      for (var deleteDay of this.selectedDaysForDeletion) {
+          if(deleteDay.checked){
+            this.resourceService.deleteRequestByGroup(resourceId,year,month, deleteDay.value, barnameId).subscribe((allocation: Allocation[]) => {
+              this.gettingAllocation(
+                this.resourceId,
+                this.year,
+                this.month);
+        
+          }, () => {
+            this.alertify.error('امکان حذف وجود ندارد');
+          }
+    );
+    }
+    
+}
+  ;});
 
 }
 
-deleteRequestConform(resourceId, year, month, day, barnameId){
-  this.alertify.confirm('آیا مطمئن هستید؟ ',()=>{this. deleteRequest(resourceId, year, month, day, barnameId);});
+selectAll(){
+console.log(this.selectAllDays)
+
+  for (let index =0 ; index < this.selectedDaysForDeletion.length; index++) {
+        this.selectedDaysForDeletion[index].checked = !this.selectAllDays;
+        console.log("804",this.selectedDaysForDeletion[index].checked)
+    }
+
+      
+    
+
+
+}
+
+clickOnRadioBtn(event, day: number){
+  this.selectedDayForDelete.push(day);
+  console.log("801", this.selectedDaysForDeletion)
+  console.log("801", event.checked)
+  console.log("803", this.options)
 }
 
         onSave(){

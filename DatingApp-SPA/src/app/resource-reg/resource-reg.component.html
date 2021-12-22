@@ -138,25 +138,53 @@
   </tbody>
 </table>
  <br>       
-    
+ <button class=" more_btn " (click)="divFunction()">
+   <mat-icon color = "" >more_horiz</mat-icon>
+ </button> 
             <table class='table table-sm' aria-labelledby="tableLabel" style=" border:1px solid;  user-select: none; text-align: center; ">  
               <thead style="background-color: #d7bde2;">  
                 <tr>  
                   <th scope="col" *ngFor="let column of header">  
                     {{column}}  
-                  </th> 
-                  <th>حذف</th> 
-                  <th> <mat-checkbox [aria-label]="" 
-                  name="checkedAll"
-                    value=""
-                    (click)="selectAll()"
-                    [(ngModel)]="selectAllDays">
-                   
-                  </mat-checkbox>
+                  </th>
+                
+                  <th   [@openClose]="isShown ? 'open' : 'closed'">
+                 <button 
+                  style="background-color: transparent; border: transparent;"
+                  (click)="deleteAll(resourceId, year, month,  barnameId)">
+                   <mat-icon color = "warn" class="delete_btn delete_btn_all">delete</mat-icon>
+                  
+                  </button>
+                  </th>    
+                  <th   [@openClose]="isShown ? 'open' : 'closed'"  > 
+                    <mat-checkbox [aria-label]="" 
+                        name="checkedAll"
+                        value=""
+                        (click)="selectAll()"
+                        [(ngModel)]="selectAllDays">
+                      
+                    </mat-checkbox>
            
                     
-                    <button (click)="deleteAll(resourceId, year, month,  barnameId)">delete</button></th> 
-                </tr>  
+                  </th> 
+                  <th   [@openClose]="isShown ? 'open' : 'closed'"  >
+                    کپی
+                  </th>
+                
+                  <th   [@openClose]="isShown ? 'open' : 'closed'" >
+                    <button 
+                    style="background-color: transparent; border: transparent;"
+                    (click)="deleteAll(resourceId, year, month,  barnameId)">
+                     <mat-icon color = "primary" >format_paint</mat-icon>
+                    
+                    </button>
+                  </th>
+      
+ 
+                
+                
+                
+                  </tr>  
               </thead>  
               <tbody>  
                 <tr *ngFor="let row of RowsData| slice:1;let indexOfElement=index;">  
@@ -181,13 +209,28 @@
                   
                    {{row[column]}}
                   </td> 
-                  <td>            
+                  <td   [@openClose]="isShown ? 'open' : 'closed'">            
                     <button 
                     style="background-color: transparent; border: transparent;"
                     (click)="deleteRequestConform(resourceId, year, month, indexOfElement+1, barnameId)">
-                     <mat-icon color = "warn" class="delete_btn">delete</mat-icon></button>
+                     <mat-icon color = "warn" class="delete_btn">delete</mat-icon>
+                    </button>
                   </td>
-                  <td>
+                  <td   [@openClose]="isShown ? 'open' : 'closed'"  >
+                    <mat-checkbox [aria-label]="" 
+                  
+                    value="{{selectedDaysForDeletion[indexOfElement].value}}"
+                    [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
+                    </mat-checkbox>
+                  </td>
+                  <td   [@openClose]="isShown ? 'open' : 'closed'"  >
+                    <button 
+                    style="background-color: transparent; border: transparent;"
+                    >
+                     <mat-icon color = "primary" class="delete_btn">file_copy</mat-icon>
+                    </button>
+                  </td>
+                  <td   [@openClose]="isShown ? 'open' : 'closed'" >
                     <mat-checkbox [aria-label]="" 
                   
                     value="{{selectedDaysForDeletion[indexOfElement].value}}"
@@ -202,15 +245,3 @@
   
 </div>
 
-<div class="form-group">
-    <label for="options">Options:</label>
-    <div *ngFor="let option of options">
-        <label>
-            <input type="checkbox"
-                   name="options"
-                   value="{{option.value}}"
-                   [(ngModel)]="option.checked"/>
-            {{option.name}}
-        </label>
-    </div>
-</div>

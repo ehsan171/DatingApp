@@ -14,6 +14,7 @@ import { AllocationRegister } from '../_models/allocationRegister';
 import { fromEvent } from 'rxjs';
 import { skipUntil, takeUntil } from 'rxjs/operators';
 import { event } from 'jquery';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
       declare var $: any;
       
@@ -21,6 +22,31 @@ import { event } from 'jquery';
         selector: 'app-resource-reg',
         templateUrl: './resource-reg.component.html',
         styleUrls: ['./resource-reg.component.css'],
+        animations: [
+          trigger('openClose', [
+            // ...
+            state('open', style({
+              // height: '200px',
+              
+              opacity: 1,
+              display: '',
+              // backgroundColor: 'yellow'
+            })),
+            state('closed', style({
+              opacity: 0,
+              height: '000px',
+              display: 'none' ,
+              
+              // backgroundColor: 'blue'
+            })),
+            transition('open => closed', [
+              animate('1s')
+            ]),
+            transition('closed => open', [
+              animate('0.1s')
+            ]),
+          ]),
+        ],
         
       })
       export class ResourceRegComponent implements OnInit {
@@ -34,11 +60,11 @@ import { event } from 'jquery';
           {name:1, value:1, checked:true},
        
         ]
+       
 
 
                   
-                
-                
+     
       
         get selectedOptions() { // right now: ['1','3']
           return this.options
@@ -83,6 +109,7 @@ import { event } from 'jquery';
         totalHour: number = 24;
         year: number;
         //month: number  = +moment().locale('fa').format('mm');;
+        dayName:string;
         month: number ;
         barnameId: number =2 ;
         model: any = {};
@@ -101,8 +128,18 @@ import { event } from 'jquery';
         id: any;
         selectedDayForDelete: Array<number>=[];
         selectAllDays: boolean = false;
-        
+        monthName:any = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند', ];
+
+        nameFarsi: any = ['روز'];
+        ArrayRowsExtraDataset: any = [];
+        isShown: boolean;
+
    
+
+    divFunction() {
+       this.isShown = !this.isShown;
+
+    }
   
         public capacityFields: any = [];
         public yearFields: any = [];
@@ -172,8 +209,6 @@ import { event } from 'jquery';
           var currentTime = new Date()
           var year = +moment().locale('fa').format('YYYY');
          
-          
-
             for (let y = year-2; y < year+3; y++) {
               this.yearData.push({ value: y,  name: y });
        
@@ -211,12 +246,25 @@ import { event } from 'jquery';
           
             this.allocation = allocation['allocations'];
             this.resourceInfo = allocation['test'];
+            let formattedMonth = month.toLocaleString('en-US', {
+              minimumIntegerDigits: 2,
+              useGrouping: false
+            })
 
       for (let index = 0; index <=monthNumber ; index++) { 
           
+
+          let formattedNumber = index.toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+          })
+      
+
+          let myDate =(year.toString()+formattedMonth.toString()+formattedNumber.toString())
       this.test =   
                 {  
-                  "hour" : index
+                  "hour" : moment(myDate,"jYYYYjMMjDD",'fa').format('ddd, ll')
+        
                 }
               
       this.test2 =   
@@ -550,6 +598,11 @@ clickOnRadioBtn(event, day: number){
   console.log("803", this.options)
 }
 
+toggleShow() {
+
+  this.isShown = ! this.isShown;
+  
+  }
         onSave(){
           
           this.allocationRegister = [];

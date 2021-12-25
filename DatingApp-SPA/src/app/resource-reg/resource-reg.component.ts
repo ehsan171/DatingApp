@@ -61,6 +61,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
        
         ]
        
+        selectedDaysForPaste = [
+          {name:1, value:1, checked:true},
+       
+        ]
+       
 
 
                   
@@ -125,6 +130,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         allocationForColor: Allocation[];
         allocationForEachBarname: Allocation[];
         allocationRegister: AllocationRegister[];
+        allocationPasteRegister: AllocationRegister[];
         id: any;
         selectedDayForDelete: Array<number>=[];
         selectAllDays: boolean = false;
@@ -421,6 +427,15 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
                     
             this.selectedDaysForDeletion.push(dayTest);
         }
+          this.selectedDaysForPaste=[]
+          for (let index = 1; index <=monthNumber ; index++) { 
+            
+            let dayPaste =   
+            {name:index, value:index, checked:false}
+   
+                    
+            this.selectedDaysForPaste.push(dayPaste);
+        }
 
       }
 
@@ -498,6 +513,7 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
         }
 
         onCellClick(rowIndex,columnIndex){
+          
           rowIndex +=1;
           if(this.clickDown){
               if(this.requestVolume <= this.RowsData[rowIndex][columnIndex])
@@ -538,6 +554,28 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
         }
 
         
+        onCellClickSingleClickForPaste(rowIndex,columnIndex){
+          console.log("10001", rowIndex,columnIndex)
+    
+           if(this.requestVolume <= this.RowsData[rowIndex+1][columnIndex])
+              {
+              
+                this.IsCellClick[rowIndex][columnIndex] = (this.IsCellClick[rowIndex][columnIndex]) ? false : true;
+                
+              }
+              const listOfObjecs = [
+                { id: 1,  score: 11 },
+
+              ];
+              listOfObjecs.push( { id: rowIndex,  score: columnIndex })
+
+              
+        
+            
+
+        }
+
+        
 
 
 deleteRequestConform(resourceId: any, year: any, month: any, day: any, barnameId: any){
@@ -553,6 +591,8 @@ deleteRequestConform(resourceId: any, year: any, month: any, day: any, barnameId
   }
   );});
 }
+
+
 
 deleteAll(resourceId, year, month,  barnameId){
   
@@ -574,6 +614,25 @@ console.log("8007",barnameId)
     
 }
   ;});
+
+}
+
+pasteAll(resourceId, year, month,  barnameId){
+  
+console.log("8007",barnameId)
+
+      for (var pasteDay of this.selectedDaysForPaste) {
+        if(pasteDay.checked){         
+    console.log("4023",pasteDay)
+          for(var eachHour of this.allocationPasteRegister){
+            console.log("day",pasteDay.value)
+            console.log("hour ",eachHour.hour)
+            this.onCellClickSingleClickForPaste(pasteDay.value-1,eachHour.hour)
+          }
+   
+        }
+      };
+console.log("IsCellClick", this.IsCellClick)
 
 }
 
@@ -603,7 +662,9 @@ toggleShow() {
   this.isShown = ! this.isShown;
   
   }
-        onSave(){
+        
+  
+onSave(){
           
           this.allocationRegister = [];
           for( let dayIndex = 0; dayIndex <= this.totalDay; dayIndex++){
@@ -628,10 +689,39 @@ toggleShow() {
 
 
 
-        }
+}
+        
+        
+copyRowPattern(dayIndex){
+          
+          this.allocationPasteRegister = [];
+
+            for (let hourIndex = 0; hourIndex < this.totalHour; hourIndex++){
+              if(this.IsCellClick[dayIndex-1][hourIndex]){
+
+                this.allocationPasteRegister.push({ barnameId:0, year:0, month:0, day:0, hour:0, usedUnit:0, resourceId:0, isDeleted:true });
+                let index =this.allocationPasteRegister.length - 1;
+                this.allocationPasteRegister[index].barnameId = this.barnameId;
+                this.allocationPasteRegister[index].barnameId = this.barnameId;
+                this.allocationPasteRegister[index].year = this.year;
+                this.allocationPasteRegister[index].month = this.month;
+                this.allocationPasteRegister[index].day = dayIndex  ;
+                this.allocationPasteRegister[index].hour = hourIndex ;
+
+                this.allocationPasteRegister[index].usedUnit = this.selectedCapacity;
+                this.allocationPasteRegister[index].registerDate = new Date();
+                this.allocationPasteRegister[index].isDeleted = false;
+                this.allocationPasteRegister[index].resourceId = this.resourceId;
+              }
+            }
+          
+
+console.log("7101",  this.allocationPasteRegister)
+
+}
 
       
-        register(){
+register(){
           this.allocationRegister
           this.resourceService.registerAllocation(this.allocationRegister).subscribe(() => {
 
@@ -645,10 +735,12 @@ toggleShow() {
           }
           );
 
-        }
-        cancelRegisterMode(event: number){
+
+}
+
+cancelRegisterMode(event: number){
           this.barnameId = event;
-        }
+}
 
         public onFilteringResource: EmitType<any> =  (e: FilteringEventArgs) => {
           let queryResource = new Query();

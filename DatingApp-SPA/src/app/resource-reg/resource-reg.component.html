@@ -174,7 +174,7 @@
                   <th   [@openClose]="isShown ? 'open' : 'closed'" >
                     <button 
                     style="background-color: transparent; border: transparent;"
-                    (click)="deleteAll(resourceId, year, month,  barnameId)">
+                    (click)="pasteAll(resourceId, year, month,  barnameId)">
                      <mat-icon color = "primary" >format_paint</mat-icon>
                     
                     </button>
@@ -211,30 +211,38 @@
                   </td> 
                   <td   [@openClose]="isShown ? 'open' : 'closed'">            
                     <button 
-                    style="background-color: transparent; border: transparent;"
-                    (click)="deleteRequestConform(resourceId, year, month, indexOfElement+1, barnameId)">
-                     <mat-icon color = "warn" class="delete_btn">delete</mat-icon>
+                      style="background-color: transparent; border: transparent;"
+                      (click)="deleteRequestConform(resourceId, year, month, indexOfElement+1, barnameId)">
+                      <mat-icon color = "warn" class="delete_btn">
+                        delete
+                      </mat-icon>
                     </button>
                   </td>
+                  
                   <td   [@openClose]="isShown ? 'open' : 'closed'"  >
                     <mat-checkbox [aria-label]="" 
                   
-                    value="{{selectedDaysForDeletion[indexOfElement].value}}"
-                    [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
+                      value="{{selectedDaysForDeletion[indexOfElement].value}}"
+                      [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
                     </mat-checkbox>
                   </td>
+
                   <td   [@openClose]="isShown ? 'open' : 'closed'"  >
                     <button 
-                    style="background-color: transparent; border: transparent;"
-                    >
-                     <mat-icon color = "primary" class="delete_btn">file_copy</mat-icon>
+                      style="background-color: transparent; border: transparent;"
+                      (click)="copyRowPattern( indexOfElement+1)">
+                      
+                          <mat-icon color = "primary" class="delete_btn">
+                            file_copy
+                          </mat-icon>
+                      
                     </button>
                   </td>
+
                   <td   [@openClose]="isShown ? 'open' : 'closed'" >
                     <mat-checkbox [aria-label]="" 
-                  
-                    value="{{selectedDaysForDeletion[indexOfElement].value}}"
-                    [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
+                        value="{{selectedDaysForPaste[indexOfElement].value}}"
+                        [(ngModel)]="selectedDaysForPaste[indexOfElement].checked">
                     </mat-checkbox>
                   </td>
 

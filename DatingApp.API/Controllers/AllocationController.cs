@@ -341,6 +341,7 @@ namespace DatingApp.API.Controllers
                     
                     x.Barname.Title,
                     network = x.Barname.BarnameNetworks.Select(n=>n.BasicData).Select(a => a.Name),
+                    networkId = x.Barname.BarnameNetworks.Select(n=>n.BasicData).Select(a => a.Id),
                     x.Barname.Id,
                     x.UsedUnit,
                     

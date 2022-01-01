@@ -25,7 +25,7 @@
         
           </div>
         </div>
-
+<!-- 
         <div class="col">
           <div class="form-group">
           
@@ -44,9 +44,9 @@
             </ejs-dropdownlist>
         
           </div>
-        </div>
+        </div> -->
 
-        <div class="col" style="width: 50px;">
+        <!-- <div class="col" style="width: 50px;">
           <div class="form-group" >
             
             <div class="" >
@@ -63,8 +63,10 @@
           </div>
         </div>
     
-     
-        <div class="col">
+      -->
+       
+      
+      <div class="col">
           <div class="form-group">
           
             <ejs-dropdownlist 
@@ -108,8 +110,8 @@
       </div>
 
     </form>
-    <button (click)="onSave()">test2</button>
-    <button (click)="register()">register</button>
+    <!-- <button (click)="onSave()">test2</button>
+    <button (click)="register()">register</button> -->
     <br>
    
     <div *ngFor="let column of ArrayRowsDataset; let i = index">
@@ -129,18 +131,28 @@
 <div  [@openClose]="div[i] ? 'open' : 'closed'">
       
   <div style="width: 100%; margin-top: 60px;" class="test">
-    <table class='table table-sm' aria-labelledby="tableLabel" style="  user-select: none;">  
+    <table class='table table-sm table_info' aria-labelledby="tableLabel" style="  user-select: none;">  
       <thead style="background-color: #d7bde2;">  
         <tr style="  border: 1px solid black;">  
-          <th scope="col" *ngFor="let column of header2" >  
+       
+          <!-- <th scope="col" *ngFor="let column of header2" >  
             {{column}}  
-          </th> 
+          </th>  -->
+          <th>نام برنامه</th>
+          <th colspan="2">شبکه</th>
+       
+          <th>تهیه کننده</th>
+          <th>تاریخ ثبت</th>
+          <th>زمان سپری شده</th>
+          <th>درصد تداخل</th>
           <th>تأیید&nbsp;/&nbsp;رد</th> 
+         
         </tr>  
       </thead>  
       <tbody style="  border: 1px solid black;">  
         <tr *ngFor="let row of ArrayRowsExtraDataset[i]| slice:1;let indexOfElement=index;" style="  border: 1px solid black;">  
-            <td  
+         
+          <td  
             
             
             ondragstart="return false;" ondrop="return false;"
@@ -148,6 +160,20 @@
           
             >  
           {{row["hour"]}}
+        
+          </td>  
+            
+          <td ><img src='../../assets/library/images/{{row.networkId}}.png' alt="network icon" width="40" height="40"></td>
+
+          
+          <td  
+            
+            
+            ondragstart="return false;" ondrop="return false;"
+          style="  border: 1px solid black;"
+          
+            >  
+          {{row["networkName"]}}
         
           </td>  
             <td  
@@ -207,7 +233,7 @@
     
 
         </td>
-
+        
         </tr>  
       
 

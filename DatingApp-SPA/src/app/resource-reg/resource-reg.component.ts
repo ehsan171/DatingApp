@@ -1,4 +1,4 @@
-      import { Component, OnInit, Output, EventEmitter, Input, Renderer2 } from '@angular/core';
+      import { Component, OnInit, Output, EventEmitter, Input, Renderer2, ViewChild } from '@angular/core';
       import { AlertifyService } from '../_services/alertify.service';
       import { Query } from '@syncfusion/ej2-data';
       import { FilteringEventArgs } from '@syncfusion/ej2-angular-dropdowns';
@@ -15,6 +15,7 @@ import { fromEvent } from 'rxjs';
 import { skipUntil, takeUntil } from 'rxjs/operators';
 import { event } from 'jquery';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatMenuTrigger } from '@angular/material/menu';
 
       declare var $: any;
       
@@ -65,6 +66,20 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
           {name:1, value:1, checked:true},
        
         ]
+        selectedActivity_1_ForDay = [
+          {name:1, value:1, checked:true},
+       
+        ]
+       
+        selectedActivity_2_ForDay = [
+          {name:1, value:1, checked:true},
+       
+        ]
+       
+        selectedActivity_3_ForDay = [
+          {name:1, value:1, checked:true},
+       
+        ]
        
 
 
@@ -77,7 +92,82 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
                     .map(opt => opt.value)
                     
         }  
+        public dataPerson: { [key: string]: Object }[] = [];
+        public fieldsPerson: object = { text: 'name', value: 'id' };
+        public textProducer = 'تهیه کننده';
+        public data2: string[] = ['Badminton', 'Cricket', 'Football', 'Golf', 'Hockey', 'Rugby'];
+        // set placeholder to MultiSelect input element
+        public placeholder: string = 'Select games';
+        
 
+
+        gettingDataProducer(){
+
+            for (let index = 0; index < 5; index++) {
+              this.dataPerson.push({ id: '', firstName: '', lastName: '' });
+              this.dataPerson[index].firstName = "firstName #"+index;
+              this.dataPerson[index].lastName = "lastName #"+index;
+              this.dataPerson[index].id = "id #"+index;
+            }
+          
+        
+        }
+        // Bind the filter event
+        public onFilteringPerson: EmitType<any> =  (e: FilteringEventArgs) => {
+          let queryProducer = new Query();
+          // frame the query based on search string with filter type.
+          queryProducer = (e.text !== '') ? queryProducer.where('name', 'contains', e.text, true) : queryProducer;
+          // pass the filter data source, filter query to updateData method.
+          e.updateData(this.dataPerson, queryProducer);
+        }
+        // Total Number Episodes End ---- Total Number Episodes End ---- Total Number Episodes End ---- Total Number Episodes End ----
+        
+
+
+
+
+
+
+
+        title = 'demo-menu';
+  
+        // we create an object that contains coordinates
+        menuTopLeftPosition =  {x: 0, y: 0}
+      
+        // reference to the MatMenuTrigger in the DOM
+        @ViewChild(MatMenuTrigger, {static: true}) matMenuTrigger: MatMenuTrigger;
+      
+        /**
+         * Method called when the user click with the right button
+         * @param event MouseEvent, it contains the coordinates
+         * @param item Our data contained in the row of the table
+         */
+        public onRightClick(event: MouseEvent, item) {
+            // preventDefault avoids to show the visualization of the right-click menu of the browser
+            event.preventDefault();
+      
+            // we record the mouse position in our object
+            this.menuTopLeftPosition.x = event.clientX;
+            this.menuTopLeftPosition.y = event.clientY;
+      
+            // we open the menu
+            // we pass to the menu the information about our object
+            this.matMenuTrigger.menuData = {item: item}
+      
+            // we open the menu
+            this.matMenuTrigger.openMenu();
+      
+        }
+      
+        // number of lines to show for the example
+        getExamples(n: number) {
+          var arr = ['a', , 'c'];
+    var sparseKeys = Object.keys(arr);
+    var denseKeys = [...arr.keys()];
+    // console.log(sparseKeys); // ['0', '2']
+    // console.log(denseKeys);  // [0, 1, 2]
+          return [ ...Array(n).keys()];
+        }
 
  math = Math;
         name = 'Angular 5';
@@ -95,7 +185,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         constructor(
           public renderer: Renderer2,
           private resourceService: ResourceService,
-          private alertify: AlertifyService) { }
+          private alertify: AlertifyService,
+          ) { }
 
         @Input() valuesFromDetail;
         @Output() cancelRegister = new EventEmitter();
@@ -140,7 +231,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         ArrayRowsExtraDataset: any = [];
         isShown: boolean;
 
-   
+        doSomething($event:any){
+          $event.stopPropagation();
+          //Another instructions
+      }
 
     divFunction() {
        this.isShown = !this.isShown;
@@ -435,6 +529,37 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
    
                     
             this.selectedDaysForPaste.push(dayPaste);
+            
+        }
+          this.selectedActivity_1_ForDay=[]
+          for (let index = 1; index <=monthNumber ; index++) { 
+            
+            let activity1 =   
+            {name:index, value:index, checked:false}
+   
+                    
+            this.selectedActivity_1_ForDay.push(activity1);
+            
+        }
+          this.selectedActivity_2_ForDay=[]
+          for (let index = 1; index <=monthNumber ; index++) { 
+            
+            let activity2 =   
+            {name:index, value:index, checked:false}
+   
+                    
+            this.selectedActivity_2_ForDay.push(activity2);
+            
+        }
+          this.selectedActivity_3_ForDay=[]
+          for (let index = 1; index <=monthNumber ; index++) { 
+            
+            let activity3 =   
+            {name:index, value:index, checked:false}
+   
+                    
+            this.selectedActivity_3_ForDay.push(activity3);
+            
         }
 
       }
@@ -664,32 +789,7 @@ toggleShow() {
   }
         
   
-onSave(){
-          
-          this.allocationRegister = [];
-          for( let dayIndex = 0; dayIndex <= this.totalDay; dayIndex++){
-            for (let hourIndex = 0; hourIndex < this.totalHour; hourIndex++){
-              if(this.IsCellClick[dayIndex][hourIndex]){
 
-                this.allocationRegister.push({ barnameId:0, year:0, month:0, day:0, hour:0, usedUnit:0, resourceId:0, isDeleted:true });
-                let index =this.allocationRegister.length - 1;
-                this.allocationRegister[index].barnameId = this.barnameId;
-                this.allocationRegister[index].year = this.year;
-                this.allocationRegister[index].month = this.month;
-                this.allocationRegister[index].day = dayIndex + 1 ;
-                this.allocationRegister[index].hour = hourIndex ;
-
-                this.allocationRegister[index].usedUnit = this.selectedCapacity;
-                this.allocationRegister[index].registerDate = new Date();
-                this.allocationRegister[index].isDeleted = false;
-                this.allocationRegister[index].resourceId = this.resourceId;
-              }
-            }
-          }
-
-
-
-}
         
         
 copyRowPattern(dayIndex){
@@ -722,10 +822,32 @@ console.log("7101",  this.allocationPasteRegister)
 
       
 register(){
+
+  this.allocationRegister = [];
+  for( let dayIndex = 0; dayIndex <= this.totalDay; dayIndex++){
+    for (let hourIndex = 0; hourIndex < this.totalHour; hourIndex++){
+      if(this.IsCellClick[dayIndex][hourIndex]){
+
+        this.allocationRegister.push({ barnameId:0, year:0, month:0, day:0, hour:0, usedUnit:0, resourceId:0, isDeleted:true });
+        let index =this.allocationRegister.length - 1;
+        this.allocationRegister[index].barnameId = this.barnameId;
+        this.allocationRegister[index].year = this.year;
+        this.allocationRegister[index].month = this.month;
+        this.allocationRegister[index].day = dayIndex + 1 ;
+        this.allocationRegister[index].hour = hourIndex ;
+
+        this.allocationRegister[index].usedUnit = this.selectedCapacity;
+        this.allocationRegister[index].registerDate = new Date();
+        this.allocationRegister[index].isDeleted = false;
+        this.allocationRegister[index].resourceId = this.resourceId;
+      }
+    }
+  }
+
           this.allocationRegister
           this.resourceService.registerAllocation(this.allocationRegister).subscribe(() => {
 
-            this.alertify.success('ثبت نام با موفقیت انجام شد.');
+            this.alertify.success('ثبت با موفقیت انجام شد.');
             this.gettingAllocation(
               this.allocationRegister[0].resourceId,
               this.allocationRegister[0].year,
@@ -777,6 +899,7 @@ cancelRegisterMode(event: number){
       
         ngOnInit() {
 
+
           $(document).ready(function () {
 
             $('.example1').pDatepicker({
@@ -824,7 +947,7 @@ cancelRegisterMode(event: number){
             regDate: new FormControl(),
 
           });
-
+          this.gettingDataProducer();
           this.gettingAllocation(7,1400,4);
           // this.gettingDataCapacity(4);
           this.gettingResources();

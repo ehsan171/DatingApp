@@ -1,6 +1,51 @@
 
     <app-barname-info [item]="selectedOption" (cancelRegister)="cancelRegisterMode($event)"></app-barname-info>
 
+   <div class="container" >
+
+     
+      <!-- an hidden div is created to set the position of appearance of the menu-->
+      <div style="visibility: hidden; position: fixed;" 
+      [style.left.px]="menuTopLeftPosition.x"
+      [style.top.px]="menuTopLeftPosition.y"
+      [matMenuTriggerFor]="rightMenu"></div>
+      
+      <!-- standar material menu -->
+      <mat-menu #rightMenu="matMenu">
+        <ng-template matMenuContent let-item="item">
+          <button mat-menu-item>Clicked {{item.content}}</button>
+          <button mat-menu-item>Fixed menu</button>
+          <button mat-menu-item>My menu</button>
+          <button style="background-color: transparent; border: transparent;" >
+                  <mat-checkbox 
+                        [aria-label]="" 
+                        value="{{selectedActivity_1_ForDay[item.content+1].value}}"
+                        [(ngModel)]="selectedActivity_1_ForDay[item.content+1].checked">
+                  </mat-checkbox> فعالیت 1
+        </button>
+          <button style="background-color: transparent; border: transparent;" >
+                  <mat-checkbox 
+                        [aria-label]="" 
+                        value="{{selectedActivity_2_ForDay[item.content+1].value}}"
+                        [(ngModel)]="selectedActivity_2_ForDay[item.content+1].checked">
+                  </mat-checkbox> فعالیت 2
+        </button>
+          <button style="background-color: transparent; border: transparent;" >
+                  <mat-checkbox 
+                        [aria-label]="" 
+                        value="{{selectedActivity_3_ForDay[item.content+1].value}}"
+                        [(ngModel)]="selectedActivity_3_ForDay[item.content+1].checked">
+                  </mat-checkbox> فعالیت 3
+        </button>
+        </ng-template>
+        
+    <ejs-multiselect id='multiselectelement' [dataSource]='data2' [placeholder]='placeholder' ></ejs-multiselect>
+
+      </mat-menu>
+      </div>
+
+   
+
 
     <div   style="margin-left: 1%; margin-right: 1%; height: 2000px; " 
 (mousedown)="mouseClickDown($event)"
@@ -114,68 +159,138 @@
       </div>
 
     </form>
-    <button (click)="onSave()">test2</button>
-    <button (click)="register()">register</button>
+
+    
     <br>
-<table style="text-align: center;">
-  <thead>
-    <tr>
-      <th>قبلاٌ انتخاب کرده‌اید</th>
-      <th>نداشتن ظرفیت</th>
-      <th>انتخاب</th>
-      <th>صف تقاضا</th>
- 
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="prim_reg legend_tr"></td>
-      <td class="unavailable_Cell_ForReg legend_tr"></td>
-      <td class="selected_Cell_ForReg legend_tr"></td>
-      <td class="in_query_legend legend_tr"></td>
-   
-    </tr>
-  </tbody>
-</table>
+
  <br>       
- <button class=" more_btn " (click)="divFunction()">
-   <mat-icon color = "" >more_horiz</mat-icon>
- </button> 
-            <table class='table table-sm' aria-labelledby="tableLabel" style=" border:1px solid;  user-select: none; text-align: center; ">  
+ 
+ <div class="flex-container">
+  <div
+  style="background-color: transparent;">
+          <table style="text-align: center;">
+          <!-- <thead>
+            <tr>
+              <th>قبلاٌ انتخاب کرده‌اید</th>
+              <th>نداشتن ظرفیت</th>
+              <th>انتخاب</th>
+              <th>صف تقاضا</th>
+        
+            </tr>
+          </thead> -->
+          <tbody>
+            <tr>
+              <td class="prim_reg legend_tr"  ></td>
+              <td class="unavailable_Cell_ForReg legend_tr"></td>
+              <td class="selected_Cell_ForReg legend_tr"></td>
+              <td class="in_query_legend legend_tr"></td>
+          
+            </tr>
+            <tr>
+              
+              <th class="prim_reg legend_tr" >قبلاٌ انتخاب کرده‌اید</th>
+              <th class="unavailable_Cell_ForReg legend_tr">نداشتن ظرفیت</th>
+              <th class="selected_Cell_ForReg legend_tr">انتخاب</th>
+              <th class="in_query_legend legend_tr">صف تقاضا</th>
+        
+            </tr>
+            <tr>
+              <td class="prim_reg legend_tr"></td>
+              <td class="unavailable_Cell_ForReg legend_tr"></td>
+              <td class="selected_Cell_ForReg legend_tr"></td>
+              <td class="in_query_legend legend_tr"></td>
+          
+            </tr>
+          </tbody>
+        </table> 
+  </div>
+  <div 
+  style="display: flex;
+  justify-content: center;
+  background-color: transparent;">
+    <button
+    style="height: 30px;
+    width: 80%;  
+    -ms-transform: translateY(50%);
+    transform: translateY(50%)"
+    class="btn-secondary regbtn"
+    (click)="register()">ثبت </button>
+  </div>
+  <div
+  style="background-color: transparent;">
+    <button class=" more_btn " 
+    style="height: 30px;  
+    -ms-transform: translateY(50%);
+    transform: translateY(50%)"
+    (click)="divFunction()">
+      <mat-icon color = "" >more_horiz</mat-icon>
+    </button>
+  </div>
+
+  
+</div>
+ 
+            <table class='table table-sm tableShadow' aria-labelledby="tableLabel" style=" border:1px solid;  user-select: none; text-align: center; ">  
+
+              
               <thead style="background-color: #d7bde2;">  
                 <tr>  
                   <th scope="col" *ngFor="let column of header">  
                     {{column}}  
                   </th>
                 
-                  <th   [@openClose]="isShown ? 'open' : 'closed'">
-                 <button 
-                  style="background-color: transparent; border: transparent;"
-                  (click)="deleteAll(resourceId, year, month,  barnameId)">
-                   <mat-icon color = "warn" class="delete_btn delete_btn_all">delete</mat-icon>
-                  
-                  </button>
-                  </th>    
-                  <th   [@openClose]="isShown ? 'open' : 'closed'"  > 
+                    
+                  <th   
+                  [@openClose]="isShown ? 'open' : 'closed'"
+                  class="advPartHead"  > 
                     <mat-checkbox [aria-label]="" 
                         name="checkedAll"
                         value=""
                         (click)="selectAll()"
-                        [(ngModel)]="selectAllDays">
+                        [(ngModel)]="selectAllDays"
+                        class="delete_btn_all">
                       
                     </mat-checkbox>
            
                     
                   </th> 
-                  <th   [@openClose]="isShown ? 'open' : 'closed'"  >
-                    کپی
+
+                   <th   
+                  [@openClose]="isShown ? 'open' : 'closed'"
+                  class="advPartHead">
+                 <button 
+                  style="background-color: transparent; border: transparent;"
+                  (click)="deleteAll(resourceId, year, month,  barnameId)">
+                    <mat-icon color = "warn" class="delete_btn delete_btn_all">
+                      delete
+                    </mat-icon>
+                  
+                  </button>
+                  </th> 
+                  <th   
+                  [@openClose]="isShown ? 'open' : 'closed'"
+                  class="advPartHead delete_btn_all" >
+                  <button 
+                  style="background-color: transparent; border: transparent;"
+                  >
+                   <mat-icon color = "primary"
+                   class="delete_btn_all" >
+                   file_copy
+                    </mat-icon>
+                  
+                  </button>
                   </th>
                 
-                  <th   [@openClose]="isShown ? 'open' : 'closed'" >
+                  <th   
+                  [@openClose]="isShown ? 'open' : 'closed'"
+                  class="advPartHead" >
                     <button 
                     style="background-color: transparent; border: transparent;"
                     (click)="pasteAll(resourceId, year, month,  barnameId)">
-                     <mat-icon color = "primary" >format_paint</mat-icon>
+                     <mat-icon color = "primary"
+                     class="delete_btn_all" >
+                       format_paint
+                      </mat-icon>
                     
                     </button>
                   </th>
@@ -187,7 +302,8 @@
                   </tr>  
               </thead>  
               <tbody>  
-                <tr *ngFor="let row of RowsData| slice:1;let indexOfElement=index;">  
+                <tr *ngFor="let row of RowsData| slice:1;let indexOfElement=index;"
+                (contextmenu)="onRightClick($event, {content: indexOfElement })">  
                     <td  
                    
                     (mouseover)="onCellClick( indexOfElement, column )" 
@@ -209,7 +325,16 @@
                   
                    {{row[column]}}
                   </td> 
-                  <td   [@openClose]="isShown ? 'open' : 'closed'">            
+                 
+                  <td   [@openClose]="isShown ? 'open' : 'closed'"  >
+                    <mat-checkbox [aria-label]="" 
+                  
+                      value="{{selectedDaysForDeletion[indexOfElement].value}}"
+                      [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
+                    </mat-checkbox>
+                  </td>
+
+                   <td   [@openClose]="isShown ? 'open' : 'closed'">            
                     <button 
                       style="background-color: transparent; border: transparent;"
                       (click)="deleteRequestConform(resourceId, year, month, indexOfElement+1, barnameId)">
@@ -219,13 +344,6 @@
                     </button>
                   </td>
                   
-                  <td   [@openClose]="isShown ? 'open' : 'closed'"  >
-                    <mat-checkbox [aria-label]="" 
-                  
-                      value="{{selectedDaysForDeletion[indexOfElement].value}}"
-                      [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
-                    </mat-checkbox>
-                  </td>
 
                   <td   [@openClose]="isShown ? 'open' : 'closed'"  >
                     <button 

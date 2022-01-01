@@ -244,7 +244,7 @@ import {
           this.totalOfColumn = []  
           this.IsCellClick = [ ]  
           this.header=["hour"]
-          this.header2=["نام برنامه","تهیه کننده", "تاریخ ثبت","زمان سپری شده","درصد تداخل"]
+          this.header2=["نام برنامه","شبکه","تهیه کننده", "تاریخ ثبت","زمان سپری شده","درصد تداخل"]
  
           this.ArrayRowsDataset = []
             this.ArrayRowsDatasetForWhichDay = []
@@ -293,6 +293,8 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
                         "monthName": this.monthName[this.allocation[numOfDay][index2][0]['month']-1],
                         "producer" :this.allocation[numOfDay][index2][0]['producers'],
                         "barnameId" :this.allocation[numOfDay][index2][0]['id'],
+                        "networkName" :this.allocation[numOfDay][index2][0]['network'],
+                        "networkId" :this.allocation[numOfDay][index2][0]['networkId'],
                         // "RegDate" : this.allocation[3][index2][0]['registerDate']
                         "duration" :  moment.from(this.allocation[numOfDay][index2][0]['registerDate'], 'en', 'YYYY-MM-DD').toNow(true),
                         "RegDate" :  moment.from(this.allocation[numOfDay][index2][0]['registerDate'], 'en', 'YYYY-MM-DD').format('YYYY/MM/DD'),

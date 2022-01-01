@@ -78,6 +78,8 @@ import { BarnameInfoComponent } from './barname-info/barname-info.component';
 import { FinalRegistrationComponent } from './final-registration/final-registration.component';
 import { FinalRegistrationTwoComponent } from './final-registration-two/final-registration-two.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { RightClickMenuComponent } from './right-click-menu/right-click-menu.component';
+import { MatMenuModule} from '@angular/material/menu';
 //  khat zir baraie checkbox ast pak shavad
 enableRipple(true);
 
@@ -123,7 +125,8 @@ enableRipple(true);
       RequestRegComponent,
       BarnameInfoComponent,
       FinalRegistrationComponent,
-      FinalRegistrationTwoComponent
+      FinalRegistrationTwoComponent,
+      RightClickMenuComponent
   
    ],
    imports: [
@@ -171,6 +174,9 @@ enableRipple(true);
       AccumulationChartModule,
       ChartsModule,
       MatSliderModule,
+      MatMenuModule,
+      
+
    ],
    providers: [
       AuthService

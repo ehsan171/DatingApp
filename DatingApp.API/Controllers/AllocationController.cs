@@ -221,7 +221,10 @@ namespace DatingApp.API.Controllers
                     x.Month,
                     x.Year,
                     x.Barname.Title,
-                    x.Barname.Id
+                    x.Barname.Id,
+                    x.Activity1,
+                    x.Activity2,
+                    x.Activity3
                 })
      
                 .ToListAsync();
@@ -237,6 +240,51 @@ namespace DatingApp.API.Controllers
                 .ToListAsync();
             Dictionary<string, object> result =
                 new Dictionary<string, object> {{"allocations", allocations}, {"test", resource}};
+
+            return Ok(result);
+        }
+        
+         [AllowAnonymous]
+        [HttpGet("GetAllWaitingActivityAllocationsByResourceYearMonthForEachBarname/{resourceId:int}/{year:int}/{month:int}/{barnameId:int}")]
+
+        public async Task<IActionResult> GetAllWaitingActivityAllocationsByResourceYearMonthForEachBarname(int resourceId, int year, int month, int barnameId)
+        {
+           
+            var identity = (ClaimsIdentity)User.Identity;
+            Console.WriteLine(identity.IsAuthenticated); 
+            var allocations = await _context.Allocations
+            
+                .Where(allocation => 
+                    allocation.ResourceId == resourceId && 
+                    allocation.Year == year &&
+                    allocation.Month == month &&
+                    allocation.BarnameId == barnameId &&
+                    allocation.IsDeleted != true)
+                .Select(x => new { 
+                    x.Hour,
+                    x.Day,
+                    // x.Month,
+                    // x.Year,
+                    // x.Barname.Title,
+                    // x.Barname.Id,
+                    x.Activity1,
+                    x.Activity2,
+                    x.Activity3
+                })
+     
+                .ToListAsync();
+          
+            var resource = await _context.Resources
+                .Where(x=>x.ResourceId==resourceId)
+                .Select(x => new
+            {
+                ResourceName = x.Title,
+                x.ResourceId,
+                ResourceCapacity = x.Capacity,
+            })
+                .ToListAsync();
+            Dictionary<string, object> result =
+                new Dictionary<string, object> {{"allocations", allocations.GroupBy(l=>l.Day)}, {"test", resource}};
 
             return Ok(result);
         }
@@ -535,7 +583,10 @@ namespace DatingApp.API.Controllers
                 Day = x.Day,
                 Hour = x.Hour,
                 UsedUnit = x.UsedUnit,
-                RegisterDate = null
+                RegisterDate = null,
+                Activity1 = x.Activity1,
+                Activity2 = x.Activity2,
+                Activity3 = x.Activity3,
             }))
             {
                 //Console.WriteLine("day:   "+x.Day);

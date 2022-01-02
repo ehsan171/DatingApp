@@ -231,11 +231,12 @@ import { MatMenuTrigger } from '@angular/material/menu';
         ArrayRowsExtraDataset: any = [];
         isShown: boolean;
 
-        doSomething($event:any){
-          $event.stopPropagation();
-          //Another instructions
-      }
-
+        uncheckedActivityFnc(item){
+          this.selectedActivity_2_ForDay[item].checked=false;
+          this.selectedActivity_1_ForDay[item].checked=false;
+          this.selectedActivity_3_ForDay[item].checked=false;
+          console.log("40001",item)
+        }
     divFunction() {
        this.isShown = !this.isShown;
 
@@ -840,6 +841,11 @@ register(){
         this.allocationRegister[index].registerDate = new Date();
         this.allocationRegister[index].isDeleted = false;
         this.allocationRegister[index].resourceId = this.resourceId;
+        this.allocationRegister[index].activity1 = this.selectedActivity_1_ForDay[dayIndex+1].checked;
+        this.allocationRegister[index].activity2 = this.selectedActivity_2_ForDay[dayIndex+1].checked;
+        this.allocationRegister[index].activity3 = this.selectedActivity_3_ForDay[dayIndex+1].checked;
+       console.log("10003", this.selectedActivity_1_ForDay[dayIndex+1].checked)
+       console.log("10003", dayIndex)
       }
     }
   }

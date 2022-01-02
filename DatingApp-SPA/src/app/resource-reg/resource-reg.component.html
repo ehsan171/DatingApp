@@ -1,46 +1,63 @@
 
     <app-barname-info [item]="selectedOption" (cancelRegister)="cancelRegisterMode($event)"></app-barname-info>
 
-   <div class="container" >
+   <div class="container">
 
      
       <!-- an hidden div is created to set the position of appearance of the menu-->
-      <div style="visibility: hidden; position: fixed;" 
+      <div style="visibility: hidden; position: fixed;"
       [style.left.px]="menuTopLeftPosition.x"
       [style.top.px]="menuTopLeftPosition.y"
       [matMenuTriggerFor]="rightMenu"></div>
       
       <!-- standar material menu -->
-      <mat-menu #rightMenu="matMenu">
-        <ng-template matMenuContent let-item="item">
-          <button mat-menu-item>Clicked {{item.content}}</button>
-          <button mat-menu-item>Fixed menu</button>
-          <button mat-menu-item>My menu</button>
-          <button style="background-color: transparent; border: transparent;" >
-                  <mat-checkbox 
-                        [aria-label]="" 
-                        value="{{selectedActivity_1_ForDay[item.content+1].value}}"
-                        [(ngModel)]="selectedActivity_1_ForDay[item.content+1].checked">
-                  </mat-checkbox> فعالیت 1
-        </button>
-          <button style="background-color: transparent; border: transparent;" >
-                  <mat-checkbox 
-                        [aria-label]="" 
-                        value="{{selectedActivity_2_ForDay[item.content+1].value}}"
-                        [(ngModel)]="selectedActivity_2_ForDay[item.content+1].checked">
-                  </mat-checkbox> فعالیت 2
-        </button>
-          <button style="background-color: transparent; border: transparent;" >
-                  <mat-checkbox 
-                        [aria-label]="" 
-                        value="{{selectedActivity_3_ForDay[item.content+1].value}}"
-                        [(ngModel)]="selectedActivity_3_ForDay[item.content+1].checked">
-                  </mat-checkbox> فعالیت 3
-        </button>
-        </ng-template>
-        
-    <ejs-multiselect id='multiselectelement' [dataSource]='data2' [placeholder]='placeholder' ></ejs-multiselect>
+      <mat-menu #rightMenu="matMenu" >
+       
+        <div
+        style="direction: rtl;"
+       >
+        <ng-template matMenuContent let-item="item" >
+          <div
+          (click) = "$event.stopPropagation()">
 
+         
+            <button mat-menu-item>فعالیت روز&nbsp; {{item.content+1}}</button>
+        
+
+            <button mat-menu-item style="background-color: transparent; border: transparent;" >
+              <mat-checkbox 
+                    [aria-label]="" 
+                    value="{{selectedActivity_1_ForDay[item.content+1].value}}"
+                    [(ngModel)]="selectedActivity_1_ForDay[item.content+1].checked">
+              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span>فعالیت 1</span> 
+            </button>
+       
+            <button mat-menu-item style="background-color: transparent; border: transparent;" >
+              <mat-checkbox 
+                    [aria-label]="" 
+                    value="{{selectedActivity_2_ForDay[item.content+1].value}}"
+                    [(ngModel)]="selectedActivity_2_ForDay[item.content+1].checked">
+              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span>فعالیت 2</span> 
+            </button>
+       
+    
+       
+            <button mat-menu-item style="background-color: transparent; border: transparent;" >
+              <mat-checkbox 
+                    [aria-label]="" 
+                    value="{{selectedActivity_3_ForDay[item.content+1].value}}"
+                    [(ngModel)]="selectedActivity_3_ForDay[item.content+1].checked">
+              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span>فعالیت 3</span> 
+            </button>
+       
+      <ejs-multiselect id='multiselectelement' [dataSource]='data2' [placeholder]='placeholder' ></ejs-multiselect>
+
+            </div>
+ <button>ثبت</button><button (click)="uncheckedActivityFnc(item.content+1)">رد</button>
+        </ng-template>
+       
+      </div>
+  
       </mat-menu>
       </div>
 

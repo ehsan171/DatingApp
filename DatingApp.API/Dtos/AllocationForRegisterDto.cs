@@ -14,6 +14,9 @@ namespace DatingApp.API.Dtos
         public int BarnameId { get; set; }
         public DateTime RegisterDate { get; set; }
         public Boolean IsDeleted { get; set; }
+        public bool Activity1 { get; set; }
+        public bool Activity2 { get; set; }
+        public bool Activity3 { get; set; }
 
 
 

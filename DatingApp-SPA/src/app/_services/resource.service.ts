@@ -48,6 +48,10 @@ export class ResourceService {
     console.log(this.baseUrl  + 'allocation/GetAllWaitingAllocationsByResourceYearMonthForEachBarname/'+resourceId + '/' + year + '/' + month + '/' + barnameId, httpOptions)
      return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/GetAllWaitingAllocationsByResourceYearMonthForEachBarname/'+resourceId + '/' + year + '/' + month+ '/' + barnameId, httpOptions);
    }
+  getWaitingActivityAllocationsForEachBarname(resourceId: number, year: number, month: number, barnameId: number): Observable<Allocation[]> {
+    console.log(this.baseUrl  + 'allocation/GetAllWaitingActivityAllocationsByResourceYearMonthForEachBarname/'+resourceId + '/' + year + '/' + month + '/' + barnameId, httpOptions)
+     return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/GetAllWaitingActivityAllocationsByResourceYearMonthForEachBarname/'+resourceId + '/' + year + '/' + month+ '/' + barnameId, httpOptions);
+   }
   getWaitingRequestAllocations(resourceId, year, month): Observable<Allocation[]> {
    console.log(this.baseUrl  + 'allocation/GetAllWaitingRequestByResourceYearMonthForAccepting/'+resourceId + '/' + year + '/' + month, httpOptions)
      return this.http.get<Allocation[]>(this.baseUrl  + 'allocation/GetAllWaitingRequestByResourceYearMonthForAccepting/'+resourceId + '/' + year + '/' + month, httpOptions);
@@ -79,7 +83,7 @@ export class ResourceService {
 
    registerAllocation(model: any){
 
-    console.log(model[0])
+    console.log("10001",model[0])
     console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
  
     return this.http.post(this.baseUrl + 'allocation/register', model);

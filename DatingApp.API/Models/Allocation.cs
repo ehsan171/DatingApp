@@ -17,6 +17,15 @@ namespace DatingApp.API.Models
         
         [Display(Name = "Is Accept")]
         public bool? FinalAcceptance { get; set; }
+    
+        [Display(Name = "Does it have Activity1")]
+        public bool? Activity1 { get; set; }
+
+        [Display(Name = "Does it have Activity2")]
+        public bool? Activity2 { get; set; }
+
+        [Display(Name = "Does it have Activity3")]
+        public bool? Activity3 { get; set; }
 
         [Display(Name = "Is Deleted by Group")]
         public bool? IsDeleted { get; set; }

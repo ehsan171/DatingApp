@@ -284,7 +284,15 @@ namespace DatingApp.API.Controllers
             })
                 .ToListAsync();
             Dictionary<string, object> result =
-                new Dictionary<string, object> {{"allocations", allocations.GroupBy(l=>l.Day)}, {"test", resource}};
+                new Dictionary<string, object> {{"allocations", allocations.GroupBy(l=>l.Day).Select(x=>
+                    new
+                    {
+                        activity1=x.Any(i=>i.Activity1),
+                        activity2=x.Any(i=>i.Activity2),
+                        activity3=x.Any(i=>i.Activity3),
+                        day=x.Max(i=>i.Day)
+                    })}
+                    , {"test", resource}};
 
             return Ok(result);
         }

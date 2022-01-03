@@ -220,6 +220,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
         allocation: Allocation[];
         allocationForColor: Allocation[];
         allocationForEachBarname: Allocation[];
+        allocationActivityForEachBarname: Allocation[];
         allocationRegister: AllocationRegister[];
         allocationPasteRegister: AllocationRegister[];
         id: any;
@@ -470,6 +471,60 @@ import { MatMenuTrigger } from '@angular/material/menu';
           
             this.allocationForEachBarname = allocation['allocations'];
             this.resourceInfoForEachBarname = allocation['test'];
+
+      for (let index = 0; index <=monthNumber ; index++) { 
+          
+      this.test =   
+                {  
+                  "hour" : index
+                }
+              
+      this.test2 =   
+                {  
+                  "hour" : index
+                }
+              
+        
+              this.RowsDataForEachBarname.push(this.test);
+              this.IsCellClickForEachBarname.push(this.test2);
+            
+              
+            
+            }
+
+            for (let index = 0; index <= monthNumber; index++) { 
+          
+              for (let index2 = 0; index2 < 24; index2++) {
+                 
+                  this.IsCellClickForEachBarname [index][index2] = false;
+              }
+          
+                   
+            }
+
+            for (let index = 0; index < this.allocationForEachBarname.length; index++) {
+console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.allocationForEachBarname[index].hour, "  id:", this.barnameId)
+              this.IsCellClickForEachBarname[this.allocationForEachBarname[index].day-1][this.allocationForEachBarname[index].hour]=true;
+
+            }
+            //this.RowsData.shift()
+
+          }, () => {
+            this.alertify.error('This is from orgField');
+          }
+          );
+          this.resourceService.getWaitingActivityAllocationsForEachBarname(resourceId,year,month,this.barnameId).subscribe((allocation: Allocation[]) => {
+            this.header=["hour"]
+          
+            for (let i = 1; i <= 24;i++){
+              this.header.push(i)
+            }
+          
+            this.RowsDataForEachBarname = [ ]  
+            this.IsCellClickForEachBarname = [ ]  
+          
+            this.allocationActivityForEachBarname = allocation['allocations'];
+    
 
       for (let index = 0; index <=monthNumber ; index++) { 
           

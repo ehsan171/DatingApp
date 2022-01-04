@@ -16,7 +16,7 @@ namespace DatingApp.API.Models
         public int Hour { get; set; }
         
         [Display(Name = "Is Accept")]
-        public bool FinalAcceptance { get; set; }
+        public bool? FinalAcceptance { get; set; }
 
         [Display(Name = "Does it have Activity1")]
         public bool Activity1 { get; set; } = false;

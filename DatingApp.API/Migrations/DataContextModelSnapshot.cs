@@ -41,7 +41,7 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("Day")
                         .HasColumnType("int");
 
-                    b.Property<bool>("FinalAcceptance")
+                    b.Property<bool?>("FinalAcceptance")
                         .HasColumnType("bit");
 
                     b.Property<int>("Hour")

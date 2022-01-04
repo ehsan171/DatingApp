@@ -580,8 +580,13 @@ import { MatMenuTrigger } from '@angular/material/menu';
         onChangeRequestRes(requestResValue) {
           this.requestVolume = requestResValue;
 
-          this.gettingAllocation(this.resourceId,this.year,this.month);
-
+         
+          if (typeof this.year !== "undefined" && 
+          typeof this.month !== "undefined" && 
+          typeof this.resourceId !== "undefined")
+          {
+            this.gettingAllocation(this.resourceId,this.year,this.month);
+          }
 
         }
 
@@ -590,8 +595,11 @@ import { MatMenuTrigger } from '@angular/material/menu';
         
         
           this.resourceId = deviceValue;
-          this.gettingAllocation(this.resourceId,this.year,this.month);
-          this.gettingDataCapacity( this.resourceId);
+          this.gettingDataCapacity( this.resourceId)
+          if (typeof this.year !== "undefined" && typeof this.month !== "undefined")
+          {
+              this.gettingAllocation(this.resourceId,this.year,this.month);
+          }
 
         }
         onChangeYear(value) {
@@ -599,16 +607,22 @@ import { MatMenuTrigger } from '@angular/material/menu';
           let todayJalali = moment().locale('fa').format('YYYY');
 
           this.year = value;
+          if (typeof this.year !== "undefined" && typeof this.month !== "undefined")
+          {
+              this.gettingAllocation(this.resourceId,this.year,this.month);
+          }
 
-          this.gettingAllocation(this.resourceId,this.year,this.month);
+          
 
         }
         onChangeMonth(valueMonth) {
  
           this.month = valueMonth;
         
-
-          this.gettingAllocation(this.resourceId,this.year,this.month);
+          if (typeof this.year !== "undefined" && typeof this.month !== "undefined")
+          {
+              this.gettingAllocation(this.resourceId,this.year,this.month);
+          }
 
         }
 

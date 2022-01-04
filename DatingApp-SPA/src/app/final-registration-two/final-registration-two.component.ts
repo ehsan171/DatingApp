@@ -549,7 +549,7 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
       this.year = value;
 
       this.gettingWaitingForAcceptAllocation(this.resourceId,this.year, this.month);
-
+console.log("1001",this.year)
 
   }
     onChangeMonth(valueMonth) {

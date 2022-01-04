@@ -573,6 +573,7 @@ namespace DatingApp.API.Controllers
                 Hour = x.Hour,
                 UsedUnit = x.UsedUnit,
                 RegisterDate = null,
+                FinalAcceptance = null,
                 Activity1 = x.Activity1,
                 Activity2 = x.Activity2,
                 Activity3 = x.Activity3,

@@ -228,31 +228,7 @@ namespace DatingApp.API.Controllers
                 })
      
                 .ToListAsync();
-          
-            var resource = await _context.Resources
-                .Where(x=>x.ResourceId==resourceId)
-                .Select(x => new
-            {
-                ResourceName = x.Title,
-                x.ResourceId,
-                ResourceCapacity = x.Capacity,
-            })
-                .ToListAsync();
-            Dictionary<string, object> result =
-                new Dictionary<string, object> {{"allocations", allocations}, {"test", resource}};
-
-            return Ok(result);
-        }
-        
-         [AllowAnonymous]
-        [HttpGet("GetAllWaitingActivityAllocationsByResourceYearMonthForEachBarname/{resourceId:int}/{year:int}/{month:int}/{barnameId:int}")]
-
-        public async Task<IActionResult> GetAllWaitingActivityAllocationsByResourceYearMonthForEachBarname(int resourceId, int year, int month, int barnameId)
-        {
-           
-            var identity = (ClaimsIdentity)User.Identity;
-            Console.WriteLine(identity.IsAuthenticated); 
-            var allocations = await _context.Allocations
+            var activity = await _context.Allocations
             
                 .Where(allocation => 
                     allocation.ResourceId == resourceId && 
@@ -273,7 +249,7 @@ namespace DatingApp.API.Controllers
                 })
      
                 .ToListAsync();
-          
+
             var resource = await _context.Resources
                 .Where(x=>x.ResourceId==resourceId)
                 .Select(x => new
@@ -284,18 +260,23 @@ namespace DatingApp.API.Controllers
             })
                 .ToListAsync();
             Dictionary<string, object> result =
-                new Dictionary<string, object> {{"allocations", allocations.GroupBy(l=>l.Day).Select(x=>
-                    new
-                    {
-                        activity1=x.Any(i=>i.Activity1),
-                        activity2=x.Any(i=>i.Activity2),
-                        activity3=x.Any(i=>i.Activity3),
-                        day=x.Max(i=>i.Day)
-                    })}
-                    , {"test", resource}};
+                new Dictionary<string, object>
+                {
+                    {"allocations", allocations}, 
+                    {"test", resource},
+                    {"activities", activity.GroupBy(l=>l.Day).Select(x=>
+                        new
+                        {
+                            activity1=x.Any(i=>i.Activity1),
+                            activity2=x.Any(i=>i.Activity2),
+                            activity3=x.Any(i=>i.Activity3),
+                            day=x.Max(i=>i.Day)
+                        })}
+                };
 
             return Ok(result);
         }
+        
         
         
         [AllowAnonymous]

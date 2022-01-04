@@ -247,13 +247,30 @@
   
 </div>
  
-            <table class='table table-sm tableShadow' aria-labelledby="tableLabel" style=" border:1px solid;  user-select: none; text-align: center; ">  
+<div class="flex-container2">
+  <div class="div1"
+  style="background-color: transparent;">
+   
+  </div>
+  <div class="div2" 
+  style="display: flex;
+  justify-content: center;
+  background-color: transparent;">
+ ساعت
+  </div>
+ 
+
+  
+</div>
+ 
+            <table class='table  table-sm tableShadow ' aria-labelledby="tableLabel" style=" border:1px solid;  user-select: none; text-align: center; ">  
 
               
               <thead style="background-color: #d7bde2;">  
                 <tr>  
                   <th scope="col" *ngFor="let column of header">  
-                    {{column}}  
+              
+                    {{column === 'activity' ? 'فعالیت' : (column === 'hour' ? 'روز' :column) }}  
                   </th>
                 
                     
@@ -319,7 +336,9 @@
                   </tr>  
               </thead>  
               <tbody>  
-                <tr *ngFor="let row of RowsData| slice:1;let indexOfElement=index;"
+               
+                <tr class="prTableRow"
+                *ngFor="let row of RowsData| slice:1;let indexOfElement=index;"
                 (contextmenu)="onRightClick($event, {content: indexOfElement })">  
                     <td  
                    
@@ -333,7 +352,7 @@
                      [ngClass]="
                      (column != 'hour' && IsCellClickForEachBarname[indexOfElement][column])? 'prim_reg'
                      :(column != 'hour' && IsCellClick[indexOfElement][column])? 'selected_Cell_ForReg'
-                     :(column != 'hour' && RowsData[indexOfElement+1][column] < requestVolume )? 'unavailable_Cell_ForReg'
+                     :(column != 'activity' && column != 'hour' && RowsData[indexOfElement+1][column] < requestVolume )? 'unavailable_Cell_ForReg'
                      :(column != 'hour' && RowsDataForColor[indexOfElement+1][column] >= requestVolume )? 'available_Cell_ForReg'
                      : (column == 'hour')? 'table_head': 'in_query_'+math.round(math.max(math.min((requestVolume-RowsDataForColor[indexOfElement+1][column])/10,10),0))" 
             

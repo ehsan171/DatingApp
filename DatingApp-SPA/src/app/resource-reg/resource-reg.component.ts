@@ -202,7 +202,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
         requestVolume: number = 90;
         resourceId: number = 7;
         totalDay: number;
-        totalHour: number = 24;
+        totalHour: number = 25;
         year: number;
         //month: number  = +moment().locale('fa').format('mm');;
         dayName:string;
@@ -216,6 +216,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
         resourceInfo: any;
         resourceInfoForColor: any;
         resourceInfoForEachBarname: any;
+        activityInfoForEachBarname: any;
         resourceUnit: string;
         allocation: Allocation[];
         allocationForColor: Allocation[];
@@ -236,7 +237,6 @@ import { MatMenuTrigger } from '@angular/material/menu';
           this.selectedActivity_2_ForDay[item].checked=false;
           this.selectedActivity_1_ForDay[item].checked=false;
           this.selectedActivity_3_ForDay[item].checked=false;
-          console.log("40001",item)
         }
     divFunction() {
        this.isShown = !this.isShown;
@@ -338,7 +338,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
           this.totalDay = monthNumber;
 
           this.resourceService.getAllocations(resourceId,year,month).subscribe((allocation: Allocation[]) => {
-            this.header=["hour"]
+            this.header=["hour","activity"]
           
             for (let i = 1; i <= 24;i++){
               this.header.push(i)
@@ -365,7 +365,8 @@ import { MatMenuTrigger } from '@angular/material/menu';
           let myDate =(year.toString()+formattedMonth.toString()+formattedNumber.toString())
       this.test =   
                 {  
-                  "hour" : moment(myDate,"jYYYYjMMjDD",'fa').format('ddd, ll')
+                  "hour" : moment(myDate,"jYYYYjMMjDD",'fa').format('ddd, ll'),
+                  "activity":""
         
                 }
               
@@ -405,7 +406,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
           
           
           this.resourceService.getWaitingAllocationsForColor(resourceId,year,month).subscribe((allocation: Allocation[]) => {
-            this.header=["hour"]
+            this.header=["hour","activity"]
           
             for (let i = 1; i <= 24;i++){
               this.header.push(i)
@@ -421,7 +422,8 @@ import { MatMenuTrigger } from '@angular/material/menu';
           
       this.test =   
                 {  
-                  "hour" : index
+                  "hour" : index,
+                  "activity":"test1"
                 }
               
       this.test2 =   
@@ -460,7 +462,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
           );
 
           this.resourceService.getWaitingAllocationsForEachBarname(resourceId,year,month,this.barnameId).subscribe((allocation: Allocation[]) => {
-            this.header=["hour"]
+            this.header=["hour", "activity"]
           
             for (let i = 1; i <= 24;i++){
               this.header.push(i)
@@ -471,6 +473,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
           
             this.allocationForEachBarname = allocation['allocations'];
             this.resourceInfoForEachBarname = allocation['test'];
+            this.activityInfoForEachBarname = allocation['activities'];
 
       for (let index = 0; index <=monthNumber ; index++) { 
           
@@ -484,11 +487,19 @@ import { MatMenuTrigger } from '@angular/material/menu';
                   "hour" : index
                 }
               
-        
+              
               this.RowsDataForEachBarname.push(this.test);
               this.IsCellClickForEachBarname.push(this.test2);
-            
               
+              for(let activity of this.activityInfoForEachBarname){
+                let act1 = (activity['activity1']) ? " فعالیت 1 " : "";
+                let act2 = (activity['activity2']) ? " فعالیت 2 " : "";
+                let act3 = (activity['activity3']) ? " فعالیت 3 " : "";
+                 this.RowsData[activity['day']]['activity']= act1+ act2+ act3;
+                 console.log("1001", act1, act2, act3)
+              }
+            
+             
             
             }
 
@@ -503,7 +514,6 @@ import { MatMenuTrigger } from '@angular/material/menu';
             }
 
             for (let index = 0; index < this.allocationForEachBarname.length; index++) {
-console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.allocationForEachBarname[index].hour, "  id:", this.barnameId)
               this.IsCellClickForEachBarname[this.allocationForEachBarname[index].day-1][this.allocationForEachBarname[index].hour]=true;
 
             }
@@ -513,60 +523,7 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
             this.alertify.error('This is from orgField');
           }
           );
-          this.resourceService.getWaitingActivityAllocationsForEachBarname(resourceId,year,month,this.barnameId).subscribe((allocation: Allocation[]) => {
-            this.header=["hour"]
-          
-            for (let i = 1; i <= 24;i++){
-              this.header.push(i)
-            }
-          
-            this.RowsDataForEachBarname = [ ]  
-            this.IsCellClickForEachBarname = [ ]  
-          
-            this.allocationActivityForEachBarname = allocation['allocations'];
-    
-
-      for (let index = 0; index <=monthNumber ; index++) { 
-          
-      this.test =   
-                {  
-                  "hour" : index
-                }
-              
-      this.test2 =   
-                {  
-                  "hour" : index
-                }
-              
-        
-              this.RowsDataForEachBarname.push(this.test);
-              this.IsCellClickForEachBarname.push(this.test2);
-            
-              
-            
-            }
-
-            for (let index = 0; index <= monthNumber; index++) { 
-          
-              for (let index2 = 0; index2 < 24; index2++) {
-                 
-                  this.IsCellClickForEachBarname [index][index2] = false;
-              }
-          
-                   
-            }
-
-            for (let index = 0; index < this.allocationForEachBarname.length; index++) {
-console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.allocationForEachBarname[index].hour, "  id:", this.barnameId)
-              this.IsCellClickForEachBarname[this.allocationForEachBarname[index].day-1][this.allocationForEachBarname[index].hour]=true;
-
-            }
-            //this.RowsData.shift()
-
-          }, () => {
-            this.alertify.error('This is from orgField');
-          }
-          );
+     
 
           this.selectedDaysForDeletion=[]
           for (let index = 1; index <=monthNumber ; index++) { 
@@ -736,7 +693,6 @@ console.log("10004", this.allocationForEachBarname[index].day," hour:  ",this.al
 
         
         onCellClickSingleClickForPaste(rowIndex,columnIndex){
-          console.log("10001", rowIndex,columnIndex)
     
            if(this.requestVolume <= this.RowsData[rowIndex+1][columnIndex])
               {
@@ -777,7 +733,6 @@ deleteRequestConform(resourceId: any, year: any, month: any, day: any, barnameId
 
 deleteAll(resourceId, year, month,  barnameId){
   
-console.log("8007",barnameId)
   this.alertify.confirm('آیا مطمئن هستید؟ ',()=>{
       for (var deleteDay of this.selectedDaysForDeletion) {
           if(deleteDay.checked){
@@ -800,29 +755,22 @@ console.log("8007",barnameId)
 
 pasteAll(resourceId, year, month,  barnameId){
   
-console.log("8007",barnameId)
 
       for (var pasteDay of this.selectedDaysForPaste) {
         if(pasteDay.checked){         
-    console.log("4023",pasteDay)
           for(var eachHour of this.allocationPasteRegister){
-            console.log("day",pasteDay.value)
-            console.log("hour ",eachHour.hour)
             this.onCellClickSingleClickForPaste(pasteDay.value-1,eachHour.hour)
           }
    
         }
       };
-console.log("IsCellClick", this.IsCellClick)
 
 }
 
 selectAll(){
-console.log(this.selectAllDays)
 
   for (let index =0 ; index < this.selectedDaysForDeletion.length; index++) {
         this.selectedDaysForDeletion[index].checked = !this.selectAllDays;
-        console.log("804",this.selectedDaysForDeletion[index].checked)
     }
 
       
@@ -833,9 +781,7 @@ console.log(this.selectAllDays)
 
 clickOnRadioBtn(event, day: number){
   this.selectedDayForDelete.push(day);
-  console.log("801", this.selectedDaysForDeletion)
-  console.log("801", event.checked)
-  console.log("803", this.options)
+
 }
 
 toggleShow() {
@@ -872,7 +818,6 @@ copyRowPattern(dayIndex){
             }
           
 
-console.log("7101",  this.allocationPasteRegister)
 
 }
 
@@ -899,8 +844,6 @@ register(){
         this.allocationRegister[index].activity1 = this.selectedActivity_1_ForDay[dayIndex+1].checked;
         this.allocationRegister[index].activity2 = this.selectedActivity_2_ForDay[dayIndex+1].checked;
         this.allocationRegister[index].activity3 = this.selectedActivity_3_ForDay[dayIndex+1].checked;
-       console.log("10003", this.selectedActivity_1_ForDay[dayIndex+1].checked)
-       console.log("10003", dayIndex)
       }
     }
   }

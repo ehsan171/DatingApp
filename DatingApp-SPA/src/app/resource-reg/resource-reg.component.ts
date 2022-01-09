@@ -1,7 +1,7 @@
       import { Component, OnInit, Output, EventEmitter, Input, Renderer2, ViewChild } from '@angular/core';
       import { AlertifyService } from '../_services/alertify.service';
       import { Query } from '@syncfusion/ej2-data';
-      import { FilteringEventArgs } from '@syncfusion/ej2-angular-dropdowns';
+      import { FilteringEventArgs, MultiSelectComponent } from '@syncfusion/ej2-angular-dropdowns';
       import { EmitType } from '@syncfusion/ej2-base';
       import { User } from '../_models/user';
       import { ResourceService } from '../_services/resource.service';
@@ -63,7 +63,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
         ]
        
         selectedDaysForPaste = [
-          {name:1, value:1, checked:true},
+          {name:1, value:1, checked:true, dayName:""},
        
         ]
         selectedActivity_1_ForDay = [
@@ -98,9 +98,51 @@ import { MatMenuTrigger } from '@angular/material/menu';
         public data2: string[] = ['Badminton', 'Cricket', 'Football', 'Golf', 'Hockey', 'Rugby'];
         // set placeholder to MultiSelect input element
         public placeholder: string = 'Select games';
+        public dataDay: { [key: string]: Object }[] = [];
+        public fieldsDay: object = { text: 'name', value: 'id' };
+        public textDay = 'انتخاب روز';
+        gettingDataDays(){
+         let daysName = [
+           { "name":"شنبه",
+              "value": 5},
+           { "name":"یکشنبه",
+              "value": 6},
+           { "name":"دوشنبه",
+              "value": 0},
+           { "name":"سه شنبه",
+              "value": 1},
+           { "name":"چهارشنبه",
+              "value": 2},
+           { "name":"پنجشنبه",
+              "value": 3},
+           { "name":"جمعه",
+              "value": 4},
+            ]
+            for (let index = 0; index < daysName.length; index++) {
+              this.dataDay.push({ id: '', name: ''});
+              this.dataDay[index].id = daysName[index].value;
+              this.dataDay[index].name = daysName[index].name;
+            }
+     
         
+        }
+        @ViewChild('checkboxForDaySelection', {static: true}) 
+        public mulObj: MultiSelectComponent; 
 
+        daySelectFunc(){
+          console.log("2006","54545")
+          console.log("2006",this.mulObj.value)
+          console.log("2006",this.selectedDaysForPaste)
+         
+          let objIndex = this.selectedDaysForPaste.find((obj => obj.checked == true));
+          this.mulObj.value.forEach(element => {
+            this.selectedDaysForPaste.forEach(day=>{
+              if(day.dayName==(element+1).toString()){day.checked=true}
+            })
+          })
+ console.log("20061",objIndex)
 
+        }
         gettingDataProducer(){
 
             for (let index = 0; index < 5; index++) {
@@ -232,6 +274,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
         nameFarsi: any = ['روز'];
         ArrayRowsExtraDataset: any = [];
         isShown: boolean;
+        selectedDayForgettingFormatForPast: number;
 
         uncheckedActivityFnc(item){
           this.selectedActivity_2_ForDay[item].checked=false;
@@ -363,6 +406,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
       
 
           let myDate =(year.toString()+formattedMonth.toString()+formattedNumber.toString())
+    
       this.test =   
                 {  
                   "hour" : moment(myDate,"jYYYYjMMjDD",'fa').format('ddd, ll'),
@@ -483,8 +527,13 @@ import { MatMenuTrigger } from '@angular/material/menu';
                 }
               
       this.test2 =   
-                {  
-                  "hour" : index
+                {
+                  "waiting":{  
+                    "hour" : index
+                  },
+                  "accepted":{  
+                    "hour" : index
+                  }
                 }
               
               
@@ -507,14 +556,16 @@ import { MatMenuTrigger } from '@angular/material/menu';
           
               for (let index2 = 0; index2 < 24; index2++) {
                  
-                  this.IsCellClickForEachBarname [index][index2] = false;
+                  this.IsCellClickForEachBarname [index]['waiting'][index2] = false;
+                  this.IsCellClickForEachBarname [index]['accepted'][index2] = null;
               }
           
                    
             }
 
             for (let index = 0; index < this.allocationForEachBarname.length; index++) {
-              this.IsCellClickForEachBarname[this.allocationForEachBarname[index].day-1][this.allocationForEachBarname[index].hour]=true;
+              this.IsCellClickForEachBarname[this.allocationForEachBarname[index].day-1]['waiting'][this.allocationForEachBarname[index].hour]=this.allocationForEachBarname[index].finalAcceptance==null;
+              this.IsCellClickForEachBarname[this.allocationForEachBarname[index].day-1]['accepted'][this.allocationForEachBarname[index].hour]=this.allocationForEachBarname[index].finalAcceptance;
 
             }
             //this.RowsData.shift()
@@ -535,10 +586,27 @@ import { MatMenuTrigger } from '@angular/material/menu';
             this.selectedDaysForDeletion.push(dayTest);
         }
           this.selectedDaysForPaste=[]
+          let formattedMonth = month.toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+          })
           for (let index = 1; index <=monthNumber ; index++) { 
-            
+
+            let formattedNumber = index.toLocaleString('en-US', {
+              minimumIntegerDigits: 2,
+              useGrouping: false
+            })
+        
+  this.year=1400;this.month=4;
+            let myDate =(year.toString()+formattedMonth.toString()+formattedNumber.toString())
+            console.log("2003",myDate)
+            console.log("2004",moment(myDate,"jYYYYjMMjDD",'fa').format('ddd, ll'))
+            console.log('2005',moment(myDate,"jYYYYjMMjDD",'fa').format('d'))
+
+   
+            console.log("2003",this.year,this.month, index)
             let dayPaste =   
-            {name:index, value:index, checked:false}
+            {name:index, value:index, checked:false, dayName:moment(myDate,"jYYYYjMMjDD",'fa').format('d')}
    
                     
             this.selectedDaysForPaste.push(dayPaste);
@@ -711,7 +779,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
            if(this.requestVolume <= this.RowsData[rowIndex+1][columnIndex])
               {
               
-                this.IsCellClick[rowIndex][columnIndex] = (this.IsCellClick[rowIndex][columnIndex]) ? false : true;
+                this.IsCellClick[rowIndex][columnIndex] = true;
                 
               }
               const listOfObjecs = [
@@ -771,11 +839,15 @@ pasteAll(resourceId, year, month,  barnameId){
   
 
       for (var pasteDay of this.selectedDaysForPaste) {
+        
         if(pasteDay.checked){         
           for(var eachHour of this.allocationPasteRegister){
             this.onCellClickSingleClickForPaste(pasteDay.value-1,eachHour.hour)
           }
-   
+          this.selectedActivity_1_ForDay[pasteDay.value].checked = this.selectedActivity_1_ForDay[this.selectedDayForgettingFormatForPast].checked
+          this.selectedActivity_2_ForDay[pasteDay.value].checked = this.selectedActivity_2_ForDay[this.selectedDayForgettingFormatForPast].checked
+          this.selectedActivity_3_ForDay[pasteDay.value].checked = this.selectedActivity_3_ForDay[this.selectedDayForgettingFormatForPast].checked
+
         }
       };
 
@@ -809,7 +881,8 @@ toggleShow() {
         
         
 copyRowPattern(dayIndex){
-          
+          this.selectedDayForgettingFormatForPast = dayIndex;
+        
           this.allocationPasteRegister = [];
 
             for (let hourIndex = 0; hourIndex < this.totalHour; hourIndex++){
@@ -966,6 +1039,7 @@ cancelRegisterMode(event: number){
 
           });
           this.gettingDataProducer();
+          this.gettingDataDays();
           this.gettingAllocation(7,1400,4);
           // this.gettingDataCapacity(4);
           this.gettingResources();

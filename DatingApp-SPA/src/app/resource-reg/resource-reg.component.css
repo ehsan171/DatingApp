@@ -13,6 +13,10 @@
         background-color: rgb(121, 144, 189);
         color: rgb(255,255,255);
     }
+    .accepted{
+        background-color: rgba(51,204,102,1);
+        color: rgb(255,255,255);
+    }
     .selected_Cell_ForReg{
         background-color: rgb(247, 147, 18);
         color: rgb(255,255,255);
@@ -111,7 +115,7 @@
       );
     }
     .available_Cell_ForReg{
-        background-color: rgba(51,204,102,0.5);
+        background-color: rgba(104, 176, 243, 0.2);
     }
 
 
@@ -213,7 +217,7 @@
       }
       .flex-container2 > .div2 {
         background-color: #f1f1f1;
-        width: 80.666%;
+        width: 78.666%;
         border: rgb(248, 150, 235) solid 1px;
         border-radius: 10px;
         /* margin: 10px;
@@ -222,13 +226,17 @@
         font-size: 30px; */
       }
       .flex-container2 > .div3 {
-        background-color: #f1f1f1;
-        width: 13.333%;
+        background-color: transparent;
+        width: 2%;
+        height: 20px;
+        border: rgb(255, 255, 255) solid 1px;
+        border-radius: 10px;
         /* margin: 10px;
         text-align: center;
         line-height: 75px;
         font-size: 30px; */
       }
+
       .regbtn{
           border-radius: 10px;
       }
@@ -246,4 +254,55 @@
       .prTableRow:hover :nth-child(odd)  {
         opacity: .75;
       }
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .box button{
+        
+          margin: 2px;
+      }
      
+
+      .flex-container1 {
+        display: flex;
+        flex-wrap: wrap;
+       
+      }
+      .flex-container1 > .div1 {
+        background-color: transparent;
+        width: 80%;
+        /* height: 50px; */
+        border: rgb(255, 255, 255) solid 1px;
+        border-radius: 10px;
+        /* margin: 10px;
+        text-align: center;
+        line-height: 75px;
+        font-size: 30px; */
+      }
+      .flex-container1 > .div2 {
+        background-color: transparent;
+        width: 10%;
+        /* height: 50px; */
+        border: rgb(255, 255, 255) solid 1px;
+        border-radius: 10px;
+        /* margin: 10px;
+        text-align: center;
+        line-height: 75px;
+        font-size: 30px; */
+      }
+      .flex-container1 > .div3 {
+        background-color: transparent;
+        /* width: 5%; */
+        /* height: 50px; */
+        border: rgb(255, 255, 255) solid 1px;
+        border-radius: 10px;
+        /* margin: 10px;
+        text-align: center;
+        line-height: 75px;
+        font-size: 30px; */
+      }
+      .fl{
+          float: left;
+      }

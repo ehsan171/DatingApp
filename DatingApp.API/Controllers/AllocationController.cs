@@ -167,7 +167,8 @@ namespace DatingApp.API.Controllers
                 .Where(allocation => 
                     allocation.ResourceId == resourceId && 
                     allocation.Year == year &&
-                    allocation.Month == month)
+                    allocation.Month == month && 
+                    allocation.FinalAcceptance != false)
                 .Select(x => new { 
                     x.Hour,
                     x.Day,
@@ -177,6 +178,7 @@ namespace DatingApp.API.Controllers
                     x.Barname.Id,
                     network = x.Barname.BarnameNetworks.Select(n=>n.BasicData).Select(a => a.Name),
                     x.UsedUnit,
+                    x.FinalAcceptance,
                     Producers = x.Barname.BarnameProducers.Select(s => s.Producer)
                         .Select(g => g.FirstName + ' ' + g.LastName ),
                     Group = x.Barname.BarnameGroups.Select(s => s.BasicData).Select(g => g.Name)
@@ -214,7 +216,8 @@ namespace DatingApp.API.Controllers
                     allocation.Year == year &&
                     allocation.Month == month &&
                     allocation.BarnameId == barnameId &&
-                    allocation.IsDeleted != true)
+                    allocation.IsDeleted != true &&
+                    allocation.FinalAcceptance != false)
                 .Select(x => new { 
                     x.Hour,
                     x.Day,
@@ -224,7 +227,8 @@ namespace DatingApp.API.Controllers
                     x.Barname.Id,
                     x.Activity1,
                     x.Activity2,
-                    x.Activity3
+                    x.Activity3,
+                    x.FinalAcceptance
                 })
      
                 .ToListAsync();
@@ -295,6 +299,7 @@ namespace DatingApp.API.Controllers
                         && allocation.Year == year
                         && allocation.Month == month
                         && allocation.Day == day
+                        && allocation.FinalAcceptance != false
                         && allocation.BarnameId == barnameId select allocation).ToList()
                 .ForEach(x => x.IsDeleted = true);
             await _context.SaveChangesAsync();

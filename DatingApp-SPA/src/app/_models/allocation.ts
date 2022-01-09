@@ -12,6 +12,7 @@ import { Producer } from "./producer";
         day: number;
         hour: number;
         usedUnit: number;
+        finalAcceptance:any;
         producers?: Producer[];
         producerCodes?: number[];
         barnameId?: number;

@@ -77,7 +77,7 @@
    
 
 
-    <div   style="margin-left: 1%; margin-right: 1%; height: 2000px; " 
+    <div  style="margin-left: 1%; margin-right: 1%;  " 
 (mousedown)="mouseClickDown($event)"
 (mouseup)="mouseClickUp($event)">
     <form [formGroup]="resourceForm" >
@@ -195,7 +195,7 @@
 
  <br>       
  
- <div class="flex-container">
+ <div class="flex-container ">
   <div
   style="background-color: transparent;">
           <table style="text-align: center;">
@@ -252,22 +252,23 @@
   
   </div>
  
-  
-</div>
-<div style = "background-color: red; " class="flex-container1" [@openClose]="isShown ? 'open' : 'closed'">
-<div class="div1 fl"></div>
+  <div  class="flex-container1" [@openClose]="isShown ? 'open' : 'closed'">
+
       <div class="div2 fl">
           <ejs-multiselect enableRtl='true' #checkboxForDaySelection floatLabelType="Auto" id='dayId' #samples [dataSource]='dataDay' [fields]='fieldsDay' formControlName="day" [placeholder]='textDay' [allowFiltering]='true' >a</ejs-multiselect>
     
       </div>
       <div class="div3 fl" style="vertical-align: middle;">
             <button
-            style="   margin-top: 25%; "
+            style="   margin-top: 45%; "
+            class="btn btn-primary"
             (click)="daySelectFunc()">انتخاب روز</button>
     </div>
 
 
 </div>
+</div>
+
 
   <div class="flex-container2">
   <div class="div1"
@@ -294,148 +295,156 @@
 </div>
 
 
-<table class='table  table-sm tableShadow ' aria-labelledby="tableLabel" style=" border:1px solid;  user-select: none; text-align: center; ">  
 
-              
-              <thead style="background-color: #d7bde2;">  
-                <tr>  
-                  <th scope="col" *ngFor="let column of header">  
-              
-                    {{column === 'activity' ? 'فعالیت' : (column === 'hour' ? 'روز' :column) }}  
-                  </th>
-                
-                    
-                  <th   
-                  [@openClose]="isShown ? 'open' : 'closed'"
-                  class="advPartHead"  > 
-                    <mat-checkbox [aria-label]="" 
-                        name="checkedAll"
-                        value=""
-                        (click)="selectAll()"
-                        [(ngModel)]="selectAllDays"
-                        class="delete_btn_all">
-                      
-                    </mat-checkbox>
-           
-                    
-                  </th> 
+<div id="table-wrapper">
+  <div id="table-scroll" class="fixTableHead">
+        <table  class='table  table-sm tableShadow table_allocation'  aria-labelledby="tableLabel" style=" border:1px solid;  user-select: none; text-align: center; ">  
 
-                   <th   
-                  [@openClose]="isShown ? 'open' : 'closed'"
-                  class="advPartHead">
-                 <button 
-                  style="background-color: transparent; border: transparent;"
-                  (click)="deleteAll(resourceId, year, month,  barnameId)">
-                    <mat-icon color = "warn" class="delete_btn delete_btn_all">
-                      delete
-                    </mat-icon>
-                  
-                  </button>
-                  </th> 
-                  <th   
-                  [@openClose]="isShown ? 'open' : 'closed'"
-                  class="advPartHead delete_btn_all" >
-                  <button 
-                  style="background-color: transparent; border: transparent;"
-                  >
-                   <mat-icon color = "primary"
-                   class="delete_btn_all" >
-                   file_copy
-                    </mat-icon>
-                  
-                  </button>
-                  </th>
                 
-                  <th   
-                  [@openClose]="isShown ? 'open' : 'closed'"
-                  class="advPartHead" >
-                    <button 
-                    style="background-color: transparent; border: transparent;"
-                    (click)="pasteAll(resourceId, year, month,  barnameId)">
-                     <mat-icon color = "primary"
-                     class="delete_btn_all" >
-                       format_paint
-                      </mat-icon>
-                    
-                    </button>
-                  </th>
+      <thead style="background-color: #d7bde2;">  
+        <tr>  
+          <th scope="col" *ngFor="let column of header">  
       
- 
-                
-                
-                
-                  </tr>  
-              </thead>  
-              <tbody>  
-               
-                <tr class="prTableRow"
-                *ngFor="let row of RowsData| slice:1;let indexOfElement=index;"
-                (contextmenu)="onRightClick($event, {content: indexOfElement })">  
-                    <td  
-                   
-                    (mouseover)="onCellClick( indexOfElement, column )" 
-                    (mousedown)="onCellClickSingleClick( indexOfElement, column,$event )" 
-                    ondragstart="return false;" ondrop="return false;"
-                    *ngFor="let column of header"
+            {{column === 'activity' ? 'فعالیت' : (column === 'hour' ? 'روز' :column) }}  
+          </th>
+        
             
-                    
-                              
-                     [ngClass]="
-                     (column != 'hour' && IsCellClickForEachBarname[indexOfElement]['accepted'][column])? 'accepted'
-                     :(column != 'hour' && IsCellClickForEachBarname[indexOfElement]['waiting'][column])? 'prim_reg'
-                     :(column != 'hour' && IsCellClick[indexOfElement][column])? 'selected_Cell_ForReg'
-                     :(column != 'activity' && column != 'hour' && RowsData[indexOfElement+1][column] < requestVolume )? 'unavailable_Cell_ForReg'
-                     :(column != 'hour' && RowsDataForColor[indexOfElement+1][column] >= requestVolume )? 'available_Cell_ForReg'
-                     : (column == 'hour')? 'table_head': 'in_query_'+math.round(math.max(math.min((requestVolume-RowsDataForColor[indexOfElement+1][column])/10,10),0))" 
+          <th   
+          [@openClose]="isShown ? 'open' : 'closed'"
+          class="advPartHead"  > 
+            <mat-checkbox [aria-label]="" 
+                name="checkedAll"
+                value=""
+                (click)="selectAll()"
+                [(ngModel)]="selectAllDays"
+                class="delete_btn_all">
+              
+            </mat-checkbox>
+  
             
-             
-                    > 
-                  
-                   {{row[column]}}
-                  </td> 
-                 
-                  <td   [@openClose]="isShown ? 'open' : 'closed'"  >
-                    <mat-checkbox [aria-label]="" 
-                  
-                      value="{{selectedDaysForDeletion[indexOfElement].value}}"
-                      [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
-                    </mat-checkbox>
-                  </td>
+          </th> 
 
-                   <td   [@openClose]="isShown ? 'open' : 'closed'">            
-                    <button 
-                      style="background-color: transparent; border: transparent;"
-                      (click)="deleteRequestConform(resourceId, year, month, indexOfElement+1, barnameId)">
-                      <mat-icon color = "warn" class="delete_btn">
-                        delete
-                      </mat-icon>
-                    </button>
-                  </td>
-                  
-
-                  <td   [@openClose]="isShown ? 'open' : 'closed'"  >
-                    <button 
-                      style="background-color: transparent; border: transparent;"
-                      (click)="copyRowPattern( indexOfElement+1)">
+          <th   
+          [@openClose]="isShown ? 'open' : 'closed'"
+          class="advPartHead">
+        <button 
+          style="background-color: transparent; border: transparent;"
+          (click)="deleteAll(resourceId, year, month,  barnameId)">
+            <mat-icon color = "warn" class="delete_btn delete_btn_all">
+              delete
+            </mat-icon>
+          
+          </button>
+          </th> 
+          <th   
+          [@openClose]="isShown ? 'open' : 'closed'"
+          class="advPartHead delete_btn_all" >
+          <button 
+          style="background-color: transparent; border: transparent;"
+          >
+          <mat-icon color = "primary"
+          class="delete_btn_all" >
+          file_copy
+            </mat-icon>
+          
+          </button>
+          </th>
+        
+          <th   
+          [@openClose]="isShown ? 'open' : 'closed'"
+          class="advPartHead" >
+            <button 
+            style="background-color: transparent; border: transparent;"
+            (click)="pasteAll(resourceId, year, month,  barnameId)">
+            <mat-icon color = "primary"
+            class="delete_btn_all" >
+              format_paint
+              </mat-icon>
             
-                          <mat-icon color = "primary" class="delete_btn">
-                            file_copy
-                          </mat-icon>
+            </button>
+          </th>
+
+
+        
+        
+        
+          </tr>  
+      </thead>  
+      <tbody>  
+      
+        <tr class="prTableRow" 
+        *ngFor="let row of RowsData| slice:1;let indexOfElement=index;"
+        (contextmenu)="onRightClick($event, {content: indexOfElement })">  
+            <td  
+          
+            (mouseover)="onCellClick( indexOfElement, column )" 
+            (mousedown)="onCellClickSingleClick( indexOfElement, column,$event )" 
+            ondragstart="return false;" ondrop="return false;"
+            *ngFor="let column of header"
+    
+            
                       
-                    </button>
-                  </td>
+            [ngClass]="
+            (column != 'hour' && IsCellClickForEachBarname[indexOfElement]['accepted'][column])? 'accepted'
+            :(column != 'hour' && IsCellClickForEachBarname[indexOfElement]['waiting'][column])? 'prim_reg'
+            :(column != 'hour' && IsCellClick[indexOfElement][column])? 'selected_Cell_ForReg'
+            :(column != 'activity' && column != 'hour' && RowsData[indexOfElement+1][column] < requestVolume )? 'unavailable_Cell_ForReg'
+            :(column != 'hour' && RowsDataForColor[indexOfElement+1][column] >= requestVolume )? 'available_Cell_ForReg'
+            : (column == 'hour')? 'table_head': 'in_query_'+math.round(math.max(math.min((requestVolume-RowsDataForColor[indexOfElement+1][column])/10,10),0))" 
+    
+    
+            > 
+          
+          {{row[column]}}
+          </td> 
+        
+          <td   [@openClose]="isShown ? 'open' : 'closed'"  >
+            <mat-checkbox [aria-label]="" 
+          
+              value="{{selectedDaysForDeletion[indexOfElement].value}}"
+              [(ngModel)]="selectedDaysForDeletion[indexOfElement].checked">
+            </mat-checkbox>
+          </td>
 
-                  <td   [@openClose]="isShown ? 'open' : 'closed'" >
-                    <mat-checkbox [aria-label]="" 
-                        value="{{selectedDaysForPaste[indexOfElement].value}}"
-                        [(ngModel)]="selectedDaysForPaste[indexOfElement].checked">
-                    </mat-checkbox>
-                  </td>
+          <td   [@openClose]="isShown ? 'open' : 'closed'">            
+            <button 
+              style="background-color: transparent; border: transparent;"
+              (click)="deleteRequestConform(resourceId, year, month, indexOfElement+1, barnameId)">
+              <mat-icon color = "warn" class="delete_btn">
+                delete
+              </mat-icon>
+            </button>
+          </td>
+          
 
-                </tr>  
-              </tbody>  
-            </table> 
-     
+          <td   [@openClose]="isShown ? 'open' : 'closed'"  >
+            <button 
+              style="background-color: transparent; border: transparent;"
+              (click)="copyRowPattern( indexOfElement+1)">
+    
+                  <mat-icon color = "primary" class="delete_btn">
+                    file_copy
+                  </mat-icon>
+              
+            </button>
+          </td>
+
+          <td   [@openClose]="isShown ? 'open' : 'closed'" >
+            <mat-checkbox [aria-label]="" 
+                value="{{selectedDaysForPaste[indexOfElement].value}}"
+                [(ngModel)]="selectedDaysForPaste[indexOfElement].checked">
+            </mat-checkbox>
+          </td>
+
+        </tr>  
+      </tbody>  
+</table> 
+  </div>
+  </div>
+
+
+
+    
   
 </div>
 

@@ -990,6 +990,18 @@ cancelRegisterMode(event: number){
       
         ngOnInit() {
 
+          $(function(){
+            $(".wrapper1").scroll(function(){
+        
+              $(".table_allocation").scrollLeft($(".wrapper1").scrollLeft());
+            });
+            $(".table_allocation").scroll(function(){
+              $(".wrapper1").scrollLeft($(".table_allocation").scrollLeft());
+            });
+          });
+
+
+
 
           $(document).ready(function () {
 

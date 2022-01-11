@@ -146,6 +146,7 @@ namespace DatingApp.API.Controllers
                         && allocation.Year == year
                         && allocation.Month == month
                         && allocation.Day == day
+                        && allocation.FinalAcceptance != true
                         && allocation.BarnameId == barnameId select allocation).ToList()
                 .ForEach(x => x.FinalAcceptance = false);
             await _context.SaveChangesAsync();

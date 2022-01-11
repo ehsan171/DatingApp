@@ -1,4 +1,6 @@
 
+
+
 .b{
     background-color:'red',
 }
@@ -194,7 +196,7 @@
       }
       
       .flex-container > div {
-        background-color: #f1f1f1;
+        background-color: transparent;
         width: 33.333%;
         /* margin: 10px;
         text-align: center;
@@ -218,8 +220,8 @@
       .flex-container2 > .div2 {
         background-color: #f1f1f1;
         width: 78.666%;
-        border: rgb(248, 150, 235) solid 1px;
-        border-radius: 10px;
+        /* border: rgb(248, 150, 235) solid 1px;
+        border-radius: 10px; */
         /* margin: 10px;
         text-align: center;
         line-height: 75px;
@@ -268,11 +270,12 @@
       .flex-container1 {
         display: flex;
         flex-wrap: wrap;
+        background-color: red;
        
       }
       .flex-container1 > .div1 {
         background-color: transparent;
-        width: 80%;
+        width: 50%;
         /* height: 50px; */
         border: rgb(255, 255, 255) solid 1px;
         border-radius: 10px;
@@ -283,10 +286,10 @@
       }
       .flex-container1 > .div2 {
         background-color: transparent;
-        width: 10%;
+        width: 70%;
         /* height: 50px; */
-        border: rgb(255, 255, 255) solid 1px;
-        border-radius: 10px;
+        /* border: rgb(255, 255, 255) solid 1px; */
+        /* border-radius: 10px; */
         /* margin: 10px;
         text-align: center;
         line-height: 75px;
@@ -306,3 +309,44 @@
       .fl{
           float: left;
       }
+     
+
+      #table-wrapper {
+        position:relative;
+      }
+      #table-scroll {
+        height:450px;
+        /* overflow:auto;   */
+        margin-top:20px;
+  
+      }
+      #table-wrapper table {
+        width:100%;
+      
+      }
+     
+      td {
+        white-space: nowrap;
+    }
+
+    .fixTableHead {
+      overflow-y: auto;
+      height: 110px;
+    }
+    .fixTableHead thead th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .table_allocation table {
+      /* border-collapse: collapse;         */
+      width: 100%;
+    }
+    .table_allocation th,
+    td {
+      padding: 8px 15px;
+      border: 2px solid #529432;
+    }
+    .table_allocation th {
+      background: #ABDD93;
+    }

@@ -427,7 +427,7 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
 
           this.resourceService.acceptRequest(resourceId,year,month, day, barnameId).subscribe((allocation: Allocation[]) => {
              
-
+            this.gettingWaitingForAcceptAllocation(resourceId,year, month);
 
           }, () => {
             this.alertify.error('This is from orgField');
@@ -440,7 +440,8 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
 
 
           this.resourceService.rejectRequest(resourceId,year,month, day, barnameId).subscribe((allocation: Allocation[]) => {
-
+            
+          this.gettingWaitingForAcceptAllocation(resourceId,year, month);
 
           }, () => {
             this.alertify.error('This is from orgField');
@@ -549,7 +550,7 @@ for(let numOfDay=0; numOfDay<this.allocation.length;numOfDay++){
       this.year = value;
 
       this.gettingWaitingForAcceptAllocation(this.resourceId,this.year, this.month);
-console.log("1001",this.year)
+
 
   }
     onChangeMonth(valueMonth) {

@@ -21,23 +21,24 @@
           (click) = "$event.stopPropagation()">
 
          
-            <button mat-menu-item>فعالیت روز&nbsp; {{item.content+1}}</button>
-        
+            <div class="p-3 mb-2 bg-primary text-white" style="margin-bottom: 10px; font: 1em BTraffic;">فعالیت های&nbsp; {{item.content+1}}&nbsp;{{monthName[month-1]}}</div>
+   
 
             <button mat-menu-item style="background-color: transparent; border: transparent;" >
               <mat-checkbox 
                     [aria-label]="" 
                     value="{{selectedActivity_1_ForDay[item.content+1].value}}"
                     [(ngModel)]="selectedActivity_1_ForDay[item.content+1].checked">
-              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span>فعالیت 1</span> 
+              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span style=" font-family: BTraffic;">فعالیت 1</span> 
             </button>
        
-            <button mat-menu-item style="background-color: transparent; border: transparent;" >
+            <button mat-menu-item >
               <mat-checkbox 
+                    
                     [aria-label]="" 
                     value="{{selectedActivity_2_ForDay[item.content+1].value}}"
                     [(ngModel)]="selectedActivity_2_ForDay[item.content+1].checked">
-              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span>فعالیت 2</span> 
+              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span style=" font-family: BTraffic;">فعالیت 2</span> 
             </button>
        
     
@@ -47,7 +48,7 @@
                     [aria-label]="" 
                     value="{{selectedActivity_3_ForDay[item.content+1].value}}"
                     [(ngModel)]="selectedActivity_3_ForDay[item.content+1].checked">
-              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span>فعالیت 3</span> 
+              </mat-checkbox>&nbsp;&nbsp; &nbsp;&nbsp; <span style=" font-family: BTraffic;">فعالیت 3</span> 
             </button>
        
       <ejs-multiselect id='multiselectelement' [dataSource]='data2' [placeholder]='placeholder' ></ejs-multiselect>
@@ -307,6 +308,8 @@
       
             {{column === 'activity' ? 'فعالیت' : (column === 'hour' ? 'روز' :column) }}  
           </th>
+          
+          
         
             
           <th   
@@ -363,6 +366,8 @@
             
             </button>
           </th>
+
+          <th>{{header[0]=== 'hour' ? 'روز' :header[0]}}</th>
 
 
         
@@ -434,6 +439,10 @@
                 value="{{selectedDaysForPaste[indexOfElement].value}}"
                 [(ngModel)]="selectedDaysForPaste[indexOfElement].checked">
             </mat-checkbox>
+          </td>
+
+          <td [ngClass]="'table_head'">
+            {{RowsData[indexOfElement+1]['hour']}}
           </td>
 
         </tr>  

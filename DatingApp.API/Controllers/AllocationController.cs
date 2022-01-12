@@ -395,7 +395,7 @@ namespace DatingApp.API.Controllers
                       
                            
                                 
-                })
+                }).OrderBy(o=>o.Day)
      
                 .ToListAsync();
           
